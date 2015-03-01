@@ -7,8 +7,10 @@
     android:layout_height="wrap_content"
     android:layout_marginLeft="12dp"
     android:layout_marginRight="12dp"
-    android:background="@color/white"
-    android:paddingBottom="20dp"> 
+    android:background="@drawable/dialog_bg"
+    android:paddingBottom="20dp"
+    android:focusable="true"
+    android:focusableInTouchMode="true"> 
     
 	<TextView 
 	    android:id="@+id/tv_title"
@@ -35,9 +37,8 @@
 
 	<EditText 
 	    android:id="@+id/et_term"
-	    android:layout_width="wrap_content"
+	    android:layout_width="72dp"
 	    android:layout_height="56dp"
-	    android:minWidth="64dp"
 	    android:layout_below="@+id/tv_title"
 	    android:layout_toEndOf="@+id/tv_content_term"
 	    android:layout_toRightOf="@+id/tv_content_term"
@@ -50,6 +51,8 @@
 	    android:textSize="16sp"
 	    android:textColorHint="@color/black_hint"
 	    android:textColor="@color/black_secondary"
+	    android:inputType="number"
+	    android:maxLength="4"
 	    />
 	
 	<com.material.widget.RaisedButton 
@@ -232,7 +235,9 @@
 	    android:layout_below="@+id/tv_title"
 	    android:layout_toRightOf="@+id/et_term"
 	    android:layout_marginTop="2dp"
-	    android:background="@drawable/btn_bg"/>
+	    android:background="@drawable/btn_bg"
+	    android:divider="@color/black_dividers"
+	    android:dividerHeight="0.1dp"/>
 	
 	<!-- WEEK PICKER -->
 	<ListView 
@@ -243,7 +248,10 @@
 	    android:layout_below="@+id/tv_content_term"
 	    android:layout_toRightOf="@+id/tv_content_week"
 	    android:layout_marginTop="2dp"
-	    android:background="@drawable/btn_bg"/>
+	    android:background="@drawable/btn_bg"
+	    android:scrollbars="none"
+	    android:divider="@color/black_dividers"
+	    android:dividerHeight="0.1dp"/>
 	
 	
 </RelativeLayout>

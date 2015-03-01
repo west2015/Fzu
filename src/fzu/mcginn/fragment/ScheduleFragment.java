@@ -1,6 +1,7 @@
 package fzu.mcginn.fragment;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.Color;
@@ -14,6 +15,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.animation.AccelerateInterpolator;
@@ -25,9 +27,13 @@ import android.view.animation.DecelerateInterpolator;
 import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -43,10 +49,11 @@ import com.material.widget.action.DrawerAction;
 
 import fzu.mcginn.R;
 import fzu.mcginn.adapter.ScheduleAdapter;
+import fzu.mcginn.adapter.SimpleAdapter;
 import fzu.mcginn.interfaces.MessageInterface;
 import fzu.mcginn.utils.InfoUtils;
 
-public class ScheduleFragment extends Fragment{
+public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemClick{
 
 	private final int OPEN_WEEK_PICKER = 1000;
 	private final int CLOSE_WEEK_PICKER = 1001;
@@ -60,7 +67,14 @@ public class ScheduleFragment extends Fragment{
 	private final int CHANGE = 1009;
 	private final int OPEN_MENU = 1010;
 	private final int CLOSE_MENU = 1011;
+	private final int SET_WEEK = 1012;
 	
+	private String[] arrWeek = {
+		"第1周","第2周","第3周","第4周","第5周","第6周","第7周","第8周","第9周","第10周",
+		"第11周","第12周","第13周","第14周","第15周","第16周","第17周","第18周","第19周","第20周",
+		"第21周","第22周","第23周","第24周","第25周"};
+	
+	private Activity activity;
 	private Context context;
 	private FragmentManager fm;
 	
@@ -71,6 +85,7 @@ public class ScheduleFragment extends Fragment{
 	private ActionView av;
 	private View viewCenter;
 	
+	private RelativeLayout rlHide;
 	// ADD
 	private boolean isAddWeekDay;
 	private boolean isAddLesson;
@@ -81,17 +96,21 @@ public class ScheduleFragment extends Fragment{
 	// SETTING
 	private boolean isSetTerm;
 	private boolean isSetWeek;
+	private RaisedButton btnSetTerm;
+	private RaisedButton btnSetWeek;
 	private ListView lvTermPicker;
 	private ListView lvWeekPicker;
 	
+	private Button btnHide;
 	// MENU
 	private boolean isMenuView;
 	private Button btnAdd;
 	private Button btnDel;
 	private Button btnSetting;
 	private LinearLayout llMenu;
+	
+	// WEEK PICKER
 	private boolean isWeekPicker;
-	private Button btnHide;
 	private ListView lvWeek;
 	private RaisedButton btnWeek;
 	
@@ -109,6 +128,7 @@ public class ScheduleFragment extends Fragment{
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		
+		activity = this.getActivity();
 		context = this.getActivity();
 		mListener = (MessageInterface) context;
 		fm = this.getActivity().getSupportFragmentManager();
@@ -141,11 +161,21 @@ public class ScheduleFragment extends Fragment{
 		btnDel = (Button) view.findViewById(R.id.btn_del);
 		btnSetting = (Button) view.findViewById(R.id.btn_setting);
 
+		
+		// SCHEDULE WEEK
+		lvWeek.setAdapter(new SimpleAdapter(context,arrWeek,this));
+		// SCHEDULE DAY
 		viewPagerAdapter = new ScheduleAdapter(fm);
 		viewPager.setAdapter(viewPagerAdapter);
 		tab.setViewPager(viewPager);
 		tab.setBackgroundColor(context.getResources().getColor(R.color.blue_500));
 		
+	}
+	
+	@Override
+	public void itemClick(int position) {
+		// TODO Auto-generated method stub
+		sendMessageDelay(SET_WEEK,arrWeek[position],50L);
 	}
 	
 	private void setListener(View view){
@@ -343,64 +373,65 @@ public class ScheduleFragment extends Fragment{
 		isSetTerm = isSetWeek = false;
 		
 		final AlertDialog dialog = new AlertDialog.Builder(context).create();
+		dialog.setView(LayoutInflater.from(context).inflate(R.layout.dialog_schedule_setting,null));
 		dialog.show();
 		Window w = dialog.getWindow();
 		w.setContentView(R.layout.dialog_schedule_setting);
 		// findView
+		rlHide = (RelativeLayout) w.findViewById(R.id.rl_hide);
+		btnSetTerm = (RaisedButton) w.findViewById(R.id.btn_term);
+		btnSetWeek = (RaisedButton) w.findViewById(R.id.btn_week);
 		lvTermPicker = (ListView) w.findViewById(R.id.lv_term_picker);
 		lvWeekPicker = (ListView) w.findViewById(R.id.lv_week_picker);
+		lvTermPicker.setAdapter(new ArrayAdapter<String>(context, R.layout.item_text_list, new String[]{"01学期","02学期"}));
+		lvWeekPicker.setAdapter(new ArrayAdapter<String>(context, R.layout.item_text_list, arrWeek));
 		// setListener
-		w.findViewById(R.id.btn_term).setOnClickListener(new OnClickListener(){
+		lvTermPicker.setOnItemClickListener(new OnItemClickListener(){
+			public void onItemClick(AdapterView<?> parent, View view,int position, long id) {
+				if(position == 0)
+					btnSetTerm.setText("01学期");
+				else if(position == 1)
+					btnSetTerm.setText("02学期");
+				hideSettingPicker(0);
+			}
+		});
+		lvWeekPicker.setOnItemClickListener(new OnItemClickListener(){
+			public void onItemClick(AdapterView<?> parent, View view,int position, long id) {
+				btnSetWeek.setText(arrWeek[position]);
+				hideSettingPicker(1);
+			}
+		});
+		btnSetTerm.setOnClickListener(new OnClickListener(){
 			public void onClick(View v) {
 				if(isSetWeek) 
 					return ;
-				isSetTerm = true;
-				lvTermPicker.setVisibility(View.VISIBLE);
-				ScaleAnimation animationS = new ScaleAnimation(
-						1.0f, 1.0f, 0.2f, 1f, 
-						Animation.RELATIVE_TO_SELF, 1.0f, 
-						Animation.RELATIVE_TO_SELF, 0.1f);
-				animationS.setDuration(300);
-				animationS.setInterpolator(new DecelerateInterpolator());
-				lvTermPicker.startAnimation(animationS);
+				showSettingPicker(0);
 			}
 		});
-		w.findViewById(R.id.btn_week).setOnClickListener(new OnClickListener(){
+		btnSetWeek.setOnClickListener(new OnClickListener(){
 			public void onClick(View v) {
 				if(isSetTerm)
 					return ;
-				isSetWeek = true;
-				lvWeekPicker.setVisibility(View.VISIBLE);
-				ScaleAnimation animationS = new ScaleAnimation(
-						1.0f, 1.0f, 0.2f, 1f, 
-						Animation.RELATIVE_TO_SELF, 1.0f, 
-						Animation.RELATIVE_TO_SELF, 0.1f);
-				animationS.setDuration(300);
-				animationS.setInterpolator(new DecelerateInterpolator());
-				lvWeekPicker.startAnimation(animationS);
+				showSettingPicker(1);
 			}
 		});
-		w.findViewById(R.id.rl_hide).setOnClickListener(new OnClickListener(){
+		rlHide.setOnFocusChangeListener(new OnFocusChangeListener(){
+			public void onFocusChange(View v, boolean hasFocus) {
+				rlHide.performClick();
+			}
+		});
+		rlHide.setOnClickListener(new OnClickListener(){
 			public void onClick(View v) {
-				ScaleAnimation animationS = new ScaleAnimation(
-						1.0f, 1.0f, 1.0f, 0f, 
-						Animation.RELATIVE_TO_SELF, 1.0f, 
-						Animation.RELATIVE_TO_SELF, 0.1f);
-				animationS.setDuration(150);
-				animationS.setInterpolator(new AccelerateInterpolator());
-				if(isSetTerm)
-					lvTermPicker.startAnimation(animationS);
-				if(isSetWeek)
-					lvWeekPicker.startAnimation(animationS);
-				animationS.setAnimationListener(new AnimationListener(){
-					public void onAnimationStart(Animation animation) {}
-					public void onAnimationRepeat(Animation animation) {}
-					public void onAnimationEnd(Animation animation) {
-						lvTermPicker.setVisibility(View.GONE);
-						lvWeekPicker.setVisibility(View.GONE);
-						isSetTerm = isSetWeek = false;
-					}
-				});
+				hideSettingPicker(0);
+				hideSettingPicker(1);
+				// hide input method
+				View decorView = dialog.getWindow().getDecorView();
+				Context mContext = dialog.getWindow().getContext();
+				if(decorView != null){
+					InputMethodManager mInputMethodManager = (InputMethodManager) 
+							mContext.getSystemService(mContext.INPUT_METHOD_SERVICE);
+					mInputMethodManager.hideSoftInputFromWindow(decorView.getWindowToken(), 0);
+				}
 			}
 		});
 		w.findViewById(R.id.btn_save).setOnClickListener(new OnClickListener(){
@@ -412,6 +443,59 @@ public class ScheduleFragment extends Fragment{
 		w.findViewById(R.id.btn_cancel).setOnClickListener(new OnClickListener(){
 			public void onClick(View v) {
 				dialog.dismiss();
+			}
+		});
+	}
+	
+	private void showSettingPicker(final int which){
+		ScaleAnimation animationS = new ScaleAnimation(
+				1.0f, 1.0f, 0.2f, 1f, 
+				Animation.RELATIVE_TO_SELF, 1.0f, 
+				Animation.RELATIVE_TO_SELF, 0.1f);
+		animationS.setDuration(300);
+		animationS.setInterpolator(new DecelerateInterpolator());
+		if(which == 0){
+			if(lvTermPicker.isShown()) return ;
+			isSetTerm = true;
+			lvTermPicker.setVisibility(View.VISIBLE);
+			lvTermPicker.startAnimation(animationS);
+		}
+		else if(which == 1){
+			if(lvWeekPicker.isShown()) return ;
+			isSetWeek = true;
+			lvWeekPicker.setVisibility(View.VISIBLE);
+			lvWeekPicker.startAnimation(animationS);
+		}
+	}
+	
+	private void hideSettingPicker(final int which){
+		ScaleAnimation animationS = new ScaleAnimation(
+				1.0f, 1.0f, 1.0f, 0f, 
+				Animation.RELATIVE_TO_SELF, 1.0f, 
+				Animation.RELATIVE_TO_SELF, 0.1f);
+		animationS.setDuration(150);
+		animationS.setInterpolator(new AccelerateInterpolator());
+		if(which == 0){
+			if(!lvTermPicker.isShown()) return ;
+			lvTermPicker.startAnimation(animationS);
+		}
+		else if(which == 1){
+			if(!lvWeekPicker.isShown()) return ;
+			lvWeekPicker.startAnimation(animationS);
+		}
+		animationS.setAnimationListener(new AnimationListener(){
+			public void onAnimationStart(Animation animation) {}
+			public void onAnimationRepeat(Animation animation) {}
+			public void onAnimationEnd(Animation animation) {
+				if(which == 0){
+					lvTermPicker.setVisibility(View.GONE);
+					isSetTerm = false;
+				}
+				else
+				if(which == 1){
+					lvWeekPicker.setVisibility(View.GONE);
+					isSetWeek = false;
+				}
 			}
 		});
 	}
@@ -565,8 +649,8 @@ public class ScheduleFragment extends Fragment{
 				1.0f, 1.0f, 1f, 0f, 
 				Animation.RELATIVE_TO_SELF, 1.0f, 
 				Animation.RELATIVE_TO_SELF, 0.1f);
-		animationS.setDuration(100);
-		animationS.setInterpolator(new AccelerateInterpolator());
+		animationS.setDuration(150);
+		animationS.setInterpolator(new DecelerateInterpolator());
 		lvWeek.startAnimation(animationS);
 
 		animationS.setAnimationListener(new AnimationListener(){
@@ -638,9 +722,11 @@ public class ScheduleFragment extends Fragment{
 		public void handleMessage(Message msg){
 			if(msg == null) return ;
 			switch(msg.what){
-			case OPEN_WEEK_PICKER:openWeekPicker();
+			case OPEN_WEEK_PICKER:
+				openWeekPicker();
 				break;
-			case CLOSE_WEEK_PICKER:closeWeekPicker();
+			case CLOSE_WEEK_PICKER:
+				closeWeekPicker();
 				break;
 			case MOVE_FAB:
 				if(msg.obj != null)
@@ -677,13 +763,21 @@ public class ScheduleFragment extends Fragment{
 					av.setAction((Action) msg.obj);
 				}
 				break;
-			case OPEN_MENU:openMenu();
+			case OPEN_MENU:
+				openMenu();
 				break;
-			case CLOSE_MENU:closeMenu();
+			case CLOSE_MENU:
+				closeMenu();
 				break;
 			case CHANGE:
 				isChanging = false;
 				isWeekView = !isWeekView;
+				break;
+			case SET_WEEK:
+				if(msg.obj != null){
+					btnWeek.setText((String) msg.obj);
+					closeWeekPicker();
+				}
 				break;
 			}
 		}
@@ -704,4 +798,5 @@ public class ScheduleFragment extends Fragment{
 			msg.obj = obj;
 		mHandler.sendMessageDelayed(msg, delay);
 	}
+
 }

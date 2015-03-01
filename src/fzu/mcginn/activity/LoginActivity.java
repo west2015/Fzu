@@ -12,9 +12,11 @@ import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 public class LoginActivity extends Activity{
 	
+	private RelativeLayout rlHide;
 	private InputText etUsername,etPassword;
 	private ProgressBar pb;
 	
@@ -31,10 +33,10 @@ public class LoginActivity extends Activity{
 	private void findView(){
 		decorView = getWindow().getDecorView();
 	
+		rlHide = (RelativeLayout) findViewById(R.id.rl_hide);
 		pb = (ProgressBar) findViewById(R.id.pb);
 		etUsername = (InputText) findViewById(R.id.et_username);
 		etPassword = (InputText) findViewById(R.id.et_password);
-		
 	}
 	
 	private void setListener(){
@@ -74,16 +76,13 @@ public class LoginActivity extends Activity{
 				}
 			}
 		});
-		findViewById(R.id.btn_input).setOnClickListener(new OnClickListener(){
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				hideInputMethod();
+		rlHide.setOnFocusChangeListener(new OnFocusChangeListener(){
+			public void onFocusChange(View v, boolean hasFocus) {
+				rlHide.performClick();
 			}
 		});
-		findViewById(R.id.btn_input).setOnFocusChangeListener(new OnFocusChangeListener(){
-			@Override
-			public void onFocusChange(View v, boolean hasFocus) {
+		rlHide.setOnClickListener(new OnClickListener(){
+			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				hideInputMethod();
 			}

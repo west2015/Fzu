@@ -679,8 +679,8 @@ public final class R {
 		public static final int abc_popup_menu_item_layout = 0x7f030014;
 		public static final int abc_search_dropdown_item_icons_2line = 0x7f030015;
 		public static final int abc_search_view = 0x7f030016;
-		public static final int psts_tab = 0x7f030023;
-		public static final int support_simple_spinner_dropdown_item = 0x7f030027;
+		public static final int psts_tab = 0x7f030025;
+		public static final int support_simple_spinner_dropdown_item = 0x7f030029;
 	}
 	public static final class menu {
 		public static final int main = 0x7f0d0000;

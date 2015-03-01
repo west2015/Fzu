@@ -214,7 +214,10 @@
 	    android:layout_height="280dp"
 	    android:layout_marginLeft="56dp"
 	    android:layout_marginRight="56dp"
-	    android:background="@drawable/btn_bg"/>
+	    android:divider="@color/black_dividers"
+	    android:dividerHeight="0.1dp"
+	    android:background="@drawable/btn_bg"
+	    android:scrollbars="none"/>
 	
 	<!-- MENU -->
 	<LinearLayout

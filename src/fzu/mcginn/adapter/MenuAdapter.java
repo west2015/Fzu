@@ -57,7 +57,7 @@ public class MenuAdapter extends BaseAdapter{
 		// TODO Auto-generated method stub
 		if(convertView == null){
 			holder = new ViewHolder();
-			convertView = LayoutInflater.from(context).inflate(R.layout.drawer_menu_item, null);
+			convertView = LayoutInflater.from(context).inflate(R.layout.item_drawer_menu, null);
 
 			holder.imgIcon = (ImageView) convertView.findViewById(R.id.menu_icon);
 			holder.btn =  (RaisedButton) convertView.findViewById(R.id.menu_btn);
