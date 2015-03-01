@@ -5,7 +5,7 @@ import fzu.mcginn.R;
 import fzu.mcginn.adapter.MenuAdapter;
 import fzu.mcginn.fragment.*;
 import fzu.mcginn.interfaces.MessageInterface;
-import fzu.mcginn.utils.MsgUtils;
+import fzu.mcginn.utils.InfoUtils;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -93,10 +93,10 @@ public class MainActivity extends FragmentActivity
 	@Override
 	public void Message(String Msg) {
 		// TODO Auto-generated method stub
-		if(Msg.equals(MsgUtils.OPEN_DRAWER)){
+		if(Msg.equals(InfoUtils.OPEN_DRAWER)){
 			drawer.openDrawer(Gravity.LEFT);
 		}
-		if(Msg.equals(MsgUtils.CLOSE_DRAWER)){
+		if(Msg.equals(InfoUtils.CLOSE_DRAWER)){
 			drawer.closeDrawer(Gravity.LEFT);
 		}
 	}

@@ -155,7 +155,7 @@
 		<RelativeLayout
 		    android:id="@+id/rl_schedule_1_4"
 		    android:layout_width="match_parent"
-		    android:layout_height="192dp">
+		    android:layout_height="wrap_content">
 		</RelativeLayout>
 		<TextView
 		    android:id="@+id/tv_schedule_5_8"
@@ -170,7 +170,7 @@
 		<RelativeLayout
 		    android:id="@+id/rl_schedule_5_8"
 		    android:layout_width="match_parent"
-		    android:layout_height="192dp">
+		    android:layout_height="wrap_content">
 		</RelativeLayout>
 		<TextView
 		    android:id="@+id/tv_schedule_9"
@@ -185,7 +185,7 @@
 		<RelativeLayout
 		    android:id="@+id/rl_schedule_9"
 		    android:layout_width="match_parent"
-		    android:layout_height="192dp">
+		    android:layout_height="wrap_content">
 		</RelativeLayout>
 	</LinearLayout>
 	</ScrollView>
@@ -221,7 +221,7 @@
 	    android:visibility="gone"
 	    android:id="@+id/ll_menu"
 	    android:layout_width="125dp"
-	    android:layout_height="156dp"
+	    android:layout_height="60dp"
 	    android:layout_marginTop="52.5dp"
 	    android:layout_marginEnd="20dp"
 	    android:layout_marginRight="20dp"
@@ -230,6 +230,7 @@
 	    android:orientation="vertical"
 	    android:background="@drawable/btn_bg">
 	    <Button
+	        android:visibility="gone"
 	        android:id="@+id/btn_add"
 	        android:layout_width="match_parent"
 	        android:layout_height="48dp"
@@ -238,10 +239,12 @@
 	        android:textSize="16sp"
 	        android:textColor="@color/black_text"/>
 	    <View 
+	        android:visibility="gone"
 	        android:layout_width="match_parent"
 	        android:layout_height="0.1dp"
 	        android:background="@color/black_dividers"/>
 	    <Button 
+	        android:visibility="gone"
 	        android:id="@+id/btn_del"
 	        android:layout_width="match_parent"
 	        android:layout_height="48dp"
@@ -250,6 +253,7 @@
 	        android:textSize="16sp"
 	        android:textColor="@color/black_text"/>
 	    <View 
+	        android:visibility="gone"
 	        android:layout_width="match_parent"
 	        android:layout_height="0.1dp"
 	        android:background="@color/black_dividers"/>
@@ -261,7 +265,7 @@
 	        android:text="设置"
 	        android:textSize="16sp"
 	        android:textColor="@color/black_text"/>
-	    	</LinearLayout>
+	</LinearLayout>
 	
 	<com.material.widget.RevealColorView 
 	    android:id="@+id/rcv_schedule"

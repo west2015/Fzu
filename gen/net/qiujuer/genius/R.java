@@ -168,7 +168,7 @@ public final class R {
 		public static final int ic_launcher = 0x7f02005d;
 	}
 	public static final class id {
-		public static final int action_settings = 0x7f060097;
+		public static final int action_settings = 0x7f060098;
 		public static final int bold = 0x7f060002;
 		public static final int box = 0x7f060010;
 		public static final int dark = 0x7f060008;

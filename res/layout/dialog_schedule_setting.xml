@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:layout_marginLeft="12dp"
     android:layout_marginRight="12dp"
-    android:background="@drawable/dialog_bg"
+    android:background="@color/white"
     android:paddingBottom="20dp"> 
     
 	<TextView 
@@ -33,20 +33,40 @@
 	    android:textSize="16sp"
 	    android:textColor="@color/black_secondary"/>
 
-	<com.material.widget.RaisedButton 
-	    android:id="@+id/btn_term"
+	<EditText 
+	    android:id="@+id/et_term"
 	    android:layout_width="wrap_content"
 	    android:layout_height="56dp"
 	    android:minWidth="64dp"
 	    android:layout_below="@+id/tv_title"
 	    android:layout_toEndOf="@+id/tv_content_term"
 	    android:layout_toRightOf="@+id/tv_content_term"
+	    android:background="@color/transparent"
+	    android:gravity="bottom|center_horizontal"
+	    android:paddingLeft="8dp"
+	    android:paddingRight="8dp"
+	    android:paddingBottom="16dp"
+	    android:hint="学年"
+	    android:textSize="16sp"
+	    android:textColorHint="@color/black_hint"
+	    android:textColor="@color/black_secondary"
+	    />
+	
+	<com.material.widget.RaisedButton 
+	    android:id="@+id/btn_term"
+	    android:layout_width="wrap_content"
+	    android:layout_height="56dp"
+	    android:minWidth="64dp"
+	    android:layout_below="@+id/tv_title"
+	    android:layout_toEndOf="@+id/et_term"
+	    android:layout_toRightOf="@+id/et_term"
+	    android:layout_marginLeft="16dp"
 	    android:background="@color/white"
 	    android:gravity="bottom"
 	    android:paddingLeft="8dp"
 	    android:paddingRight="8dp"
 	    android:paddingBottom="16dp"
-	    android:text="2015年02学期"
+	    android:text="02学期"
 	    android:textSize="16sp"
 	    android:textColor="@color/black_secondary"/>
 	
@@ -59,7 +79,7 @@
 	    android:layout_marginRight="24dp"
 	    android:gravity="bottom"
 	    android:paddingBottom="16dp"
-	    android:text="周数"
+	    android:text="本周"
 	    android:textSize="16sp"
 	    android:textColor="@color/black_secondary"/>
 	
@@ -195,15 +215,22 @@
 	    android:layout_below="@+id/tv_content_week"
 	    android:layout_marginLeft="80dp"
 	    android:layout_marginRight="24dp"/>
-	
+
+	<View 
+	    android:layout_width="16dp"
+	    android:layout_height="58dp"
+	    android:background="@color/white"
+	    android:layout_toRightOf="@+id/et_term"
+	    android:layout_below="@+id/tv_title"/>
+		
 	<!-- TERM PICKER -->
 	<ListView
 	    android:visibility="gone"
 	    android:id="@+id/lv_term_picker"
-	    android:layout_width="150dp"
-	    android:layout_height="192dp"
+	    android:layout_width="80dp"
+	    android:layout_height="106dp"
 	    android:layout_below="@+id/tv_title"
-	    android:layout_toRightOf="@+id/tv_content_term"
+	    android:layout_toRightOf="@+id/et_term"
 	    android:layout_marginTop="2dp"
 	    android:background="@drawable/btn_bg"/>
 	

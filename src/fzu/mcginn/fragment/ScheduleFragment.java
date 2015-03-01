@@ -44,7 +44,7 @@ import com.material.widget.action.DrawerAction;
 import fzu.mcginn.R;
 import fzu.mcginn.adapter.ScheduleAdapter;
 import fzu.mcginn.interfaces.MessageInterface;
-import fzu.mcginn.utils.MsgUtils;
+import fzu.mcginn.utils.InfoUtils;
 
 public class ScheduleFragment extends Fragment{
 
@@ -170,7 +170,7 @@ public class ScheduleFragment extends Fragment{
 				// TODO Auto-generated method stub
 				if(isChanging) return ;
 				if(isWeekView){
-					mListener.Message(MsgUtils.OPEN_DRAWER);
+					mListener.Message(InfoUtils.OPEN_DRAWER);
 				} else{
 					changePage();
 				}
