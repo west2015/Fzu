@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res/fzu.mcginn"
+    android:id="@+id/rl_hide"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="12dp"
+    android:layout_marginRight="12dp"
+    android:background="@drawable/dialog_bg"
+    android:paddingBottom="20dp"> 
+    
+	<TextView 
+	    android:id="@+id/tv_title"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_margin="24dp"
+	    android:text="设置"
+	    android:textSize="20sp"
+	    android:textColor="@color/black_text"
+	    android:textStyle="bold"/>
+	
+	<TextView
+	    android:id="@+id/tv_content_term"
+	    android:layout_width="wrap_content"
+	    android:layout_height="56dp"
+	    android:layout_below="@+id/tv_title"
+	    android:layout_marginLeft="24dp"
+	    android:layout_marginRight="24dp"
+	    android:gravity="bottom"
+	    android:paddingBottom="16dp"
+	    android:text="学期"
+	    android:textSize="16sp"
+	    android:textColor="@color/black_secondary"/>
+
+	<com.material.widget.RaisedButton 
+	    android:id="@+id/btn_term"
+	    android:layout_width="wrap_content"
+	    android:layout_height="56dp"
+	    android:minWidth="64dp"
+	    android:layout_below="@+id/tv_title"
+	    android:layout_toEndOf="@+id/tv_content_term"
+	    android:layout_toRightOf="@+id/tv_content_term"
+	    android:background="@color/white"
+	    android:gravity="bottom"
+	    android:paddingLeft="8dp"
+	    android:paddingRight="8dp"
+	    android:paddingBottom="16dp"
+	    android:text="2015年02学期"
+	    android:textSize="16sp"
+	    android:textColor="@color/black_secondary"/>
+	
+	<TextView
+	    android:id="@+id/tv_content_week"
+	    android:layout_width="wrap_content"
+	    android:layout_height="56dp"
+	    android:layout_below="@+id/tv_content_term"
+	    android:layout_marginLeft="24dp"
+	    android:layout_marginRight="24dp"
+	    android:gravity="bottom"
+	    android:paddingBottom="16dp"
+	    android:text="周数"
+	    android:textSize="16sp"
+	    android:textColor="@color/black_secondary"/>
+	
+	<com.material.widget.RaisedButton
+	    android:id="@+id/btn_week"
+	    android:layout_width="wrap_content"
+	    android:layout_height="56dp"
+	    android:minWidth="64dp"
+	    android:layout_below="@+id/tv_content_term"
+	    android:layout_toEndOf="@+id/tv_content_week"
+	    android:layout_toRightOf="@+id/tv_content_week"
+	    android:background="@color/white"
+	    android:gravity="bottom"
+	    android:paddingLeft="8dp"
+	    android:paddingRight="8dp"
+	    android:paddingBottom="16dp"
+	    android:text="第1周"
+	    android:textSize="16sp"
+	    android:textColor="@color/black_secondary"/>
+	
+	<TextView
+	    android:id="@+id/tv_content_display"
+	    android:layout_width="wrap_content"
+	    android:layout_height="56dp"
+	    android:layout_below="@+id/tv_content_week"
+	    android:layout_marginLeft="24dp"
+	    android:layout_marginRight="24dp"
+	    android:gravity="bottom"
+	    android:paddingBottom="16dp"
+	    android:text="显示"
+	    android:textSize="16sp"
+	    android:textColor="@color/black_secondary"/>
+	
+	<TextView
+	    android:id="@+id/tv_all_course"
+	    android:layout_width="wrap_content"
+	    android:layout_height="56dp"
+	    android:layout_below="@+id/tv_content_week"
+	    android:layout_toEndOf="@+id/tv_content_display"
+	    android:layout_toRightOf="@+id/tv_content_display"
+	    android:background="@color/white"
+	    android:gravity="bottom"
+	    android:paddingLeft="16dp"
+	    android:paddingRight="16dp"
+	    android:paddingBottom="16dp"
+	    android:text="全部课程"
+	    android:textSize="16sp"
+	    android:textColor="@color/black_secondary"/>
+	
+	<com.material.widget.CheckBox 
+	    android:layout_width="48dp"
+	    android:layout_height="56dp"
+	    android:layout_below="@+id/tv_content_week"
+	    android:layout_toRightOf="@+id/tv_all_course"
+	    android:paddingLeft="8dp"
+	    android:paddingTop="20dp"
+	    android:paddingBottom="16dp"
+	    custom:mChecked="false"/>
+	
+	<TextView
+	    android:id="@+id/tv_week_course"
+	    android:layout_width="wrap_content"
+	    android:layout_height="56dp"
+	    android:layout_below="@+id/tv_all_course"
+	    android:layout_toEndOf="@+id/tv_content_display"
+	    android:layout_toRightOf="@+id/tv_content_display"
+	    android:background="@color/white"
+	    android:gravity="bottom"
+	    android:paddingLeft="16dp"
+	    android:paddingRight="16dp"
+	    android:paddingBottom="16dp"
+	    android:text="单周课程"
+	    android:textSize="16sp"
+	    android:textColor="@color/black_secondary"/>
+	
+	<com.material.widget.CheckBox 
+	    android:layout_width="48dp"
+	    android:layout_height="56dp"
+	    android:layout_below="@+id/tv_all_course"
+	    android:layout_toRightOf="@+id/tv_all_course"
+	    android:paddingLeft="8dp"
+	    android:paddingTop="20dp"
+	    android:paddingBottom="16dp"
+	    custom:mChecked="false"/>
+	
+	<Button
+	    android:id="@+id/btn_save"
+	    android:layout_width="wrap_content"
+	    android:layout_height="36dp"
+	    android:layout_marginTop="12dp"	    
+	    android:layout_marginLeft="4dp"
+	    android:layout_marginRight="16dp"
+	    android:minWidth="64dp"
+	    android:layout_below="@+id/tv_week_course"
+	    android:layout_alignParentRight="true"
+	    android:background="@color/transparent"
+	    android:paddingLeft="8dp"
+	    android:paddingRight="8dp"
+	    android:text="保存"
+	    android:textSize="16sp"
+	    android:textColor="@color/blue_500"/>
+	
+	<Button 
+	    android:id="@+id/btn_cancel"
+	    android:layout_width="wrap_content"
+	    android:layout_height="36dp"
+	    android:layout_marginTop="12dp"
+	    android:layout_marginLeft="4dp"
+	    android:layout_marginRight="4dp"
+	    android:minWidth="64dp"
+	    android:layout_below="@+id/tv_week_course"
+	    android:layout_toLeftOf="@+id/btn_save"
+	    android:background="@color/transparent"
+	    android:paddingLeft="8dp"
+	    android:paddingRight="8dp"
+	    android:text="取消"
+	    android:textSize="16sp"
+	    android:textColor="@color/blue_500"/>
+	
+	<!-- DIVIDER -->
+	<View 
+	    android:layout_width="match_parent"
+	    android:layout_height="0.1dp"
+	    android:background="@color/black_dividers"
+	    android:layout_below="@+id/tv_content_term"
+	    android:layout_marginLeft="80dp"
+	    android:layout_marginRight="24dp"/>
+
+	<View 
+	    android:layout_width="match_parent"
+	    android:layout_height="0.1dp"
+	    android:background="@color/black_dividers"
+	    android:layout_below="@+id/tv_content_week"
+	    android:layout_marginLeft="80dp"
+	    android:layout_marginRight="24dp"/>
+	
+	<!-- TERM PICKER -->
+	<ListView
+	    android:visibility="gone"
+	    android:id="@+id/lv_term_picker"
+	    android:layout_width="150dp"
+	    android:layout_height="192dp"
+	    android:layout_below="@+id/tv_title"
+	    android:layout_toRightOf="@+id/tv_content_term"
+	    android:layout_marginTop="2dp"
+	    android:background="@drawable/btn_bg"/>
+	
+	<!-- WEEK PICKER -->
+	<ListView 
+	    android:visibility="gone"
+	    android:id="@+id/lv_week_picker"
+	    android:layout_width="120dp"
+	    android:layout_height="192dp"
+	    android:layout_below="@+id/tv_content_term"
+	    android:layout_toRightOf="@+id/tv_content_week"
+	    android:layout_marginTop="2dp"
+	    android:background="@drawable/btn_bg"/>
+	
+	
+</RelativeLayout>
