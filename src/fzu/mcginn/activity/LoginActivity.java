@@ -1,12 +1,14 @@
 package fzu.mcginn.activity;
 
-
 import com.material.widget.InputText;
 
 import fzu.mcginn.R;
+import fzu.mcginn.utils.InfoUtils;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
@@ -21,6 +23,7 @@ public class LoginActivity extends Activity{
 	private ProgressBar pb;
 	
 	private View decorView;
+	private boolean isLogining;
 	
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);		
@@ -31,15 +34,17 @@ public class LoginActivity extends Activity{
 	}
 
 	private void findView(){
-		decorView = getWindow().getDecorView();
-	
 		rlHide = (RelativeLayout) findViewById(R.id.rl_hide);
 		pb = (ProgressBar) findViewById(R.id.pb);
 		etUsername = (InputText) findViewById(R.id.et_username);
 		etPassword = (InputText) findViewById(R.id.et_password);
+
+		decorView = getWindow().getDecorView();
+		isLogining = false;
 	}
 	
 	private void setListener(){
+		// ÓÃ»§Ãû
 		etUsername.setOnFocusChangeListener(new OnFocusChangeListener(){
 			@Override
 			public void onFocusChange(View v, boolean hasFocus) {
@@ -52,6 +57,7 @@ public class LoginActivity extends Activity{
 				}
 			}
 		});
+		// ÃÜÂë
 		etPassword.setOnFocusChangeListener(new OnFocusChangeListener(){
 			@Override
 			public void onFocusChange(View v, boolean hasFocus) {
@@ -63,19 +69,15 @@ public class LoginActivity extends Activity{
 				}
 			}
 		});
+		// µÇÂ¼°´Å¥
 		findViewById(R.id.btn_login).setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-//				if(!login()){
-//					return ;
-//				}
-				if(pb.getVisibility() == View.GONE){
-					pb.setVisibility(View.VISIBLE);
-					change2Activity(MainActivity.class,true);
-				}
+				
 			}
 		});
+		// ÓÃÓÚÒþ²ØÈí¼üÅÌ
 		rlHide.setOnFocusChangeListener(new OnFocusChangeListener(){
 			public void onFocusChange(View v, boolean hasFocus) {
 				rlHide.performClick();
@@ -97,7 +99,7 @@ public class LoginActivity extends Activity{
 		}
 	}
 	
-	private boolean login(){
+	private boolean isLegalInput(){
 		boolean isOk = true;
 		if(etUsername.getText().toString() == null || etUsername.getText().toString().equals("")){
 			etUsername.setError("ÕËºÅÎª¿Õ");
@@ -115,6 +117,47 @@ public class LoginActivity extends Activity{
 		
 		return isOk;
 	}
+	
+	/*
+	 * µÇÂ¼Ïß³Ì
+	 */
+	Runnable loginRun = new Runnable(){
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			isLogining = true;
+				
+			isLogining = false;
+		}
+	};
+	
+	Handler mHandler = new Handler(){
+		public void handleMessage(Message msg){
+			if(msg.obj.toString().equals(InfoUtils.SR_LOGIN_SUCCEED)){
+				change2Activity(MainActivity.class,true);
+			}
+			else
+			if(msg.obj.toString().equals(InfoUtils.SR_LOGIN_NETERROR)){
+				
+			}
+			else
+			if(msg.obj.toString().equals(InfoUtils.SR_LOGIN_WRONG)){
+				
+			}
+			else
+			if(msg.obj.toString().equals(InfoUtils.SR_LOGIN_NULL)){
+				etUsername.setError("ÕËºÅÎª¿Õ!");
+				etPassword.setError("ÃÜÂëÎª¿Õ!");
+			}
+			else
+			if(msg.obj.toString().equals(InfoUtils.SR_LOGIN_NULL_USERNAME)){
+				etUsername.setError("ÕËºÅÎª¿Õ!");
+			}
+			if(msg.obj.toString().equals(InfoUtils.SR_LOGIN_NULL_PASSWORD)){
+				etPassword.setError("ÃÜÂëÎª¿Õ!");
+			}
+		}
+	};
 	
 	private void hideInputMethod(){
 		if(decorView != null){

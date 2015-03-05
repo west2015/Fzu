@@ -63,7 +63,9 @@ public class ScheduleService {
 	}
 	
 	public List<CourseEntity> query(){
-		String url = "http://api.west2online.com/fzuhelper/timeTable.php?" + InfoUtils.getUser().getUsername();
+// 处理		
+		String url = "http://api.west2online.com/fzuhelper/timeTable.php?" ;
+// 处理	
 		String result = HttpUtils.getData(url);
 		if(result != null){ // 获取成功
 			try{
