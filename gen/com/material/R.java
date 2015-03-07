@@ -592,7 +592,7 @@ public final class R {
 		public static final int action_menu_divider = 0x7f060016;
 		public static final int action_menu_presenter = 0x7f060017;
 		public static final int action_mode_close_button = 0x7f06002c;
-		public static final int action_settings = 0x7f06008a;
+		public static final int action_settings = 0x7f06008c;
 		public static final int activity_chooser_view_content = 0x7f06002d;
 		public static final int always = 0x7f06000b;
 		public static final int back = 0x7f06001c;
@@ -627,7 +627,7 @@ public final class R {
 		public static final int plus = 0x7f06001e;
 		public static final int progress_circular = 0x7f060018;
 		public static final int progress_horizontal = 0x7f060019;
-		public static final int psts_tab_title = 0x7f060086;
+		public static final int psts_tab_title = 0x7f060088;
 		public static final int radio = 0x7f060037;
 		public static final int search_badge = 0x7f06003a;
 		public static final int search_bar = 0x7f060039;

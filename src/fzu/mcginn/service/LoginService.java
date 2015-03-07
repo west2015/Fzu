@@ -9,12 +9,6 @@ import fzu.mcginn.utils.InfoUtils;
 
 public class LoginService {
 	
-	private Context context;
-	
-	public LoginService(Context context){
-		this.context = context;
-	}
-	
 	public String login(UserEntity user){
 		// ÅÐ¶Ï·Ç¿Õ
 		boolean isUsernameNull = false,isPasswordNull = false;
@@ -38,7 +32,6 @@ public class LoginService {
 		// ³¢ÊÔµÇÂ¼
 		String res = FzuHttpUtils.login(user);
 		if(res.equals(InfoUtils.SR_LOGIN_SUCCEED)){
-			new DbUser(context).setUserEntity(user);
 			BaseUtils.getInstance().setUserEntity(user);
 		}
 		return res;

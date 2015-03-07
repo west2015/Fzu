@@ -8,7 +8,7 @@ import com.nispok.snackbar.listeners.ActionSwipeListener;
 
 import fzu.mcginn.R;
 import fzu.mcginn.entity.UserEntity;
-import fzu.mcginn.service.CourseService;
+import fzu.mcginn.service.ScheduleService;
 import fzu.mcginn.service.LoginService;
 import fzu.mcginn.utils.BaseUtils;
 import fzu.mcginn.utils.InfoUtils;
@@ -133,7 +133,7 @@ public class LoginActivity extends Activity{
 			user.setUsername(etUsername.getText().toString());
 			Message msg = mHandler.obtainMessage();
 			msg.what = 1;
-			msg.obj = new LoginService(LoginActivity.this).login(user);
+			msg.obj = new LoginService().login(user);
 			mHandler.sendMessage(msg);
 		}
 	};

@@ -5,8 +5,6 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
-import android.content.Context;
-import fzu.mcginn.database.DbDate;
 import fzu.mcginn.entity.DateEntity;
 import fzu.mcginn.utils.BaseUtils;
 import fzu.mcginn.utils.HttpUtils;
@@ -14,19 +12,12 @@ import fzu.mcginn.utils.InfoUtils;
 
 public class TimeService {
 	
-	Context context;
-	
-	public TimeService(Context context){
-		this.context = context;
-	}
-	
 	public DateEntity getNetTime(){
 		DateEntity resEntity;
 		resEntity = getNetTime1();
 		if(resEntity == null)
 		resEntity = getNetTime2();
 		if(resEntity != null){
-			new DbDate(context).setDateEntity(resEntity);
 			BaseUtils.getInstance().setDateEntity(resEntity);
 		}
 		return resEntity;

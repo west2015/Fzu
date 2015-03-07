@@ -1,111 +1,103 @@
 package fzu.mcginn.service;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
-import android.content.Context;
+import android.util.Log;
 import fzu.mcginn.entity.CourseEntity;
-import fzu.mcginn.utils.HttpUtils;
-import fzu.mcginn.utils.InfoUtils;
+import fzu.mcginn.entity.UserEntity;
+import fzu.mcginn.utils.FzuHttpUtils;
 
 public class ScheduleService {
 
-	private Context context;
-	
-	public ScheduleService(Context context){
-		this.context = context;
-	}
-
-	private List<CourseEntity> sortData(List<CourseEntity> mList){
-		if(mList == null || mList.size() <= 0) return null;
-		// sort
-		Comparator<CourseEntity> C = new Comparator<CourseEntity>(){
-			public int compare(CourseEntity arg0, CourseEntity arg1) {
-				// name
-				if(arg0.getName().compareTo(arg1.getName()) < 0) return -1;
-				if(arg0.getName().compareTo(arg1.getName()) > 0) return 1;
-				// week
-				if(arg0.getStartWeek() < arg1.getStartWeek()) return -1;
-				if(arg0.getStartWeek() > arg1.getStartWeek()) return 1;
-				return -1;
-			}
-		};
-		Collections.sort(mList,C);
-		// simplify
-		List<CourseEntity> resList = new ArrayList<CourseEntity>();
-		for(int i=0;i<mList.size();++i)
-		if(!mList.get(i).getName().equals("")){
-			CourseEntity arg0 = mList.get(i);
-			int j = i + 1;
-			while(j < mList.size()){
-				if(mList.get(j).getName().equals(arg0.getName())){
-					++j;
-				}
-				else{
-					break;
-				}
-			}
-			int startWeek = arg0.getStartWeek();
-			int endWeek = mList.get(j - 1).getStartWeek();
-			for(int k=i;k<j;++k){
-				CourseEntity ce = mList.get(k);
-				ce.setStartWeek(startWeek);
-				ce.setEndWeek(endWeek);
-				resList.add(ce);
-			}
-		}
-		return resList;
-	}
-	
-	public List<CourseEntity> query(){
-// 处理		
-		String url = "http://api.west2online.com/fzuhelper/timeTable.php?" ;
-// 处理	
-		String result = HttpUtils.getData(url);
-		if(result != null){ // 获取成功
-			try{
-				JSONObject json = new JSONObject(result);
-				if(json != null){
-					// result list
-					List<CourseEntity> mList = new ArrayList<CourseEntity>();
-					
-					JSONArray arrAllCourses = json.getJSONArray("WeekArr");
-					// week
-					for(int i=0;i<arrAllCourses.length();++i){
-						JSONObject jsonWeek = arrAllCourses.getJSONObject(i);
-						int week = InfoUtils.getNumber(jsonWeek.getString("week"));
-						JSONObject arrWeekCourses = jsonWeek.getJSONObject("courseArr");
-						// weekday
-						for(int j=0;j<7;++j){
-							JSONObject arrWeekdayCourses = arrWeekCourses.getJSONObject((j+1)+"");
-							// lesson
-							for(int k=0;k<5;++k){
-								JSONObject jsonLesson = arrWeekdayCourses.getJSONObject((k+1)+"");
-								CourseEntity ce = new CourseEntity();
-								String name = jsonLesson.getString("courseName");
-								ce.setName(jsonLesson.getString("courseName"));
-								ce.setPlace(jsonLesson.getString("place"));
-								ce.setTeacherName(jsonLesson.getString("teacherName"));
-								ce.setWeekday(j);
-								ce.setLesson(k);
-								ce.setStartWeek(week);
-								ce.setEndWeek(week);
-								mList.add(ce);
-							}
-						}
+	public String querySchedule(UserEntity user,Integer xn,Integer xq){
+		JSONArray jsonArr = new JSONArray();
+		String url="http://59.77.226.33/xszy/wsxk/wdkb/kb_xs.asp?menu_no="
+									+"xh="+user.getUsername()
+									+"xn="+xn
+									+"xq="+xq;
+		String res = FzuHttpUtils.getData(url);
+		if(res == null || res.length() == 0) return null;
+		Document doc =Jsoup.parse(res);
+		Elements eles = doc.select("table[bordercolor=#111111]");
+		
+		for(int week=1;week<=eles.size();week++){
+			List<CourseEntity> weekCourses = new ArrayList<CourseEntity>();
+			JSONArray courseArr = new JSONArray();
+			Element ele = eles.get(week-1);  //第week周
+			Elements es = ele.select("tr[id]");
+			
+			for(int jie=1;jie<=es.size();jie+=2){
+				Element jieEle = es.get(jie-1);
+				Elements weekEles = jieEle.select("td[id]");
+				for(int j=0;j<weekEles.size();j++){
+					Element e = weekEles.get(j);
+					int weekday;
+					int length=1;
+					if(e.attr("rowspan")!=null && e.attr("rowspan").length()!=0){
+						length = Integer.parseInt(e.attr("rowspan"));
 					}
-					return mList;
+					weekday = Integer.parseInt(e.attr("id").substring(1));
+					if(weekday%2 == 0)
+						weekday /= 2;
+					else
+						weekday = weekday/2 + 1;
+					String text = e.text();
+					if(text==null) continue;
+					String mes[] = text.split(" ");
+					if(mes.length != 4) continue;
+
+//					for(String s:mes){
+//						System.out.println(s);
+//					}
+//					
+//					CourseEntity entity = new CourseEntity();
+//					entity.setWeekday(weekday);
+//					entity.setLength(length);
+//					entity.setLesson(jie);
+//					entity.setName(mes[0]);
+//					entity.setPlace(mes[1]);
+//					entity.setTeacherName(mes[2]);
+//					entity.setStartWeek(Integer.parseInt(mes[3].split("-")[0]));
+//					entity.setEndWeek(Integer.parseInt(mes[3].split("-")[1]));
+//					courses.add(entity);
+//					weekCourses.add(entity);
+					
+					JSONObject jsObj = new JSONObject();
+					try {
+						jsObj.put("weekday", weekday);
+						jsObj.put("length", length);
+						jsObj.put("lesson", jie);
+						jsObj.put("name", mes[0]);
+						jsObj.put("place", mes[1]);
+						jsObj.put("teachername", mes[2]);
+						jsObj.put("startweek", Integer.parseInt(mes[3].split("-")[0]));
+						jsObj.put("endweek", Integer.parseInt(mes[3].split("-")[1]));
+					} catch (JSONException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					courseArr.put(jsObj);
 				}
 			}
-			catch(Exception e){
+			JSONObject obj = new JSONObject();
+			try {
+				obj.putOpt("courseArr",courseArr);
+				obj.put("week",week);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			jsonArr.put(obj);
 		}
-		return null;
+		return jsonArr.toString();
 	}
 }

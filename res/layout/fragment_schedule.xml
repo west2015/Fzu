@@ -190,13 +190,41 @@
 	</LinearLayout>
 	</ScrollView>
 
+	<com.material.widget.FloatingActionButton 
+	    android:id="@+id/fab_schedule"
+	    android:layout_width="48dp"
+	    android:layout_height="48dp"
+	    android:layout_alignParentEnd="true"
+		android:layout_alignParentRight="true"
+	    android:layout_alignParentBottom="true"
+	    android:layout_marginEnd="16dp"
+	    android:layout_marginRight="16dp"
+	    android:layout_marginBottom="16dp"
+	    custom:button_color="@color/yellow_500"
+	    custom:button_colorPressed="@color/yellow_700"/>
+	
+	<!-- REFRESH PAGE -->
+	<RelativeLayout
+	    android:id="@+id/rl_refresh"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:layout_below="@+id/ll_title"
+	    android:background="@color/white">
+		<com.material.widget.CircularProgressView 
+		    android:layout_width="48dp"
+		    android:layout_height="48dp"
+		    android:layout_centerInParent="true"
+		    
+		    custom:cpv_indeterminate="true"
+		    custom:cpv_color="@color/blue_500"/>
+	</RelativeLayout>
+		
 	<!-- SHADOW -->
 	<include 
 	    layout="@layout/shadow_layout"
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
 	    android:layout_below="@+id/ll_title"/>
-	
 	
 	<Button
 	    android:visibility="gone"
@@ -255,8 +283,15 @@
 	        android:text="删除"
 	        android:textSize="16sp"
 	        android:textColor="@color/black_text"/>
+	    <Button 
+	        android:id="@+id/btn_refresh"
+	        android:layout_width="match_parent"
+	        android:layout_height="48dp"
+	        android:background="@color/transparent"
+	        android:text="刷新"
+	        android:textSize="16sp"
+	        android:textColor="@color/black_text"/>
 	    <View 
-	        android:visibility="gone"
 	        android:layout_width="match_parent"
 	        android:layout_height="0.1dp"
 	        android:background="@color/black_dividers"/>
@@ -296,6 +331,7 @@
 	        android:layout_height="48dp"
 	        android:layout_alignParentBottom="true"/>
 	</RelativeLayout>
+	
 	<android.support.v4.view.ViewPager
 	    android:visibility="gone"
 	    android:id="@+id/viewpager_schedule"
@@ -304,19 +340,6 @@
 		android:layout_below="@+id/rl_tab"
 		android:background="@color/green_500"/>
 
-	<com.material.widget.FloatingActionButton 
-	    android:id="@+id/fab_schedule"
-	    android:layout_width="48dp"
-	    android:layout_height="48dp"
-	    android:layout_alignParentEnd="true"
-		android:layout_alignParentRight="true"
-	    android:layout_alignParentBottom="true"
-	    android:layout_marginEnd="16dp"
-	    android:layout_marginRight="16dp"
-	    android:layout_marginBottom="16dp"
-	    custom:button_color="@color/yellow_500"
-	    custom:button_colorPressed="@color/yellow_700"/>
-	
 	<com.material.widget.ActionView
         android:id="@+id/av"
         android:layout_width="56dp"

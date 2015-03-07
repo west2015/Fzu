@@ -37,6 +37,7 @@ public class BaseUtils extends Application{
 	}
 
 	public void setUserEntity(UserEntity userEntity) {
+		new DbUser(context).setUserEntity(userEntity);
 		this.userEntity = userEntity;
 	}
 
@@ -45,6 +46,7 @@ public class BaseUtils extends Application{
 	}
 
 	public void setDateEntity(DateEntity dateEntity) {
+		new DbDate(context).setDateEntity(dateEntity);
 		this.dateEntity = dateEntity;
 	}
 
