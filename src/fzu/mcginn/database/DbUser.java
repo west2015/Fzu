@@ -6,11 +6,10 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
 public class DbUser {
-	private final String DB_NAME = "user";
-	
-	private final String USERNAME = "username";
-	private final String PASSWORD = "password";
-	private final String REALNAME = "realname";
+	private final String DB_NAME = "db_user";
+	private final String USERNAME = "db_username";
+	private final String PASSWORD = "db_password";
+	private final String REALNAME = "db_realname";
 
 	private Context context;
 	private SharedPreferences sp;
@@ -21,8 +20,7 @@ public class DbUser {
 	}
 	
 	public void setUserEntity(UserEntity entity){
-		if(entity == null)
-			return ;
+		if(entity == null) return ;
 		Editor ed = sp.edit();
 		ed.putString(USERNAME, entity.getUsername());
 		ed.putString(PASSWORD, entity.getPassword());

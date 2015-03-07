@@ -3,6 +3,7 @@ package fzu.mcginn.utils;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import android.util.Log;
 import fzu.mcginn.entity.UserEntity;
 
 /*
@@ -22,25 +23,26 @@ public class InfoUtils {
 	public static final String SR_LOGIN_NULL = "null";
 	public static final String SR_LOGIN_NULL_USERNAME = "null_username";
 	public static final String SR_LOGIN_NULL_PASSWORD = "null_password";
+	
+	public static final String SR_TIME_SUCCEED = "succeed";
 
-	
-	/* DATABASE*/
-	
-	// USER INFOMATION
 		
 	// 获取字符串中数字
 	public static int getNumber(String str){
 		return getNumber(str,4);
 	}
-	public static int getNumber(String str,int length){
-		return getNumber(str,4,0);
+	public static int getNumber(String str,int maxLength){
+		return getNumber(str,maxLength,0);
 	}
-	public static int getNumber(String str,int length,int position){
-		String reg = "[0-9]{1," + length + "}";
+	public static int getNumber(String str,int maxLength,int position){
+		String reg = "[0-9]{1," + maxLength + "}";
 		Pattern p = Pattern.compile(reg);
 		Matcher m = p.matcher(str);
-		if(m.find() && position<m.groupCount()){
-			return Integer.parseInt(m.group(position).toString());
+		while(m.find()){
+			if(position == 0){
+				return Integer.parseInt(m.group().toString());
+			}
+			--position;
 		}
 		return -1;
 	}

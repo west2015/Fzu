@@ -3,6 +3,8 @@ package fzu.mcginn.activity;
 
 import fzu.mcginn.R;
 import fzu.mcginn.adapter.MenuAdapter;
+import fzu.mcginn.database.DbDate;
+import fzu.mcginn.entity.DateEntity;
 import fzu.mcginn.entity.UserEntity;
 import fzu.mcginn.fragment.*;
 import fzu.mcginn.interfaces.MessageInterface;
@@ -11,6 +13,7 @@ import fzu.mcginn.utils.BaseUtils;
 import fzu.mcginn.utils.InfoUtils;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
@@ -18,6 +21,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.os.Message;
 
 public class MainActivity extends FragmentActivity
 						  implements MenuAdapter.onItemClick,
@@ -39,10 +43,13 @@ public class MainActivity extends FragmentActivity
 	private Fragment fm;
 	private FragmentTransaction ft;
 	private UserEntity userEntity;
+	private DateEntity dateEntity;
 
 	private DrawerLayout drawer;
 	private ListView menuList;
 	private TextView tvName;
+	private TextView tvWeek;
+	private TextView tvDate;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState){
@@ -57,6 +64,8 @@ public class MainActivity extends FragmentActivity
 		drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 		menuList = (ListView) findViewById(R.id.menu_listView);
 		tvName = (TextView) findViewById(R.id.tv_name);
+		tvWeek = (TextView) findViewById(R.id.tv_week);
+		tvDate = (TextView) findViewById(R.id.tv_date);
 		
 		context = this;
 		userEntity = BaseUtils.getInstance().getUserEntity();
@@ -66,12 +75,34 @@ public class MainActivity extends FragmentActivity
 		menuList.setAdapter(new MenuAdapter(context,iconId,text));
 		
 		setFragment(new ScheduleFragment());
-		new TimeService(this).getNetTime();
+		new Thread(getNetTimeRun).start();
 	}
 
 	private void setListener(){
 		
 	}
+	
+	Runnable getNetTimeRun = new Runnable(){
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			dateEntity = new TimeService(context).getNetTime();
+			if(dateEntity != null){
+				Message msg = mHandler.obtainMessage();
+				msg.obj = InfoUtils.SR_TIME_SUCCEED;
+				mHandler.sendMessage(msg);
+			}
+		}
+	};
+	
+	Handler mHandler = new Handler(){
+		public void handleMessage(Message msg){
+			if(msg.obj.toString().equals(InfoUtils.SR_TIME_SUCCEED)){
+				tvWeek.setText("第" + dateEntity.getWeek() + "周");
+				tvDate.setText(dateEntity.getSchoolYear()+"学年"+dateEntity.getTerm()+"学期");
+			}
+		}
+	};
 	
 	private void setFragment(Fragment mFragment){
 		if(mFragment == null){

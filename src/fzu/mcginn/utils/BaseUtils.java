@@ -1,6 +1,7 @@
 package fzu.mcginn.utils;
 
 import fzu.mcginn.database.*;
+import fzu.mcginn.entity.DateEntity;
 import fzu.mcginn.entity.UserEntity;
 import android.app.Application;
 import android.content.Context;
@@ -13,6 +14,7 @@ public class BaseUtils extends Application{
 	private static Context context;
 	
 	private UserEntity userEntity;
+	private DateEntity dateEntity;
 	
 	public static BaseUtils getInstance(){
 		if(instance == null){
@@ -27,7 +29,7 @@ public class BaseUtils extends Application{
 		context = this;
 
 		userEntity = new DbUser(context).getUserEnitty();
-
+		dateEntity = new DbDate(context).getDateEntity();
 	}
 
 	public UserEntity getUserEntity() {
@@ -37,5 +39,13 @@ public class BaseUtils extends Application{
 	public void setUserEntity(UserEntity userEntity) {
 		this.userEntity = userEntity;
 	}
-	
+
+	public DateEntity getDateEntity() {
+		return dateEntity;
+	}
+
+	public void setDateEntity(DateEntity dateEntity) {
+		this.dateEntity = dateEntity;
+	}
+
 }
