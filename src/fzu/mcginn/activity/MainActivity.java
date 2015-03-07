@@ -3,10 +3,12 @@ package fzu.mcginn.activity;
 
 import fzu.mcginn.R;
 import fzu.mcginn.adapter.MenuAdapter;
+import fzu.mcginn.entity.UserEntity;
 import fzu.mcginn.fragment.*;
 import fzu.mcginn.interfaces.MessageInterface;
+import fzu.mcginn.service.TimeService;
+import fzu.mcginn.utils.BaseUtils;
 import fzu.mcginn.utils.InfoUtils;
-
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,12 +17,13 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class MainActivity extends FragmentActivity
 						  implements MenuAdapter.onItemClick,
 						  			 MessageInterface{
 	
-	private int[] iconId = {
+	private final int[] iconId = {
 			R.drawable.ic_menu_black,
 			R.drawable.ic_menu_black,
 			R.drawable.ic_menu_black,
@@ -28,16 +31,18 @@ public class MainActivity extends FragmentActivity
 			R.drawable.ic_menu_black,
 			R.drawable.ic_menu_black
 	};
-	private String[] text = {
+	private final String[] text = {
 		"课表","成绩","考场","二手市场","教务处通知","设置"	
 	};
 
 	private Context context;
 	private Fragment fm;
 	private FragmentTransaction ft;
+	private UserEntity userEntity;
 
 	private DrawerLayout drawer;
 	private ListView menuList;
+	private TextView tvName;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState){
@@ -51,13 +56,17 @@ public class MainActivity extends FragmentActivity
 	private void findView(){
 		drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 		menuList = (ListView) findViewById(R.id.menu_listView);
+		tvName = (TextView) findViewById(R.id.tv_name);
 		
 		context = this;
+		userEntity = BaseUtils.getInstance().getUserEntity();
 
+		tvName.setText(userEntity != null && userEntity.getRealname() != null ? userEntity.getRealname() : "王大锤");
 		menuList.setDividerHeight(0);
 		menuList.setAdapter(new MenuAdapter(context,iconId,text));
 		
 		setFragment(new ScheduleFragment());
+		new TimeService(this).getNetTime();
 	}
 
 	private void setListener(){

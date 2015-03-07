@@ -77,6 +77,7 @@
 	        android:layout_width="match_parent"
 	        android:layout_height="match_parent"
 	        android:background="@color/transparent"
+	        android:focusable="true"
 	        android:text="登录"
 	        android:textColor="@color/blue_500"
 	        android:textSize="18sp" />

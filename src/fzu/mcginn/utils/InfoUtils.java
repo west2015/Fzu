@@ -4,10 +4,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import fzu.mcginn.entity.UserEntity;
+
 /*
  * 保存字符串常量以及处理字符串的函数
  */
-
 public class InfoUtils {
 	public static final String OPEN_DRAWER = "open_drawer";
 	public static final String CLOSE_DRAWER = "close_drawer";

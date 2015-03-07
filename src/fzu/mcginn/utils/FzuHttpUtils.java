@@ -55,7 +55,6 @@ public class FzuHttpUtils {
 			response = httpClient.execute(httppost);
 			HttpEntity entity = response.getEntity();
 
-//			Log.e("3", response.getStatusLine().getStatusCode() + "");
 			if (response.getStatusLine().getStatusCode() == 200) {
 				if (entity != null) {
 					// 获得响应的字符集编码信息
@@ -79,11 +78,7 @@ public class FzuHttpUtils {
 						return InfoUtils.SR_LOGIN_NETERROR;
 					}
 					
-					String []s ;
-					s=res.split("欢迎");
-					s=s[1].split("同学");
-//					Log.e("YAO",s[0]+"!!!!");
-					user.setRealname(s[0]);
+					user.setRealname(res.split("欢迎")[1].split("同学")[0]);
 				}
 				
 				
