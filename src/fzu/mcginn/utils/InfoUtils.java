@@ -3,7 +3,6 @@ package fzu.mcginn.utils;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import fzu.mcginn.R.integer;
 import fzu.mcginn.entity.UserEntity;
 /*
  * 保存字符串常量以及处理字符串的函数

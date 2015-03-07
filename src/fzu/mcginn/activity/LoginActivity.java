@@ -1,20 +1,29 @@
 package fzu.mcginn.activity;
 
 import com.material.widget.InputText;
+import com.nispok.snackbar.Snackbar;
+import com.nispok.snackbar.SnackbarManager;
+import com.nispok.snackbar.listeners.ActionClickListener;
+import com.nispok.snackbar.listeners.ActionSwipeListener;
 
 import fzu.mcginn.R;
+import fzu.mcginn.entity.UserEntity;
+import fzu.mcginn.service.CourseService;
+import fzu.mcginn.service.LoginService;
 import fzu.mcginn.utils.InfoUtils;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 public class LoginActivity extends Activity{
 	
@@ -31,6 +40,7 @@ public class LoginActivity extends Activity{
 		
 		findView();
 		setListener();
+		
 	}
 
 	private void findView(){
@@ -74,7 +84,7 @@ public class LoginActivity extends Activity{
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				
+				new Thread(loginRun).start();
 			}
 		});
 		// ”√”⁄“˛≤ÿ»Ìº¸≈Ã
@@ -125,9 +135,15 @@ public class LoginActivity extends Activity{
 		@Override
 		public void run() {
 			// TODO Auto-generated method stub
-			isLogining = true;
-				
-			isLogining = false;
+//			isLogining = true;
+			UserEntity user = new UserEntity();
+			user.setPassword(etPassword.getText().toString());
+			user.setUsername(etUsername.getText().toString());
+			Message msg =mHandler.obtainMessage();
+			msg.obj=new LoginService(LoginActivity.this).login(user);
+			Log.e("yao", new CourseService().getCourseTableFromNet(user,"",""));
+//			mHandler.sendMessage(msg);
+//			isLogining = false;
 		}
 	};
 	
@@ -138,7 +154,22 @@ public class LoginActivity extends Activity{
 			}
 			else
 			if(msg.obj.toString().equals(InfoUtils.SR_LOGIN_NETERROR)){
-				
+				SnackbarManager.show(
+                        Snackbar.with(LoginActivity.this)
+                                .text(InfoUtils.SR_LOGIN_WRONG)
+                                .actionLabel("redo")
+                                .swipeListener(new ActionSwipeListener() {
+                                    @Override
+                                    public void onSwipeToDismiss() {
+                                    	
+                                    }
+                                })
+                                .actionListener(new ActionClickListener() {
+                                    @Override
+                                    public void onActionClicked(Snackbar snackbar) {
+                                         new Thread(loginRun).start();
+                                    }
+                                }));
 			}
 			else
 			if(msg.obj.toString().equals(InfoUtils.SR_LOGIN_WRONG)){
