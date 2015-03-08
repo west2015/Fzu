@@ -77,8 +77,11 @@ public class FzuHttpUtils {
 					if(res==null||res.length()==0){
 						return InfoUtils.SR_LOGIN_NETERROR;
 					}
-					
-					user.setRealname(res.split("欢迎")[1].split("同学")[0]);
+					if(res.contains("欢迎")){
+						user.setRealname(res.split("欢迎")[1].split("同学")[0]);
+					}
+					else
+						return InfoUtils.SR_LOGIN_NETERROR;
 				}
 				
 				
@@ -119,31 +122,8 @@ public class FzuHttpUtils {
 			response = httpClient.execute(httppost);
 			HttpEntity entity = response.getEntity();
 
-//			Log.e("3", response.getStatusLine().getStatusCode() + "");
 			if (response.getStatusLine().getStatusCode() == 200) {
-				if (entity != null) {
-					// 获得响应的字符集编码信息
-					String charset = EntityUtils.getContentCharSet(entity);
-					if (charset == null) {
-						charset = "GB2312";
-					}
-					is = entity.getContent();
-					StringBuffer result = new StringBuffer();
-					String line = null;
-					reader = new BufferedReader(new InputStreamReader(is, charset));
-					while ((line = reader.readLine()) != null) {
-						result.append(line);
-					}
 
-					String res= result.toString().trim();
-					if(res!=null && res.contains("密码错误")){
-						return InfoUtils.SR_LOGIN_WRONG;
-					}
-					if(res==null||res.length()==0){
-						return InfoUtils.SR_LOGIN_NETERROR;
-					}
-				}
-				
  				List<Cookie> cookies = ((AbstractHttpClient) httpClient).getCookieStore().getCookies();
 				StringBuffer sb = new StringBuffer();
 				for (int i = 0; i < cookies.size(); i++) {
@@ -190,20 +170,19 @@ public class FzuHttpUtils {
 		InputStream is = null;
 		HttpGet get = null;
 		BufferedReader reader = null;
-		try{
-			URL mUrl = new URL(url);
-			URI uri = new URI(mUrl.getProtocol(), mUrl.getHost(), mUrl.getPath(), mUrl.getQuery(), null);
-			get = new HttpGet(uri);
-			get.setHeader("Cookie",cookie);
-			get.setHeader("Referer","http://59.77.226.33");
-			HttpParams params = new BasicHttpParams();
-			//设置连接超时
-            HttpConnectionParams.setConnectionTimeout(params, 10000);
-            //设置请求超时
-            HttpConnectionParams.setSoTimeout(params, 10000);
-            get.setParams(params);
-			HttpResponse response = httpClient.execute(get);
+		HttpResponse response;
+		HttpGet httpget = new HttpGet(url);
+//		Log.e("1", "cookie:"+cookie);
+		
+		httpget.setHeader("Cookie",cookie);
+//		Log.e("YAO","cookie"+cookie);
+		httpget.setHeader("Referer", "http://59.77.226.34/");
+		
+		try {
+			response = httpClient.execute(httpget);
 			HttpEntity entity = response.getEntity();
+
+//			Log.e("3",response.getStatusLine().getStatusCode()+""); 
 			if (entity != null) {
 				// 获得响应的字符集编码信息
 				String charset = EntityUtils.getContentCharSet(entity);
@@ -213,31 +192,40 @@ public class FzuHttpUtils {
 				is = entity.getContent();
 				StringBuffer result = new StringBuffer();
 				String line = null;
-				reader = new BufferedReader(new InputStreamReader(is, charset));
+				reader= new BufferedReader(new InputStreamReader(is, charset));
 				while ((line = reader.readLine()) != null) {
 					result.append(line);
+//					Log.e("login2", line);
 				}
+				
+				
 				return result.toString().trim();
+				// return IOUtils.toString(is, charset);
 			}
+			
+			
+			
+//			Log.e("1", "location "+response.getEntity().getContent().toString());
+
+
 		} catch (ClientProtocolException e) {
+
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return null;
-		} catch (Exception e) {
+			httpget.abort();
+			httpClient.getConnectionManager().shutdown();
+
+		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return null;
-		} finally {
-			try {
-				reader.close();
-				is.close();
-				get.abort();
-				httpClient.getConnectionManager().shutdown();
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			httpget.abort();
+			httpClient.getConnectionManager().shutdown();
 		}
+		
 		return null;
 	}
 }

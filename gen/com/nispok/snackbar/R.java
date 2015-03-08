@@ -40,15 +40,15 @@ public final class R {
 		public static final int sb__btn_bg = 0x7f020062;
 	}
 	public static final class id {
-		public static final int sb__action = 0x7f060089;
-		public static final int sb__text = 0x7f06008a;
+		public static final int sb__action = 0x7f060092;
+		public static final int sb__text = 0x7f060093;
 	}
 	public static final class interpolator {
 		public static final int sb__accelerate_cubic = 0x7f050000;
 		public static final int sb__decelerate_cubic = 0x7f050001;
 	}
 	public static final class layout {
-		public static final int sb__template = 0x7f030026;
+		public static final int sb__template = 0x7f030027;
 	}
 	public static final class style {
 		public static final int Snackbar = 0x7f0c0083;

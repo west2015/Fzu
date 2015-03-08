@@ -5,6 +5,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
+import android.util.Log;
 import fzu.mcginn.entity.DateEntity;
 import fzu.mcginn.utils.BaseUtils;
 import fzu.mcginn.utils.HttpUtils;
@@ -12,19 +13,29 @@ import fzu.mcginn.utils.InfoUtils;
 
 public class TimeService {
 	
-	public DateEntity getNetTime(){
-		DateEntity resEntity;
-		resEntity = getNetTime1();
-		if(resEntity == null)
-		resEntity = getNetTime2();
-		if(resEntity != null){
-			BaseUtils.getInstance().setDateEntity(resEntity);
+	public DateEntity getTime(boolean isRefresh){
+		int time = 10;
+		DateEntity resEntity = null;
+		if(!isRefresh){
+			resEntity = BaseUtils.getInstance().getDateEntity();
+		}
+		if(isRefresh || resEntity == null){
+			while(time > 0 && resEntity == null){
+				--time;
+				resEntity = getTime1();
+			}
+			if(resEntity != null){
+				BaseUtils.getInstance().setDateEntity(resEntity);
+			}
+		}
+		if(resEntity == null){
+			resEntity = BaseUtils.getInstance().getDateEntity();
 		}
 		return resEntity;
 	}
 	
 	// 解析html获取时间
-	public DateEntity getNetTime1(){
+	public DateEntity getTime1(){
 		String url = "http://59.77.226.32/tt.asp";
 		String res = HttpUtils.getData(url);
 		if(res != null){
@@ -37,8 +48,8 @@ public class TimeService {
 			resEntity.setDay(InfoUtils.getNumber(date, 4, 2));
 			resEntity.setSchoolYear(InfoUtils.getNumber(date, 4, 3));
 			resEntity.setTerm(InfoUtils.getNumber(date, 4, 4));
-			resEntity.setWeek(InfoUtils.getNumber(date, 4, 5));
-//			Log.e("!!!!!!!!!!!!",resEntity.getYear()+"年"+resEntity.getMonth()+"月"+resEntity.getDay()+"日"+resEntity.getSchoolYear()+"学年"+resEntity.getTerm()+"学期"+"第"+resEntity.getWeek()+"周");
+			resEntity.setCurrentWeek(InfoUtils.getNumber(date, 4, 5));
+			Log.e("!!!!!!!!!!!!",resEntity.getYear()+"年"+resEntity.getMonth()+"月"+resEntity.getDay()+"日"+resEntity.getSchoolYear()+"学年"+resEntity.getTerm()+"学期"+"第"+resEntity.getCurrentWeek()+"周");
 			return resEntity;
 		}
 		return null;
@@ -53,7 +64,7 @@ public class TimeService {
 				Integer week = Integer.parseInt(json.getString("week"));
 				String date = json.getString("date");
 				DateEntity resEntity = new DateEntity();
-				resEntity.setWeek(week);
+				resEntity.setCurrentWeek(week);
 				resEntity.setYear(InfoUtils.getNumber(date, 4, 0));
 				resEntity.setMonth(InfoUtils.getNumber(date, 4, 1));
 				resEntity.setDay(InfoUtils.getNumber(date, 4, 2));

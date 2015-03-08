@@ -372,6 +372,14 @@ containing a value of this type.
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
         public static final int customNavigationLayout=0x7f01002e;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int debugDraw=0x7f01009c;
         /**  Whether this spinner should mark child views as enabled/disabled when
              the spinner itself is enabled/disabled. 
          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
@@ -558,6 +566,33 @@ theme attribute (in the form
 containing a value of this type.
          */
         public static final int labelTextSize=0x7f010081;
+        /** <p>Must be one of the following constant values.</p>
+<table>
+<colgroup align="left" />
+<colgroup align="left" />
+<colgroup align="left" />
+<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+<tr><td><code>ltr</code></td><td>0</td><td></td></tr>
+<tr><td><code>rtl</code></td><td>1</td><td></td></tr>
+</table>
+         */
+        public static final int layoutDirection=0x7f01009b;
+        /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int layout_newLine=0x7f01009e;
+        /** <p>Must be a floating point value, such as "<code>1.2</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int layout_weight=0x7f01009f;
         /**  Drawable used as a background for selected list items. 
          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
@@ -1181,6 +1216,14 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 </table>
          */
         public static final int type=0x7f01006e;
+        /** <p>Must be a floating point value, such as "<code>1.2</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int weightDefault=0x7f01009d;
         /** <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
 <p>This may also be a reference to a resource (in the form
 "<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
@@ -1723,146 +1766,155 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int sb__btn_bg=0x7f020062;
     }
     public static final class id {
-        public static final int action_bar=0x7f060024;
+        public static final int action_bar=0x7f060026;
         public static final int action_bar_activity_content=0x7f060015;
-        public static final int action_bar_container=0x7f060023;
-        public static final int action_bar_overlay_layout=0x7f060027;
-        public static final int action_bar_root=0x7f060022;
-        public static final int action_bar_subtitle=0x7f06002b;
-        public static final int action_bar_title=0x7f06002a;
-        public static final int action_context_bar=0x7f060025;
+        public static final int action_bar_container=0x7f060025;
+        public static final int action_bar_overlay_layout=0x7f060029;
+        public static final int action_bar_root=0x7f060024;
+        public static final int action_bar_subtitle=0x7f06002d;
+        public static final int action_bar_title=0x7f06002c;
+        public static final int action_context_bar=0x7f060027;
         public static final int action_menu_divider=0x7f060016;
         public static final int action_menu_presenter=0x7f060017;
-        public static final int action_mode_close_button=0x7f06002c;
-        public static final int action_settings=0x7f06008c;
-        public static final int activity_chooser_view_content=0x7f06002d;
+        public static final int action_mode_close_button=0x7f06002e;
+        public static final int action_settings=0x7f060095;
+        public static final int activity_chooser_view_content=0x7f06002f;
         public static final int always=0x7f06000b;
-        public static final int av=0x7f06006c;
-        public static final int av_menu=0x7f06006e;
+        public static final int av=0x7f06006e;
+        public static final int av_menu=0x7f060070;
         public static final int back=0x7f06001c;
         public static final int beginning=0x7f060011;
         public static final int bold=0x7f060020;
-        public static final int btn=0x7f060087;
-        public static final int btn_add=0x7f06005a;
-        public static final int btn_cancel=0x7f06005b;
-        public static final int btn_del=0x7f06005f;
-        public static final int btn_hide_week_picker=0x7f06007b;
-        public static final int btn_lesson=0x7f060059;
-        public static final int btn_login=0x7f06004a;
-        public static final int btn_refresh=0x7f06007e;
-        public static final int btn_save=0x7f060068;
-        public static final int btn_setting=0x7f06007f;
-        public static final int btn_term=0x7f060062;
-        public static final int btn_week=0x7f060064;
-        public static final int btn_weekday=0x7f060058;
-        public static final int checkbox=0x7f060035;
+        public static final int btn=0x7f060089;
+        public static final int btn_add=0x7f06005c;
+        public static final int btn_cancel=0x7f06005d;
+        public static final int btn_del=0x7f060061;
+        public static final int btn_hide_week_picker=0x7f06007d;
+        public static final int btn_lesson=0x7f06005b;
+        public static final int btn_login=0x7f06004c;
+        public static final int btn_refresh=0x7f060080;
+        public static final int btn_save=0x7f06006a;
+        public static final int btn_setting=0x7f060081;
+        public static final int btn_term=0x7f060064;
+        public static final int btn_week=0x7f060066;
+        public static final int btn_weekday=0x7f06005a;
+        public static final int checkbox=0x7f060037;
         public static final int close=0x7f06001d;
         public static final int collapseActionView=0x7f06000d;
-        public static final int default_activity_button=0x7f060030;
+        public static final int default_activity_button=0x7f060032;
         public static final int dialog=0x7f06000e;
         public static final int disableHome=0x7f060008;
         public static final int drawer=0x7f06001b;
-        public static final int drawer_layout=0x7f06004c;
+        public static final int drawer_layout=0x7f06004e;
         public static final int dropdown=0x7f06000f;
-        public static final int edit_query=0x7f060038;
+        public static final int edit_query=0x7f06003a;
         public static final int end=0x7f060013;
-        public static final int et_course=0x7f060056;
-        public static final int et_password=0x7f060047;
-        public static final int et_term=0x7f060061;
-        public static final int et_username=0x7f060046;
-        public static final int expand_activities_button=0x7f06002e;
-        public static final int expanded_menu=0x7f060034;
-        public static final int fab_schedule=0x7f060079;
-        public static final int fragment_layout=0x7f06004d;
+        public static final int et_course=0x7f060058;
+        public static final int et_password=0x7f060049;
+        public static final int et_term=0x7f060063;
+        public static final int et_username=0x7f060048;
+        public static final int expand_activities_button=0x7f060030;
+        public static final int expanded_menu=0x7f060036;
+        public static final int fab_schedule=0x7f06007b;
+        public static final int fragment_layout=0x7f06004f;
         public static final int home=0x7f060014;
         public static final int homeAsUp=0x7f060005;
-        public static final int icon=0x7f060032;
+        public static final int icon=0x7f060034;
         public static final int ifRoom=0x7f06000a;
-        public static final int image=0x7f06002f;
+        public static final int image=0x7f060031;
         public static final int italic=0x7f060021;
         public static final int listMode=0x7f060001;
-        public static final int list_item=0x7f060031;
-        public static final int ll_day=0x7f060070;
-        public static final int ll_menu=0x7f06007d;
-        public static final int ll_title=0x7f06006b;
-        public static final int lv_lesson_picker=0x7f06005d;
-        public static final int lv_list_del=0x7f06005e;
-        public static final int lv_term_picker=0x7f060069;
-        public static final int lv_week=0x7f06007c;
-        public static final int lv_week_picker=0x7f06006a;
-        public static final int lv_weekday_picker=0x7f06005c;
+        public static final int list_item=0x7f060033;
+        public static final int ll_c1=0x7f06008a;
+        public static final int ll_c2=0x7f06008b;
+        public static final int ll_c3=0x7f06008c;
+        public static final int ll_c4=0x7f06008d;
+        public static final int ll_c5=0x7f06008e;
+        public static final int ll_c6=0x7f06008f;
+        public static final int ll_c7=0x7f060090;
+        public static final int ll_day=0x7f060072;
+        public static final int ll_menu=0x7f06007f;
+        public static final int ll_title=0x7f06006d;
+        public static final int ltr=0x7f060022;
+        public static final int lv_lesson_picker=0x7f06005f;
+        public static final int lv_list_del=0x7f060060;
+        public static final int lv_term_picker=0x7f06006b;
+        public static final int lv_week=0x7f06007e;
+        public static final int lv_week_picker=0x7f06006c;
+        public static final int lv_weekday_picker=0x7f06005e;
         public static final int menu=0x7f06001f;
-        public static final int menu_btn=0x7f060086;
-        public static final int menu_icon=0x7f060085;
-        public static final int menu_layout=0x7f06004e;
-        public static final int menu_listView=0x7f060053;
+        public static final int menu_btn=0x7f060088;
+        public static final int menu_icon=0x7f060087;
+        public static final int menu_layout=0x7f060050;
+        public static final int menu_listView=0x7f060055;
         public static final int middle=0x7f060012;
         public static final int mini=0x7f06001a;
         public static final int never=0x7f060009;
         public static final int none=0x7f060010;
         public static final int normal=0x7f060000;
-        public static final int pb=0x7f06004b;
+        public static final int pb=0x7f06004d;
         public static final int plus=0x7f06001e;
         public static final int progress_circular=0x7f060018;
         public static final int progress_horizontal=0x7f060019;
-        public static final int psts_tab_title=0x7f060088;
-        public static final int radio=0x7f060037;
-        public static final int rcv_schedule=0x7f060080;
-        public static final int rl_hide=0x7f060044;
-        public static final int rl_item=0x7f060084;
-        public static final int rl_refresh=0x7f06007a;
-        public static final int rl_schedule_1_4=0x7f060074;
-        public static final int rl_schedule_5_8=0x7f060076;
-        public static final int rl_schedule_9=0x7f060078;
-        public static final int rl_tab=0x7f060081;
-        public static final int rl_top=0x7f06004f;
-        public static final int sb__action=0x7f060089;
-        public static final int sb__text=0x7f06008a;
-        public static final int search_badge=0x7f06003a;
-        public static final int search_bar=0x7f060039;
-        public static final int search_button=0x7f06003b;
-        public static final int search_close_btn=0x7f060040;
-        public static final int search_edit_frame=0x7f06003c;
-        public static final int search_go_btn=0x7f060042;
-        public static final int search_mag_icon=0x7f06003d;
-        public static final int search_plate=0x7f06003e;
-        public static final int search_src_text=0x7f06003f;
-        public static final int search_voice_btn=0x7f060043;
-        public static final int shortcut=0x7f060036;
+        public static final int psts_tab_title=0x7f060091;
+        public static final int radio=0x7f060039;
+        public static final int rcv_schedule=0x7f060082;
+        public static final int rl_hide=0x7f060046;
+        public static final int rl_item=0x7f060086;
+        public static final int rl_refresh=0x7f06007c;
+        public static final int rl_schedule_1_4=0x7f060076;
+        public static final int rl_schedule_5_8=0x7f060078;
+        public static final int rl_schedule_9=0x7f06007a;
+        public static final int rl_tab=0x7f060083;
+        public static final int rl_top=0x7f060051;
+        public static final int rtl=0x7f060023;
+        public static final int sb__action=0x7f060092;
+        public static final int sb__text=0x7f060093;
+        public static final int search_badge=0x7f06003c;
+        public static final int search_bar=0x7f06003b;
+        public static final int search_button=0x7f06003d;
+        public static final int search_close_btn=0x7f060042;
+        public static final int search_edit_frame=0x7f06003e;
+        public static final int search_go_btn=0x7f060044;
+        public static final int search_mag_icon=0x7f06003f;
+        public static final int search_plate=0x7f060040;
+        public static final int search_src_text=0x7f060041;
+        public static final int search_voice_btn=0x7f060045;
+        public static final int shortcut=0x7f060038;
         public static final int showCustom=0x7f060007;
         public static final int showHome=0x7f060004;
         public static final int showTitle=0x7f060006;
-        public static final int split_action_bar=0x7f060026;
-        public static final int submit_area=0x7f060041;
+        public static final int split_action_bar=0x7f060028;
+        public static final int submit_area=0x7f060043;
         public static final int tabMode=0x7f060002;
-        public static final int tab_schedule=0x7f060082;
-        public static final int title=0x7f060033;
-        public static final int top_action_bar=0x7f060028;
-        public static final int tv_all_course=0x7f060066;
-        public static final int tv_content_course=0x7f060055;
-        public static final int tv_content_display=0x7f060065;
-        public static final int tv_content_term=0x7f060060;
-        public static final int tv_content_time=0x7f060057;
-        public static final int tv_content_week=0x7f060063;
-        public static final int tv_date=0x7f060051;
-        public static final int tv_fzu=0x7f060048;
-        public static final int tv_fzu2=0x7f060049;
-        public static final int tv_month=0x7f06006f;
-        public static final int tv_name=0x7f060050;
-        public static final int tv_schedule_1_4=0x7f060073;
-        public static final int tv_schedule_5_8=0x7f060075;
-        public static final int tv_schedule_9=0x7f060077;
-        public static final int tv_schedule_day=0x7f06008b;
-        public static final int tv_schedule_day1=0x7f060071;
-        public static final int tv_title=0x7f060054;
-        public static final int tv_week=0x7f060052;
-        public static final int tv_week_course=0x7f060067;
-        public static final int up=0x7f060029;
+        public static final int tab_schedule=0x7f060084;
+        public static final int title=0x7f060035;
+        public static final int top_action_bar=0x7f06002a;
+        public static final int tv_all_course=0x7f060068;
+        public static final int tv_content_course=0x7f060057;
+        public static final int tv_content_display=0x7f060067;
+        public static final int tv_content_term=0x7f060062;
+        public static final int tv_content_time=0x7f060059;
+        public static final int tv_content_week=0x7f060065;
+        public static final int tv_date=0x7f060053;
+        public static final int tv_fzu=0x7f06004a;
+        public static final int tv_fzu2=0x7f06004b;
+        public static final int tv_month=0x7f060071;
+        public static final int tv_name=0x7f060052;
+        public static final int tv_schedule_1_4=0x7f060075;
+        public static final int tv_schedule_5_8=0x7f060077;
+        public static final int tv_schedule_9=0x7f060079;
+        public static final int tv_schedule_day=0x7f060094;
+        public static final int tv_schedule_day1=0x7f060073;
+        public static final int tv_title=0x7f060056;
+        public static final int tv_week=0x7f060054;
+        public static final int tv_week_course=0x7f060069;
+        public static final int up=0x7f06002b;
         public static final int useLogo=0x7f060003;
-        public static final int view_center=0x7f06006d;
-        public static final int view_divider=0x7f060072;
-        public static final int view_middle=0x7f060045;
-        public static final int viewpager_schedule=0x7f060083;
+        public static final int view_center=0x7f06006f;
+        public static final int view_divider=0x7f060074;
+        public static final int view_middle=0x7f060047;
+        public static final int viewpager_schedule=0x7f060085;
         public static final int withText=0x7f06000c;
     }
     public static final class integer {
@@ -1932,13 +1984,12 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int item_drawer_menu=0x7f030022;
         public static final int item_simple_list=0x7f030023;
         public static final int item_text_list=0x7f030024;
-        public static final int psts_tab=0x7f030025;
-        public static final int sb__template=0x7f030026;
-        public static final int schedule_fragment_day=0x7f030027;
-        public static final int shadow_layout=0x7f030028;
-        public static final int subactivity_setting=0x7f030029;
+        public static final int layout_line_schedule=0x7f030025;
+        public static final int psts_tab=0x7f030026;
+        public static final int sb__template=0x7f030027;
+        public static final int schedule_fragment_day=0x7f030028;
+        public static final int shadow_layout=0x7f030029;
         public static final int support_simple_spinner_dropdown_item=0x7f03002a;
-        public static final int test=0x7f03002b;
     }
     public static final class menu {
         public static final int main=0x7f0d0000;
@@ -3298,6 +3349,136 @@ containing a value of this type.
           @attr name fzu.mcginn:type
         */
         public static final int FloatingActionButton_type = 0;
+        /** Attributes that can be used with a FlowLayout.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #FlowLayout_android_gravity android:gravity}</code></td><td></td></tr>
+           <tr><td><code>{@link #FlowLayout_android_orientation android:orientation}</code></td><td></td></tr>
+           <tr><td><code>{@link #FlowLayout_debugDraw fzu.mcginn:debugDraw}</code></td><td></td></tr>
+           <tr><td><code>{@link #FlowLayout_layoutDirection fzu.mcginn:layoutDirection}</code></td><td></td></tr>
+           <tr><td><code>{@link #FlowLayout_weightDefault fzu.mcginn:weightDefault}</code></td><td></td></tr>
+           </table>
+           @see #FlowLayout_android_gravity
+           @see #FlowLayout_android_orientation
+           @see #FlowLayout_debugDraw
+           @see #FlowLayout_layoutDirection
+           @see #FlowLayout_weightDefault
+         */
+        public static final int[] FlowLayout = {
+            0x010100af, 0x010100c4, 0x7f01009b, 0x7f01009c,
+            0x7f01009d
+        };
+        /**
+          <p>This symbol is the offset where the {@link android.R.attr#gravity}
+          attribute's value can be found in the {@link #FlowLayout} array.
+          @attr name android:gravity
+        */
+        public static final int FlowLayout_android_gravity = 0;
+        /**
+          <p>This symbol is the offset where the {@link android.R.attr#orientation}
+          attribute's value can be found in the {@link #FlowLayout} array.
+          @attr name android:orientation
+        */
+        public static final int FlowLayout_android_orientation = 1;
+        /**
+          <p>This symbol is the offset where the {@link fzu.mcginn.R.attr#debugDraw}
+          attribute's value can be found in the {@link #FlowLayout} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name fzu.mcginn:debugDraw
+        */
+        public static final int FlowLayout_debugDraw = 3;
+        /**
+          <p>This symbol is the offset where the {@link fzu.mcginn.R.attr#layoutDirection}
+          attribute's value can be found in the {@link #FlowLayout} array.
+
+
+          <p>Must be one of the following constant values.</p>
+<table>
+<colgroup align="left" />
+<colgroup align="left" />
+<colgroup align="left" />
+<tr><th>Constant</th><th>Value</th><th>Description</th></tr>
+<tr><td><code>ltr</code></td><td>0</td><td></td></tr>
+<tr><td><code>rtl</code></td><td>1</td><td></td></tr>
+</table>
+          @attr name fzu.mcginn:layoutDirection
+        */
+        public static final int FlowLayout_layoutDirection = 2;
+        /**
+          <p>This symbol is the offset where the {@link fzu.mcginn.R.attr#weightDefault}
+          attribute's value can be found in the {@link #FlowLayout} array.
+
+
+          <p>Must be a floating point value, such as "<code>1.2</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name fzu.mcginn:weightDefault
+        */
+        public static final int FlowLayout_weightDefault = 4;
+        /** Attributes that can be used with a FlowLayout_LayoutParams.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #FlowLayout_LayoutParams_android_layout_gravity android:layout_gravity}</code></td><td></td></tr>
+           <tr><td><code>{@link #FlowLayout_LayoutParams_layout_newLine fzu.mcginn:layout_newLine}</code></td><td></td></tr>
+           <tr><td><code>{@link #FlowLayout_LayoutParams_layout_weight fzu.mcginn:layout_weight}</code></td><td></td></tr>
+           </table>
+           @see #FlowLayout_LayoutParams_android_layout_gravity
+           @see #FlowLayout_LayoutParams_layout_newLine
+           @see #FlowLayout_LayoutParams_layout_weight
+         */
+        public static final int[] FlowLayout_LayoutParams = {
+            0x010100b3, 0x7f01009e, 0x7f01009f
+        };
+        /**
+          <p>This symbol is the offset where the {@link android.R.attr#layout_gravity}
+          attribute's value can be found in the {@link #FlowLayout_LayoutParams} array.
+          @attr name android:layout_gravity
+        */
+        public static final int FlowLayout_LayoutParams_android_layout_gravity = 0;
+        /**
+          <p>This symbol is the offset where the {@link fzu.mcginn.R.attr#layout_newLine}
+          attribute's value can be found in the {@link #FlowLayout_LayoutParams} array.
+
+
+          <p>Must be a boolean value, either "<code>true</code>" or "<code>false</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name fzu.mcginn:layout_newLine
+        */
+        public static final int FlowLayout_LayoutParams_layout_newLine = 1;
+        /**
+          <p>This symbol is the offset where the {@link fzu.mcginn.R.attr#layout_weight}
+          attribute's value can be found in the {@link #FlowLayout_LayoutParams} array.
+
+
+          <p>Must be a floating point value, such as "<code>1.2</code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name fzu.mcginn:layout_weight
+        */
+        public static final int FlowLayout_LayoutParams_layout_weight = 2;
         /** Attributes that can be used with a InputText.
            <p>Includes the following attributes:</p>
            <table>

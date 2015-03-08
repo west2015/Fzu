@@ -50,6 +50,7 @@
 	</RelativeLayout>
 	<!-- DATE and TIME -->
 	<TextView 
+	    android:visibility="gone"
 	    android:id="@+id/tv_month"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
@@ -141,11 +142,12 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:orientation="vertical"
-		android:paddingTop="4dp">
+		android:paddingTop="4dp"
+		android:layout_marginBottom="48dp">
 		<TextView
 		    android:id="@+id/tv_schedule_1_4"
 		    android:layout_width="wrap_content"
-		    android:layout_height="48dp"
+		    android:layout_height="24dp"
 		    android:gravity="center_vertical"
 		    android:layout_marginLeft="16dp"
 		    android:layout_marginStart="16dp"
@@ -160,7 +162,7 @@
 		<TextView
 		    android:id="@+id/tv_schedule_5_8"
 		    android:layout_width="wrap_content"
-		    android:layout_height="48dp"
+		    android:layout_height="24dp"
 		    android:layout_marginLeft="16dp"
 		    android:layout_marginStart="16dp"
 		    android:gravity="center_vertical"
@@ -175,7 +177,7 @@
 		<TextView
 		    android:id="@+id/tv_schedule_9"
 		    android:layout_width="wrap_content"
-		    android:layout_height="48dp"
+		    android:layout_height="24dp"
 		    android:layout_marginLeft="16dp"
 		    android:layout_marginStart="16dp"
 		    android:gravity="center_vertical"
@@ -205,6 +207,7 @@
 	
 	<!-- REFRESH PAGE -->
 	<RelativeLayout
+	    android:visibility="gone"
 	    android:id="@+id/rl_refresh"
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent"
@@ -252,7 +255,7 @@
 	    android:visibility="gone"
 	    android:id="@+id/ll_menu"
 	    android:layout_width="125dp"
-	    android:layout_height="60dp"
+	    android:layout_height="108dp"
 	    android:layout_marginTop="52.5dp"
 	    android:layout_marginEnd="20dp"
 	    android:layout_marginRight="20dp"

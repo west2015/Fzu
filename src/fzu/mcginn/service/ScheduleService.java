@@ -1,6 +1,8 @@
 package fzu.mcginn.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -13,20 +15,45 @@ import org.jsoup.select.Elements;
 
 import android.util.Log;
 import fzu.mcginn.entity.CourseEntity;
+import fzu.mcginn.entity.DateEntity;
 import fzu.mcginn.entity.UserEntity;
+import fzu.mcginn.utils.BaseUtils;
 import fzu.mcginn.utils.FzuHttpUtils;
 
 public class ScheduleService {
 
+	public String getSchedule(boolean isRefresh){
+		int time = 10;
+		String res = null;
+		if(!isRefresh){
+			res = BaseUtils.getInstance().getScheduleJson();
+		}
+		if(isRefresh || res == null){
+			UserEntity user = BaseUtils.getInstance().getUserEntity();
+			DateEntity date = BaseUtils.getInstance().getDateEntity();
+			while(time > 0 && (res == null || res.length() < 10)){
+				--time;
+				res = querySchedule(user,date.getSchoolYear(),date.getTerm());
+			}
+		}
+		if(res != null && res.length() > 10){
+			BaseUtils.getInstance().setScheduleJson(res);
+		}
+		return res;
+	}
+
+	// 解析html获取课表
 	public String querySchedule(UserEntity user,Integer xn,Integer xq){
 		JSONArray jsonArr = new JSONArray();
-		String url="http://59.77.226.33/xszy/wsxk/wdkb/kb_xs.asp?menu_no="
-									+"xh="+user.getUsername()
-									+"xn="+xn
-									+"xq="+xq;
+		String url="http://59.77.226.34/xszy/wsxk/wdkb/kb_xs.asp?menu_no="
+									+"&xh="+user.getUsername()
+									+"&xn="+xn
+									+"&xq=0"+xq;
 		String res = FzuHttpUtils.getData(url);
-		if(res == null || res.length() == 0) return null;
-		Document doc =Jsoup.parse(res);
+		if(res == null || res.length() == 0){
+			return null;
+		}
+		Document doc = Jsoup.parse(res);
 		Elements eles = doc.select("table[bordercolor=#111111]");
 		
 		for(int week=1;week<=eles.size();week++){
@@ -51,25 +78,9 @@ public class ScheduleService {
 					else
 						weekday = weekday/2 + 1;
 					String text = e.text();
-					if(text==null) continue;
+					if(text == null) continue;
 					String mes[] = text.split(" ");
 					if(mes.length != 4) continue;
-
-//					for(String s:mes){
-//						System.out.println(s);
-//					}
-//					
-//					CourseEntity entity = new CourseEntity();
-//					entity.setWeekday(weekday);
-//					entity.setLength(length);
-//					entity.setLesson(jie);
-//					entity.setName(mes[0]);
-//					entity.setPlace(mes[1]);
-//					entity.setTeacherName(mes[2]);
-//					entity.setStartWeek(Integer.parseInt(mes[3].split("-")[0]));
-//					entity.setEndWeek(Integer.parseInt(mes[3].split("-")[1]));
-//					courses.add(entity);
-//					weekCourses.add(entity);
 					
 					JSONObject jsObj = new JSONObject();
 					try {
@@ -90,8 +101,8 @@ public class ScheduleService {
 			}
 			JSONObject obj = new JSONObject();
 			try {
-				obj.putOpt("courseArr",courseArr);
 				obj.put("week",week);
+				obj.putOpt("courseArr",courseArr);
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -99,5 +110,91 @@ public class ScheduleService {
 			jsonArr.put(obj);
 		}
 		return jsonArr.toString();
+	}
+	
+	public List<CourseEntity> sort(List<CourseEntity> mList){
+		Comparator<CourseEntity> C = new Comparator<CourseEntity>(){
+			public int compare(CourseEntity arg0, CourseEntity arg1) {
+				// weekday
+				if(arg0.getWeekday() < arg1.getWeekday()) return -1;
+				if(arg0.getWeekday() > arg1.getWeekday()) return 1;
+				// lesson
+				if(arg0.getLesson() < arg1.getLesson()) return -1;
+				if(arg0.getLesson() > arg1.getLesson()) return 1;
+				return -1;
+			}
+		};
+		Collections.sort(mList,C);
+		return mList;
+	}
+	
+	public List<CourseEntity> parseWeek(String res,int mWeek){
+		try {
+			List<CourseEntity> mList = new ArrayList<CourseEntity>();
+			JSONArray jsonArr = new JSONArray(res);
+			// week
+			for(int i=0;i<jsonArr.length();++i){
+				JSONObject jsonWeek = jsonArr.getJSONObject(i);
+				if(jsonWeek.getInt("week") == mWeek){
+					JSONArray arrWeek = jsonWeek.getJSONArray("courseArr");
+					// lesson
+					for(int j=0;j<arrWeek.length();++j){
+						JSONObject courseJson = arrWeek.getJSONObject(j);
+						CourseEntity entity = new CourseEntity();
+						entity.setName(courseJson.getString("name"));
+						entity.setTeacherName(courseJson.getString("teachername"));
+						entity.setPlace(courseJson.getString("place"));
+						entity.setWeekday(courseJson.getInt("weekday"));
+						entity.setLesson(courseJson.getInt("lesson"));
+						entity.setLength(courseJson.getInt("length"));
+						entity.setStartWeek(courseJson.getInt("startweek"));
+						entity.setEndWeek(courseJson.getInt("endweek"));
+						mList.add(entity);
+					}
+					break;
+				}
+			}
+			return mList;
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public List<CourseEntity> parseAll(String res){
+		List<CourseEntity> mList = new ArrayList<CourseEntity>();
+		try {
+			JSONArray jsonArr = new JSONArray(res);
+			JSONObject json = jsonArr.getJSONObject(0);
+			JSONArray arrAll = json.getJSONArray("courseArr");
+			// schedule
+			for(int i=0;i<arrAll.length();++i){
+				// course
+				JSONObject courseJson = arrAll.getJSONObject(i);
+				CourseEntity entity = new CourseEntity();
+				entity.setName(courseJson.getString("name"));
+				entity.setTeacherName(courseJson.getString("teachername"));
+				entity.setPlace(courseJson.getString("place"));
+				entity.setLesson(courseJson.getInt("lesson"));
+				entity.setLength(courseJson.getInt("length"));
+				entity.setStartWeek(courseJson.getInt("startweek"));
+				entity.setEndWeek(courseJson.getInt("endweek"));
+				mList.add(entity);
+			}
+//			for(int i=0;i<mList.size();++i){
+//				CourseEntity entity = mList.get(i);
+//				Log.e("课表",entity.getName() +"\n" +
+//							entity.getTeacherName() + "\n" + 
+//							entity.getPlace() + "\n" + 
+//							entity.getLesson() + "\n" + 
+//							entity.getLength() + "\n" + 
+//							entity.getStartWeek() + "\n" + 
+//							entity.getEndWeek());
+//			}
+			return mList;
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

@@ -28,7 +28,8 @@ public class InfoUtils {
 	
 	public static final String SR_SCHEDULE_FAILED = "failed";
 	public static final String SR_SCHEDULE_SUCCEED = "secceed";
-
+	public static final String SR_SCHEDULE_DIS_ALL = "all_courses";
+	public static final String SR_SCHEDULE_DIS_WEEK = "single_week_courses";
 
 	// 获取字符串中数字
 	public static int getNumber(String str){

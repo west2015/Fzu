@@ -4,18 +4,19 @@ public class DateEntity {
 	private Integer year;
 	private Integer month;
 	private Integer day;
-	private Integer week;
+	private Integer currentWeek;
 	private Integer schoolYear;
 	private Integer term;
-	
+	private Integer weekDayNum;
+
 	private String weekDay;
 	
-	public Integer getWeek() {
-		return week;
+	public Integer getCurrentWeek() {
+		return currentWeek;
 	}
-	
-	public void setWeek(Integer week) {
-		this.week = week;
+
+	public void setCurrentWeek(Integer currentWeek) {
+		this.currentWeek = currentWeek;
 	}
 
 	public Integer getYear() {
@@ -52,6 +53,14 @@ public class DateEntity {
 
 	public Integer getTerm() {
 		return term;
+	}
+	
+	public Integer getWeekDayNum() {
+		return weekDayNum;
+	}
+
+	public void setWeekDayNum(Integer weekDayNum) {
+		this.weekDayNum = weekDayNum;
 	}
 
 	public void setTerm(Integer term) {

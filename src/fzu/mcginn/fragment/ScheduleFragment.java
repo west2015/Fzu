@@ -1,5 +1,10 @@
 package fzu.mcginn.fragment;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -13,6 +18,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -34,8 +41,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.material.widget.ActionView;
@@ -54,12 +63,14 @@ import com.nispok.snackbar.listeners.ActionSwipeListener;
 import fzu.mcginn.R;
 import fzu.mcginn.adapter.ScheduleAdapter;
 import fzu.mcginn.adapter.SimpleAdapter;
+import fzu.mcginn.entity.CourseEntity;
 import fzu.mcginn.entity.DateEntity;
 import fzu.mcginn.entity.UserEntity;
 import fzu.mcginn.interfaces.MessageInterface;
 import fzu.mcginn.service.ScheduleService;
 import fzu.mcginn.utils.BaseUtils;
 import fzu.mcginn.utils.InfoUtils;
+import fzu.mcginn.utils.MetricsConverter;
 
 public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemClick{
 
@@ -77,10 +88,33 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 	private final int CLOSE_MENU = 1011;
 	private final int SET_WEEK = 1012;
 	
-	private String[] arrWeek = {
+	private final String[] arrWeek = {
 		"第1周","第2周","第3周","第4周","第5周","第6周","第7周","第8周","第9周","第10周",
 		"第11周","第12周","第13周","第14周","第15周","第16周","第17周","第18周","第19周","第20周",
 		"第21周","第22周","第23周","第24周","第25周"};
+	
+	private final int[] ids = {
+		700,701,702,703,704,705,706,707,708,709,
+		710,711,712,713,714,715,716,717,718,719,
+		720,721,722,723,724,725,726,727,728,729,
+		730,731,732,733,734,735,736,737,738,739,
+		740,741,742,743,744,745,746,747,748,749,
+	};
+	
+	private final int[] llid = {
+			R.id.ll_c1,R.id.ll_c2,R.id.ll_c3,R.id.ll_c4,R.id.ll_c5,R.id.ll_c6,R.id.ll_c7
+	};
+	
+	private final int[] color = {
+//		R.color.red_300,R.color.pink_300,R.color.purple_300,R.color.deep_purple_300,R.color.indigo_300,
+//		R.color.blue_300,R.color.light_blue_300,R.color.cyan_300,R.color.teal_300,R.color.green_300,
+//		R.color.light_green_300,R.color.lime_300,R.color.yellow_300,R.color.amber_300,R.color.orange_300,
+//		R.color.deep_orange_300,R.color.brown_300,
+		R.color.red_400,R.color.pink_400,R.color.purple_400,R.color.deep_purple_400,R.color.indigo_400,
+		R.color.blue_400,R.color.cyan_400,R.color.teal_400,R.color.green_400,R.color.lime_400,
+		R.color.yellow_400,R.color.amber_400,R.color.orange_400,R.color.deep_orange_400,R.color.brown_400
+
+	};
 	
 	private Activity activity;
 	private Context context;
@@ -94,7 +128,8 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 	private View viewCenter;
 
 	//REFRESH
-	private boolean isRefreshing;
+	private boolean toRefresh;			// 是否刷新
+	private boolean isRefreshing;		// 刷新状态
 	private RelativeLayout rlRefresh;
 
 	private RelativeLayout rlHide;
@@ -128,10 +163,17 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 	private RaisedButton btnWeek;
 	
 	// WEEK SCHEDULE
+	private String scheduleJson;
 	private RevealColorView rcv;
 	private FloatingActionButton fab;
 	private MessageInterface mListener;
-	
+	private RelativeLayout rlSchedule14;
+	private RelativeLayout rlSchedule58;
+	private RelativeLayout rlSchedule9;
+	private LinearLayout[] llColumn;
+	private HashMap<String,Integer> map;
+	private int colorIndex;
+
 	// DAY SCHEDULE
 	private PagerSlidingTabStrip tab;
 	private ViewPager viewPager;
@@ -147,7 +189,8 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 		fm = this.getActivity().getSupportFragmentManager();
 		
 		isWeekView = true;
-		isChanging = isRefreshing = false;
+		isChanging = false;
+		isRefreshing = toRefresh = false;
 		isWeekPicker = isMenuView = false;
 	}
 	
@@ -175,6 +218,9 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 		btnRefresh = (Button) view.findViewById(R.id.btn_refresh);
 		btnSetting = (Button) view.findViewById(R.id.btn_setting);
 		rlRefresh = (RelativeLayout) view.findViewById(R.id.rl_refresh);
+		rlSchedule14 = (RelativeLayout) view.findViewById(R.id.rl_schedule_1_4);
+		rlSchedule58 = (RelativeLayout) view.findViewById(R.id.rl_schedule_5_8);
+		rlSchedule9 = (RelativeLayout) view.findViewById(R.id.rl_schedule_9);
 
 		// SCHEDULE WEEK
 		lvWeek.setAdapter(new SimpleAdapter(context,arrWeek,this));
@@ -185,29 +231,159 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 		tab.setBackgroundColor(context.getResources().getColor(R.color.blue_500));
 		// NET WORK
 		new Thread(getScheduleRun).start();
+		rlRefresh.setVisibility(View.VISIBLE);
 	}
-
+	/*
+	 * 抓取课表
+	 */
 	Runnable getScheduleRun = new Runnable(){
-		@Override
 		public void run() {
-			// TODO Auto-generated method stub
-			isRefreshing = true;
-			UserEntity userEntity = BaseUtils.getInstance().getUserEntity();
-			DateEntity dateEntity = BaseUtils.getInstance().getDateEntity();
-			String res = new ScheduleService().querySchedule(userEntity, dateEntity.getSchoolYear(), dateEntity.getTerm());
-			Log.e("!!!!!!!", res);
-			Message msg = mHandler.obtainMessage();
-			msg.what = 1;
-			if(res != null){
-				msg.obj = InfoUtils.SR_SCHEDULE_SUCCEED;
+			// 延迟防止界面卡顿
+			try {
+				isRefreshing = true;
+				Thread.sleep(1000);
+				String res = new ScheduleService().getSchedule(toRefresh);
+				Message msg = mHandler.obtainMessage();
+				msg.what = 1;
+				if(res != null && res.length() > 10){
+					scheduleJson = res;
+					msg.obj = InfoUtils.SR_SCHEDULE_SUCCEED;
+				}
+				else{
+					msg.obj = InfoUtils.SR_SCHEDULE_FAILED;
+				}
+				mHandler.sendMessageDelayed(msg, 1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
 			}
-			else{
-				msg.obj = InfoUtils.SR_SCHEDULE_FAILED;
-			}
-			mHandler.sendMessageDelayed(msg, 1500);
 		}
 	};
+	/*
+	 * 处理课表界面
+	 */
+	private void display(){
+		int mWeek = InfoUtils.getNumber(btnWeek.getText().toString());
+//		Toast.makeText(context, "week = " + mWeek, Toast.LENGTH_SHORT).show();
+		List<CourseEntity> mList = new ScheduleService().parseWeek(scheduleJson, mWeek);
+		if(mList != null){
+//			for(int i=0;i<mList.size();++i){
+//				CourseEntity entity = mList.get(i);
+//				Log.e("课表",entity.getName() +"\n" +
+//							entity.getTeacherName() + "\n" + 
+//							entity.getPlace() + "\n" + 
+//							"weekday = "+entity.getWeekday()+"\n"+
+//							"lesson = "+entity.getLesson() + "\n" + 
+//							"length = "+entity.getLength() + "\n" + 
+//							entity.getStartWeek() + "~" + 
+//							entity.getEndWeek());
+//			}
+			colorIndex = 0;
+			map = new HashMap<String,Integer>();
+			int width = (int)MetricsConverter.dpToPx(context , BaseUtils.getInstance().getWidth() / 7 );
+			int height = (int)MetricsConverter.dpToPx(context, 64);
+			CourseEntity entity;
+			View view;
+			LayoutInflater flater = LayoutInflater.from(context);
+			// 1 - 4
+			view = flater.inflate(R.layout.layout_line_schedule, null);
+			llColumn = new LinearLayout[7];
+			for(int i=0;i<7;++i){
+				llColumn[i] = (LinearLayout) view.findViewById(llid[i]);
+//				llColumn[i].removeAllViews();
+			}
+			for(int i=0;i<mList.size();++i){
+				entity = mList.get(i);
+				if(1<= entity.getLesson() && entity.getLesson() <= 4){
+					int length = entity.getLength();
+					if(entity.getLesson() + length - 1 > 4){
+						length = 4 - entity.getLength() + 1;
+					}
+					if(1 <= entity.getWeekday() && entity.getWeekday() <= 7){
+						llColumn[entity.getWeekday() - 1].addView(newTextView(entity,width,height*length));
+					}
+				}
+			}
+			for(int i=0;i<7;++i)
+			if(llColumn[i].getChildCount() == 0){
+				llColumn[i].addView(newTextView(null,width,height));
+			}
+			rlSchedule14.removeAllViews();
+			rlSchedule14.addView(view);
+			// 5 - 8
+			view = flater.inflate(R.layout.layout_line_schedule, null);
+			llColumn = new LinearLayout[7];
+			for(int i=0;i<7;++i){
+				llColumn[i] = (LinearLayout) view.findViewById(llid[i]);
+//				llColumn[i].removeAllViews();
+			}
+			for(int i=0;i<mList.size();++i){
+				entity = mList.get(i);
+				if(!(entity.getLesson()>8 || entity.getLesson()+entity.getLength()-1<5)){
+					int start = entity.getLesson() >= 5 ? entity.getLesson() : 5;
+					int end = entity.getLesson()+entity.getLength()-1 <= 8 ? entity.getLesson()+entity.getLength()-1 : 8;
+					int length = end - start + 1;
+					if(1 <= entity.getWeekday() && entity.getWeekday() <= 7){
+						llColumn[entity.getWeekday() - 1].addView(newTextView(entity,width,height*length));
+					}
+				}
+			}
+			for(int i=0;i<7;++i)
+			if(llColumn[i].getChildCount() == 0){
+				llColumn[i].addView(newTextView(null,width,height));
+			}
+			rlSchedule58.removeAllViews();
+			rlSchedule58.addView(view);
+			// 9 +
+			view = flater.inflate(R.layout.layout_line_schedule, null);
+			llColumn = new LinearLayout[7];
+			for(int i=0;i<7;++i){
+				llColumn[i] = (LinearLayout) view.findViewById(llid[i]);
+//				llColumn[i].removeAllViews();
+			}
+			for(int i=0;i<mList.size();++i){
+				entity = mList.get(i);
+				if(9<= entity.getLesson()){
+					if(1 <= entity.getWeekday() && entity.getWeekday() <= 7){
+						llColumn[entity.getWeekday() - 1].addView(newTextView(entity,width,height*entity.getLength()));
+					}
+				}
+			}
+			for(int i=0;i<7;++i)
+			if(llColumn[i].getChildCount() == 0){
+				llColumn[i].addView(newTextView(null,width,height));
+			}
+			rlSchedule9.removeAllViews();
+			rlSchedule9.addView(view);
+		}
+	}
 	
+	private TextView newTextView(CourseEntity entity,int width,int height){
+		TextView text = new TextView(context);
+		LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+		params.height = height;
+		params.setMargins(1, 1, 1, 1);
+		text.setLayoutParams(params);
+		text.setBackgroundColor(getResources().getColor(R.color.green_500));
+		text.setGravity(Gravity.CENTER_HORIZONTAL);
+		if(entity != null){
+			text.setText(entity.getName());
+			text.setTextSize(14);
+			text.setTextColor(getResources().getColor(R.color.white_text));
+			if(!map.containsKey(entity.getName())){
+				map.put(entity.getName(), color[colorIndex++]);
+			}
+			int mColor = getResources().getColor(map.get(entity.getName()));
+			mColor = Color.argb(160, (mColor>>0) & 0xff,(mColor>>8) & 0xff, (mColor>>16) & 0xff);
+			text.setBackgroundColor(mColor);
+		}
+		else{
+			text.setText("                ");
+			text.setBackgroundColor(Color.TRANSPARENT);
+		}
+		return text;
+	}
+	
+	// week picker click
 	public void itemClick(int position) {
 		// TODO Auto-generated method stub
 		sendMessageDelay(SET_WEEK,arrWeek[position],50L);
@@ -244,10 +420,11 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 				}
 			}
 		});
+		// week picker 
 		btnWeek.setOnClickListener(new OnClickListener(){
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				if(!isWeekView) return ;
+				if(!isWeekView || isRefreshing) return ;
 				if(isMenuView){
 					sendMessage(CLOSE_MENU);
 					return ;
@@ -255,10 +432,11 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 				sendMessageDelay(OPEN_WEEK_PICKER,null,200L);
 			}
 		});
+		// menu picker
 		view.findViewById(R.id.av_menu).setOnClickListener(new OnClickListener(){
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				if(!isWeekView) return ;
+				if(!isWeekView || isRefreshing) return ;
 				if(isWeekPicker){
 					sendMessage(CLOSE_WEEK_PICKER);
 					return ;
@@ -285,6 +463,11 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 		btnRefresh.setOnClickListener(new OnClickListener(){
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				if(!isWeekView || !isMenuView) return ;
+				toRefresh = true;
+				rlRefresh.setVisibility(View.VISIBLE);
+				sendMessage(CLOSE_MENU);
+				new Thread(getScheduleRun).start();
 			}
 		});
 		btnSetting.setOnClickListener(new OnClickListener(){
@@ -296,6 +479,88 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 			}
 		});			
 	}
+	
+	@SuppressLint("HandlerLeak")
+	Handler mHandler = new Handler(){
+		public void handleMessage(Message msg){
+			if(msg == null) return ;
+			if(msg.what == 1){
+				isRefreshing = false;
+				rlRefresh.setVisibility(View.GONE);
+				if(msg.obj.toString().equals(InfoUtils.SR_SCHEDULE_SUCCEED)){
+					SnackbarManager.show(Snackbar.with(context).text("获取成功"));
+					display();
+				}
+				else
+				if(msg.obj.toString().equals(InfoUtils.SR_SCHEDULE_FAILED)){
+					SnackbarManager.show(
+	                        Snackbar.with(context)
+	                              	.text("遇到错误啦")
+	                                .actionLabel("重试")
+	                                .actionColorResource(R.color.yellow_500)
+	                                .swipeListener(new ActionSwipeListener() {
+	                                    @Override
+	                                    public void onSwipeToDismiss() {
+	                                    	
+	                                    }
+	                                })
+	                                .actionListener(new ActionClickListener() {
+	                                    @Override
+	                                    public void onActionClicked(Snackbar snackbar) {
+	                                    	if(!isRefreshing){
+	                                    		rlRefresh.setVisibility(View.VISIBLE);
+	                                    		new Thread(getScheduleRun).start();
+	                                    	}
+	                                    }
+	                                }));
+
+				}
+			}
+			else
+			switch(msg.what){
+			case OPEN_WEEK_PICKER: openWeekPicker();
+				break;
+			case CLOSE_WEEK_PICKER: closeWeekPicker();
+				break;
+			case MOVE_FAB:
+				if(msg.obj != null) moveFab((long) msg.obj);
+				else moveFab(300);
+				break;
+			case SHOW_FAB:
+				if(msg.obj != null) showFab((long) msg.obj);
+				else showFab(300);
+				break;
+			case SHOW_RCV:
+				if(msg.obj != null) showRcv((int) msg.obj);
+				else showRcv(context.getResources().getColor(R.color.yellow_500));
+				break;
+			case HIDE_RCV:
+				if(msg.obj != null) hideRcv((int) msg.obj);
+				else hideRcv(context.getResources().getColor(R.color.yellow_500));
+				break;
+			case SHOW_ACB: showAcb();
+				break;
+			case HIDE_ACB: hideAcb();
+				break;
+			case SET_AV: if(msg.obj != null) av.setAction((Action) msg.obj);
+				break;
+			case OPEN_MENU: openMenu();
+				break;
+			case CLOSE_MENU: closeMenu();
+				break;
+			case CHANGE: isChanging = false;
+				isWeekView = !isWeekView;
+				break;
+			case SET_WEEK:
+				if(msg.obj != null){
+					btnWeek.setText((String) msg.obj);
+					display();
+					closeWeekPicker();
+				}
+				break;
+			}
+		}
+	};
 	
 	private void showAdd(){
 		isAddWeekDay = isAddLesson = false;
@@ -759,104 +1024,6 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 			}
 		});
 	}
-	
-	@SuppressLint("HandlerLeak")
-	Handler mHandler = new Handler(){
-		public void handleMessage(Message msg){
-			if(msg == null) return ;
-			if(msg.what == 1){
-				isRefreshing = false;
-				rlRefresh.setVisibility(View.GONE);
-				if(msg.obj.toString().equals(InfoUtils.SR_SCHEDULE_SUCCEED)){
-					SnackbarManager.show(Snackbar.with(context).text("获取成功"));
-				}
-				else
-				if(msg.obj.toString().equals(InfoUtils.SR_SCHEDULE_FAILED)){
-					SnackbarManager.show(
-	                        Snackbar.with(context)
-	                                .text("遇到错误啦")
-	                                .actionLabel("重试")
-	                                .actionColorResource(R.color.yellow_500)
-	                                .swipeListener(new ActionSwipeListener() {
-	                                    @Override
-	                                    public void onSwipeToDismiss() {
-	                                    	
-	                                    }
-	                                })
-	                                .actionListener(new ActionClickListener() {
-	                                    @Override
-	                                    public void onActionClicked(Snackbar snackbar) {
-	                                    	if(!isRefreshing){
-	                                    		rlRefresh.setVisibility(View.VISIBLE);
-	                                    		new Thread(getScheduleRun).start();
-	                                    	}
-	                                    }
-	                                }));
-
-				}
-			}
-			else
-			switch(msg.what){
-			case OPEN_WEEK_PICKER:
-				openWeekPicker();
-				break;
-			case CLOSE_WEEK_PICKER:
-				closeWeekPicker();
-				break;
-			case MOVE_FAB:
-				if(msg.obj != null)
-					moveFab((long) msg.obj);
-				else
-					moveFab(300);
-				break;
-			case SHOW_FAB:
-				if(msg.obj != null)
-					showFab((long) msg.obj);
-				else
-					showFab(300);
-				break;
-			case SHOW_RCV:
-				if(msg.obj != null)
-					showRcv((int) msg.obj);
-				else
-					showRcv(context.getResources().getColor(R.color.yellow_500));
-				break;
-			case HIDE_RCV:
-				if(msg.obj != null)
-					hideRcv((int) msg.obj);
-				else
-					hideRcv(context.getResources().getColor(R.color.yellow_500));
-				break;
-			case SHOW_ACB:
-				showAcb();
-				break;
-			case HIDE_ACB:
-				hideAcb();
-				break;
-			case SET_AV:
-				if(msg.obj != null){
-					av.setAction((Action) msg.obj);
-				}
-				break;
-			case OPEN_MENU:
-				openMenu();
-				break;
-			case CLOSE_MENU:
-				closeMenu();
-				break;
-			case CHANGE:
-				isChanging = false;
-				isWeekView = !isWeekView;
-				break;
-			case SET_WEEK:
-				if(msg.obj != null){
-					btnWeek.setText((String) msg.obj);
-					closeWeekPicker();
-				}
-				break;
-			}
-		}
-	};
 	
 	private void sendMessage(int message){
 		sendMessageDelay(message,null,0);

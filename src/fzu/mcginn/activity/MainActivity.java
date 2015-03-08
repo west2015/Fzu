@@ -76,30 +76,29 @@ public class MainActivity extends FragmentActivity
 		
 		setFragment(new ScheduleFragment());
 		new Thread(getNetTimeRun).start();
-		new Thread(getScheduleRun).start();
 	}
 
 	private void setListener(){
 		
 	}
 	
-	Runnable getScheduleRun = new Runnable(){
-		@Override
-		public void run() {
-			// TODO Auto-generated method stub
-			UserEntity userEntity = BaseUtils.getInstance().getUserEntity();
-			DateEntity dateEntity = BaseUtils.getInstance().getDateEntity();
-			Log.e("!!!!!!!", userEntity.getUsername()+" "+dateEntity.getSchoolYear()+" "+dateEntity.getTerm());
-			String res = new ScheduleService().querySchedule(userEntity, dateEntity.getSchoolYear(), dateEntity.getTerm());
-			if(res != null) Log.e("!!!!!!!", res);
-		}
-	};
+//	Runnable getScheduleRun = new Runnable(){
+//		@Override
+//		public void run() {
+//			// TODO Auto-generated method stub
+//			UserEntity userEntity = BaseUtils.getInstance().getUserEntity();
+//			DateEntity dateEntity = BaseUtils.getInstance().getDateEntity();
+//			Log.e("!!!!!!!", userEntity.getUsername()+" "+dateEntity.getSchoolYear()+" "+dateEntity.getTerm());
+//			String res = new ScheduleService().querySchedule(userEntity, dateEntity.getSchoolYear(), dateEntity.getTerm());
+//			if(res != null) Log.e("!!!!!!!", res);
+//		}
+//	};
 
 	Runnable getNetTimeRun = new Runnable(){
 		@Override
 		public void run() {
 			// TODO Auto-generated method stub
-			dateEntity = new TimeService().getNetTime();
+			dateEntity = new TimeService().getTime(true);
 			if(dateEntity != null){
 				Message msg = mHandler.obtainMessage();
 				msg.obj = InfoUtils.SR_TIME_SUCCEED;
@@ -111,7 +110,7 @@ public class MainActivity extends FragmentActivity
 	Handler mHandler = new Handler(){
 		public void handleMessage(Message msg){
 			if(msg.obj.toString().equals(InfoUtils.SR_TIME_SUCCEED)){
-				tvWeek.setText("第" + dateEntity.getWeek() + "周");
+				tvWeek.setText("第" + dateEntity.getCurrentWeek() + "周");
 				tvDate.setText(dateEntity.getSchoolYear()+"学年"+dateEntity.getTerm()+"学期");
 			}
 		}

@@ -1,5 +1,6 @@
 package fzu.mcginn.database;
 
+import fzu.mcginn.utils.InfoUtils;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -7,6 +8,7 @@ import android.content.SharedPreferences.Editor;
 public class DbSchedule {
 	private final String DB_NAME = "db_schedule";
 	private final String SCHEDULE_JSON = "db_schedule_json";
+	private final String DIS_COURSES = "db_dis_courses";
 
 	private Context context;
 	private SharedPreferences sp;
@@ -17,8 +19,7 @@ public class DbSchedule {
 	}
 
 	public void setScheduleJson(String json){
-		if(json == null)
-			return ;
+		if(json == null) return ;
 		Editor ed = sp.edit();
 		ed.putString(SCHEDULE_JSON, json);
 		ed.commit();
@@ -27,5 +28,15 @@ public class DbSchedule {
 	public String getScheduleJson(){
 		return sp.getString(SCHEDULE_JSON, null);
 	}
+	
+	public void setDisCourses(String str){
+		if(str == null) return ;
+		Editor ed = sp.edit();
+		ed.putString(DIS_COURSES, str);
+		ed.commit();
+	}
 
+	public String getDisCourses(){
+		return sp.getString(DIS_COURSES, InfoUtils.SR_SCHEDULE_DIS_WEEK);
+	}
 }
