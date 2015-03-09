@@ -147,7 +147,7 @@
 		<TextView
 		    android:id="@+id/tv_schedule_1_4"
 		    android:layout_width="wrap_content"
-		    android:layout_height="24dp"
+		    android:layout_height="48dp"
 		    android:gravity="center_vertical"
 		    android:layout_marginLeft="16dp"
 		    android:layout_marginStart="16dp"
@@ -162,7 +162,7 @@
 		<TextView
 		    android:id="@+id/tv_schedule_5_8"
 		    android:layout_width="wrap_content"
-		    android:layout_height="24dp"
+		    android:layout_height="48dp"
 		    android:layout_marginLeft="16dp"
 		    android:layout_marginStart="16dp"
 		    android:gravity="center_vertical"
@@ -177,11 +177,11 @@
 		<TextView
 		    android:id="@+id/tv_schedule_9"
 		    android:layout_width="wrap_content"
-		    android:layout_height="24dp"
+		    android:layout_height="48dp"
 		    android:layout_marginLeft="16dp"
 		    android:layout_marginStart="16dp"
 		    android:gravity="center_vertical"
-		    android:text="9 - 11"
+		    android:text="9 - 12"
 		    android:textSize="14sp"
 		    android:textColor="@color/black_secondary"/>
 		<RelativeLayout
@@ -341,7 +341,7 @@
 	    android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:layout_below="@+id/rl_tab"
-		android:background="@color/green_500"/>
+		android:background="@color/white"/>
 
 	<com.material.widget.ActionView
         android:id="@+id/av"

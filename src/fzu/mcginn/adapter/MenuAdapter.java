@@ -5,6 +5,7 @@ import com.material.widget.RaisedButton;
 import fzu.mcginn.R;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -23,14 +24,16 @@ public class MenuAdapter extends BaseAdapter{
 	private onItemClick mListener;
 	
 	private int curItem;
+	Typeface typeFace;
 
 	public MenuAdapter(Context context,int[] iconId,String[] text){
 		this.context = context;
 		this.iconId = iconId;
 		this.text = text;
-		
+
 		mListener = (onItemClick) context;
 		curItem = 0;
+		typeFace = Typeface.createFromAsset(context.getAssets(),"fonts/roboto_extralight.ttf");
 	}
 	
 	@Override
@@ -69,6 +72,7 @@ public class MenuAdapter extends BaseAdapter{
 			holder = (ViewHolder) convertView.getTag();
 		}
 		// initValue
+		holder.btn.setTypeface(typeFace);
 		holder.btn.setText(text[position]);
 		if(position == curItem){
 			holder.btn.setTextColor(context.getResources().getColor(R.color.blue_500));

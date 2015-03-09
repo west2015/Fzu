@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 import android.view.Gravity;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -18,7 +17,6 @@ import fzu.mcginn.entity.DateEntity;
 import fzu.mcginn.entity.UserEntity;
 import fzu.mcginn.fragment.ScheduleFragment;
 import fzu.mcginn.interfaces.MessageInterface;
-import fzu.mcginn.service.ScheduleService;
 import fzu.mcginn.service.TimeService;
 import fzu.mcginn.utils.BaseUtils;
 import fzu.mcginn.utils.InfoUtils;
@@ -82,23 +80,11 @@ public class MainActivity extends FragmentActivity
 		
 	}
 	
-//	Runnable getScheduleRun = new Runnable(){
-//		@Override
-//		public void run() {
-//			// TODO Auto-generated method stub
-//			UserEntity userEntity = BaseUtils.getInstance().getUserEntity();
-//			DateEntity dateEntity = BaseUtils.getInstance().getDateEntity();
-//			Log.e("!!!!!!!", userEntity.getUsername()+" "+dateEntity.getSchoolYear()+" "+dateEntity.getTerm());
-//			String res = new ScheduleService().querySchedule(userEntity, dateEntity.getSchoolYear(), dateEntity.getTerm());
-//			if(res != null) Log.e("!!!!!!!", res);
-//		}
-//	};
-
 	Runnable getNetTimeRun = new Runnable(){
 		@Override
 		public void run() {
 			// TODO Auto-generated method stub
-			dateEntity = new TimeService().getTime(true);
+			dateEntity = new TimeService().getTime(false);
 			if(dateEntity != null){
 				Message msg = mHandler.obtainMessage();
 				msg.obj = InfoUtils.SR_TIME_SUCCEED;

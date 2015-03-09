@@ -52,6 +52,7 @@ public class LoginActivity extends Activity{
 		// 获取本地数据
 		UserEntity userEntity = BaseUtils.getInstance().getUserEntity();
 		if(userEntity != null){
+			change2Activity(MainActivity.class,true);
 			etUsername.setText(userEntity.getUsername() != null ? userEntity.getUsername() : "");
 			etPassword.setText(userEntity.getPassword() != null ? userEntity.getPassword() : "");
 		}
@@ -90,8 +91,6 @@ public class LoginActivity extends Activity{
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-//				etUsername.clearFocus();
-//				etPassword.clearFocus();
 				if(!isLogining){
 					pb.setVisibility(View.VISIBLE);
 					new Thread(loginRun).start();

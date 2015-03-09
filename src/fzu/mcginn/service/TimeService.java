@@ -25,6 +25,7 @@ public class TimeService {
 				resEntity = getTime1();
 			}
 			if(resEntity != null){
+				// 获取成功
 				BaseUtils.getInstance().setDateEntity(resEntity);
 			}
 		}

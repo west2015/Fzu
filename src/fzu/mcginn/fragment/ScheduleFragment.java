@@ -1,7 +1,6 @@
 package fzu.mcginn.fragment;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -17,9 +16,11 @@ import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -62,13 +63,14 @@ import com.nispok.snackbar.listeners.ActionSwipeListener;
 
 import fzu.mcginn.R;
 import fzu.mcginn.adapter.ScheduleAdapter;
+import fzu.mcginn.adapter.ScheduleListAdapter;
 import fzu.mcginn.adapter.SimpleAdapter;
+import fzu.mcginn.adapter.ViewPagerAdapter;
 import fzu.mcginn.entity.CourseEntity;
 import fzu.mcginn.entity.DateEntity;
-import fzu.mcginn.entity.UserEntity;
 import fzu.mcginn.interfaces.MessageInterface;
 import fzu.mcginn.service.ScheduleService;
-import fzu.mcginn.utils.BaseUtils;
+import fzu.mcginn.service.TimeService;
 import fzu.mcginn.utils.InfoUtils;
 import fzu.mcginn.utils.MetricsConverter;
 
@@ -93,14 +95,6 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 		"第11周","第12周","第13周","第14周","第15周","第16周","第17周","第18周","第19周","第20周",
 		"第21周","第22周","第23周","第24周","第25周"};
 	
-	private final int[] ids = {
-		700,701,702,703,704,705,706,707,708,709,
-		710,711,712,713,714,715,716,717,718,719,
-		720,721,722,723,724,725,726,727,728,729,
-		730,731,732,733,734,735,736,737,738,739,
-		740,741,742,743,744,745,746,747,748,749,
-	};
-	
 	private final int[] llid = {
 			R.id.ll_c1,R.id.ll_c2,R.id.ll_c3,R.id.ll_c4,R.id.ll_c5,R.id.ll_c6,R.id.ll_c7
 	};
@@ -113,7 +107,13 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 		R.color.red_400,R.color.pink_400,R.color.purple_400,R.color.deep_purple_400,R.color.indigo_400,
 		R.color.blue_400,R.color.cyan_400,R.color.teal_400,R.color.green_400,R.color.lime_400,
 		R.color.yellow_400,R.color.amber_400,R.color.orange_400,R.color.deep_orange_400,R.color.brown_400
+	};
 
+	private final int[] bg = {
+		R.drawable.course_bg1 ,R.drawable.course_bg2 ,R.drawable.course_bg3 ,R.drawable.course_bg4 ,
+		R.drawable.course_bg5 ,R.drawable.course_bg6 ,R.drawable.course_bg7 ,R.drawable.course_bg8 ,
+		R.drawable.course_bg9 ,R.drawable.course_bg10,R.drawable.course_bg11,R.drawable.course_bg12,
+		R.drawable.course_bg13,R.drawable.course_bg14,R.drawable.course_bg15,R.drawable.course_bg16,
 	};
 	
 	private Activity activity;
@@ -224,17 +224,33 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 
 		// SCHEDULE WEEK
 		lvWeek.setAdapter(new SimpleAdapter(context,arrWeek,this));
+
 		// SCHEDULE DAY
 		viewPagerAdapter = new ScheduleAdapter(fm);
 		viewPager.setAdapter(viewPagerAdapter);
 		tab.setViewPager(viewPager);
 		tab.setBackgroundColor(context.getResources().getColor(R.color.blue_500));
 		// NET WORK
-		new Thread(getScheduleRun).start();
 		rlRefresh.setVisibility(View.VISIBLE);
+		new Thread(getScheduleRun).start();
+		new Thread(getTimeRun).start();
 	}
 	/*
-	 * 抓取课表
+	 * 获取时间、日期、周数
+	 */
+	Runnable getTimeRun = new Runnable(){
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			DateEntity dateEntity = new TimeService().getTime(false);
+			if(dateEntity != null && dateEntity.getCurrentWeek() != null &&
+			1<=dateEntity.getCurrentWeek() && dateEntity.getCurrentWeek()<=25){
+				sendMessageDelay(SET_WEEK,arrWeek[dateEntity.getCurrentWeek() - 1],0L);
+			}
+		}
+	};
+	/*
+	 * 获取课表
 	 */
 	Runnable getScheduleRun = new Runnable(){
 		public void run() {
@@ -262,8 +278,10 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 	 * 处理课表界面
 	 */
 	private void display(){
+		if(scheduleJson == null || scheduleJson.length() < 10){
+			return ;
+		}
 		int mWeek = InfoUtils.getNumber(btnWeek.getText().toString());
-//		Toast.makeText(context, "week = " + mWeek, Toast.LENGTH_SHORT).show();
 		List<CourseEntity> mList = new ScheduleService().parseWeek(scheduleJson, mWeek);
 		if(mList != null){
 //			for(int i=0;i<mList.size();++i){
@@ -277,104 +295,74 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 //							entity.getStartWeek() + "~" + 
 //							entity.getEndWeek());
 //			}
+
 			colorIndex = 0;
 			map = new HashMap<String,Integer>();
-			int width = (int)MetricsConverter.dpToPx(context , BaseUtils.getInstance().getWidth() / 7 );
-			int height = (int)MetricsConverter.dpToPx(context, 64);
-			CourseEntity entity;
-			View view;
-			LayoutInflater flater = LayoutInflater.from(context);
+			
 			// 1 - 4
-			view = flater.inflate(R.layout.layout_line_schedule, null);
-			llColumn = new LinearLayout[7];
-			for(int i=0;i<7;++i){
-				llColumn[i] = (LinearLayout) view.findViewById(llid[i]);
-//				llColumn[i].removeAllViews();
-			}
-			for(int i=0;i<mList.size();++i){
-				entity = mList.get(i);
-				if(1<= entity.getLesson() && entity.getLesson() <= 4){
-					int length = entity.getLength();
-					if(entity.getLesson() + length - 1 > 4){
-						length = 4 - entity.getLength() + 1;
-					}
-					if(1 <= entity.getWeekday() && entity.getWeekday() <= 7){
-						llColumn[entity.getWeekday() - 1].addView(newTextView(entity,width,height*length));
-					}
-				}
-			}
-			for(int i=0;i<7;++i)
-			if(llColumn[i].getChildCount() == 0){
-				llColumn[i].addView(newTextView(null,width,height));
-			}
 			rlSchedule14.removeAllViews();
-			rlSchedule14.addView(view);
+			rlSchedule14.addView(getScheduleView(mList,1,4));
 			// 5 - 8
-			view = flater.inflate(R.layout.layout_line_schedule, null);
-			llColumn = new LinearLayout[7];
-			for(int i=0;i<7;++i){
-				llColumn[i] = (LinearLayout) view.findViewById(llid[i]);
-//				llColumn[i].removeAllViews();
-			}
-			for(int i=0;i<mList.size();++i){
-				entity = mList.get(i);
-				if(!(entity.getLesson()>8 || entity.getLesson()+entity.getLength()-1<5)){
-					int start = entity.getLesson() >= 5 ? entity.getLesson() : 5;
-					int end = entity.getLesson()+entity.getLength()-1 <= 8 ? entity.getLesson()+entity.getLength()-1 : 8;
-					int length = end - start + 1;
-					if(1 <= entity.getWeekday() && entity.getWeekday() <= 7){
-						llColumn[entity.getWeekday() - 1].addView(newTextView(entity,width,height*length));
-					}
-				}
-			}
-			for(int i=0;i<7;++i)
-			if(llColumn[i].getChildCount() == 0){
-				llColumn[i].addView(newTextView(null,width,height));
-			}
 			rlSchedule58.removeAllViews();
-			rlSchedule58.addView(view);
+			rlSchedule58.addView(getScheduleView(mList,5,8));
 			// 9 +
-			view = flater.inflate(R.layout.layout_line_schedule, null);
-			llColumn = new LinearLayout[7];
-			for(int i=0;i<7;++i){
-				llColumn[i] = (LinearLayout) view.findViewById(llid[i]);
-//				llColumn[i].removeAllViews();
-			}
-			for(int i=0;i<mList.size();++i){
-				entity = mList.get(i);
-				if(9<= entity.getLesson()){
-					if(1 <= entity.getWeekday() && entity.getWeekday() <= 7){
-						llColumn[entity.getWeekday() - 1].addView(newTextView(entity,width,height*entity.getLength()));
-					}
-				}
-			}
-			for(int i=0;i<7;++i)
-			if(llColumn[i].getChildCount() == 0){
-				llColumn[i].addView(newTextView(null,width,height));
-			}
-			rlSchedule9.removeAllViews();
-			rlSchedule9.addView(view);
+			rlSchedule9 .removeAllViews();
+			rlSchedule9 .addView(getScheduleView(mList,9,12));
 		}
 	}
 	
-	private TextView newTextView(CourseEntity entity,int width,int height){
+	private View getScheduleView(List<CourseEntity> mList,int startLesson,int endLesson){
+		int height = (int)MetricsConverter.dpToPx(context, 64);
+		CourseEntity entity;
+		LayoutInflater flater = LayoutInflater.from(context);
+		View view = flater.inflate(R.layout.layout_line_schedule, null);
+		llColumn = new LinearLayout[7];
+		for(int i=0;i<7;++i){
+			llColumn[i] = (LinearLayout) view.findViewById(llid[i]);
+		}
+		for(int i=0;i<mList.size();++i){
+			entity = mList.get(i);
+			if(!(entity.getLesson()>endLesson || entity.getLesson()+entity.getLength()-1<startLesson)){
+				int start = entity.getLesson() >= startLesson ? entity.getLesson() : startLesson;
+				int end = entity.getLesson()+entity.getLength()-1 <= endLesson ? entity.getLesson()+entity.getLength()-1 : endLesson;
+				int length = end - start + 1;
+				if(1 <= entity.getWeekday() && entity.getWeekday() <= 7){
+					llColumn[entity.getWeekday() - 1].addView(newTextView(entity,height,length));
+				}
+			}
+		}
+		for(int i=0;i<7;++i)
+		if(llColumn[i].getChildCount() == 0){
+			llColumn[i].addView(newTextView(null,height,1));
+		}
+		return view;
+	}
+	
+	private TextView newTextView(CourseEntity entity,int height,int length){
 		TextView text = new TextView(context);
 		LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-		params.height = height;
+		params.height = height * length;
 		params.setMargins(1, 1, 1, 1);
 		text.setLayoutParams(params);
 		text.setBackgroundColor(getResources().getColor(R.color.green_500));
-		text.setGravity(Gravity.CENTER_HORIZONTAL);
+		text.setGravity(Gravity.CENTER);
 		if(entity != null){
-			text.setText(entity.getName());
+			String mName = entity.getName().length() <= 5*length ? entity.getName() : entity.getName().substring(0, 5*length) + "...";
+			String mPlace = entity.getPlace();
+			int mNameColor = getResources().getColor(R.color.white_text);
+			int mPlaceColor = getResources().getColor(R.color.black_hint);
+			SpannableString str = new SpannableString(mName + "\n" + mPlace);
+			str.setSpan(new ForegroundColorSpan(mNameColor),0, mName.length(),Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+			str.setSpan(new ForegroundColorSpan(mPlaceColor),mName.length(), mName.length()+mPlace.length()+1,Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+			text.setText(str);
+//			text.setText(mName + "\n" + mPlace);
 			text.setTextSize(14);
 			text.setTextColor(getResources().getColor(R.color.white_text));
 			if(!map.containsKey(entity.getName())){
-				map.put(entity.getName(), color[colorIndex++]);
+				map.put(entity.getName(), colorIndex++);
 			}
-			int mColor = getResources().getColor(map.get(entity.getName()));
-			mColor = Color.argb(160, (mColor>>0) & 0xff,(mColor>>8) & 0xff, (mColor>>16) & 0xff);
-			text.setBackgroundColor(mColor);
+			text.setBackgroundResource(bg[map.get(entity.getName())]);
+			Log.e("schedule background",entity.getName() + " bg = " + map.get(entity.getName()));
 		}
 		else{
 			text.setText("                ");
@@ -479,7 +467,7 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 			}
 		});			
 	}
-	
+
 	@SuppressLint("HandlerLeak")
 	Handler mHandler = new Handler(){
 		public void handleMessage(Message msg){
@@ -488,7 +476,9 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 				isRefreshing = false;
 				rlRefresh.setVisibility(View.GONE);
 				if(msg.obj.toString().equals(InfoUtils.SR_SCHEDULE_SUCCEED)){
-					SnackbarManager.show(Snackbar.with(context).text("获取成功"));
+					if(toRefresh){
+						SnackbarManager.show(Snackbar.with(context).text("获取成功"));
+					}
 					display();
 				}
 				else
@@ -817,10 +807,30 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 	    arrPoint2[1] = (arrPoint2[1] - arrPoint1[1] + view2.getHeight() / 2);
 	    return new Point(arrPoint2[0], arrPoint2[1]);
 	}
+
+	private void refreshViewPager(){
+		List<View> views = new ArrayList<View>();
+		List<CourseEntity> mList = new ScheduleService().parseWeek(scheduleJson, InfoUtils.getNumber(btnWeek.getText().toString()));
+		for(int i=1;i<=7;++i){
+			ListView listView = new ListView(context);
+			List<CourseEntity> xList = new ArrayList<CourseEntity>();
+			for(int j=0;j<mList.size();++j)
+			if(mList.get(j).getWeekday() == i){
+				xList.add(mList.get(j));
+			}
+			listView.setAdapter(new ScheduleListAdapter(context,xList));
+			listView.setDivider(context.getResources().getDrawable(R.color.black_dividers));
+			listView.setDividerHeight(1);
+			views.add(listView);
+		}
+		viewPager.setAdapter(new ViewPagerAdapter(views));
+	}
 	
 	private void changePage(){
 		isChanging = true;
 		if(isWeekView){
+			// 设置单日视图
+			refreshViewPager();
 			// move fab
 			sendMessage(MOVE_FAB,300L);
 			// show rcv
@@ -831,6 +841,11 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 			sendMessageDelay(SET_AV,new BackAction(),700L);
 		}
 		else {
+//			viewPagerAdapter = new ScheduleAdapter(fm,InfoUtils.getNumber(btnWeek.getText().toString()),scheduleJson);
+//			viewPagerAdapter.notifyDataSetChanged();
+//			viewPager.setAdapter(viewPagerAdapter);
+//			tab.setViewPager(viewPager);
+
 			// set action view
 			sendMessageDelay(SET_AV,new DrawerAction(),0L);
 			// hide action bar
@@ -887,7 +902,7 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 		animationA.setInterpolator(new DecelerateInterpolator());
 		viewPager.startAnimation(animationA);
 		viewPagerAdapter.notifyDataSetChanged();
-		tab.notifyDataSetChanged();
+//		tab.notifyDataSetChanged();
 
 		TranslateAnimation animationY = new TranslateAnimation(
 				Animation.RELATIVE_TO_SELF, 0f,
@@ -948,6 +963,11 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 		animationS.setDuration(180);
 		animationS.setInterpolator(new DecelerateInterpolator());
 		lvWeek.startAnimation(animationS);
+		
+		int position = InfoUtils.getNumber(btnWeek.getText().toString());
+		if(1<=position && position<=25){
+			lvWeek.setSelection(position - 1);
+		}
 	}
 	
 	private void closeWeekPicker(){

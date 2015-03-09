@@ -198,7 +198,7 @@ public final class R {
 		public static final int abc_split_action_bar_is_narrow = 0x7f070002;
 	}
 	public static final class color {
-		public static final int abc_search_url_text_holo = 0x7f080116;
+		public static final int abc_search_url_text_holo = 0x7f080126;
 		public static final int abc_search_url_text_normal = 0x7f080000;
 		public static final int abc_search_url_text_pressed = 0x7f080002;
 		public static final int abc_search_url_text_selected = 0x7f080001;
@@ -582,8 +582,8 @@ public final class R {
 		public static final int abc_textfield_searchview_holo_light = 0x7f020054;
 		public static final int abc_textfield_searchview_right_holo_dark = 0x7f020055;
 		public static final int abc_textfield_searchview_right_holo_light = 0x7f020056;
-		public static final int ic_launcher = 0x7f02005d;
-		public static final int psts_background_tab = 0x7f020060;
+		public static final int ic_launcher = 0x7f02006d;
+		public static final int psts_background_tab = 0x7f020070;
 	}
 	public static final class id {
 		public static final int action_bar = 0x7f060026;
@@ -597,7 +597,7 @@ public final class R {
 		public static final int action_menu_divider = 0x7f060016;
 		public static final int action_menu_presenter = 0x7f060017;
 		public static final int action_mode_close_button = 0x7f06002e;
-		public static final int action_settings = 0x7f060095;
+		public static final int action_settings = 0x7f06009a;
 		public static final int activity_chooser_view_content = 0x7f06002f;
 		public static final int always = 0x7f06000b;
 		public static final int back = 0x7f06001c;
@@ -633,7 +633,7 @@ public final class R {
 		public static final int plus = 0x7f06001e;
 		public static final int progress_circular = 0x7f060018;
 		public static final int progress_horizontal = 0x7f060019;
-		public static final int psts_tab_title = 0x7f060091;
+		public static final int psts_tab_title = 0x7f060095;
 		public static final int radio = 0x7f060039;
 		public static final int rtl = 0x7f060023;
 		public static final int search_badge = 0x7f06003c;
@@ -686,8 +686,8 @@ public final class R {
 		public static final int abc_popup_menu_item_layout = 0x7f030014;
 		public static final int abc_search_dropdown_item_icons_2line = 0x7f030015;
 		public static final int abc_search_view = 0x7f030016;
-		public static final int psts_tab = 0x7f030026;
-		public static final int support_simple_spinner_dropdown_item = 0x7f03002a;
+		public static final int psts_tab = 0x7f030027;
+		public static final int support_simple_spinner_dropdown_item = 0x7f03002b;
 	}
 	public static final class menu {
 		public static final int main = 0x7f0d0000;

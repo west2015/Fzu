@@ -1,5 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="course_color1">#80e53935</color>
+	<color name="course_color2">#803949ab</color>
+	<color name="course_color3">#8000695c</color>
+	<color name="course_color4">#80fb8c00</color>
+	<color name="course_color5">#80d81b60</color>
+	<color name="course_color6">#801e88e5</color>
+	<color name="course_color7">#8043a047</color>
+	<color name="course_color8">#80ffb300</color>
+	<color name="course_color9">#808e24aa</color>
+	<color name="course_color10">#8000acc1</color>
+	<color name="course_color11">#807cb342</color>
+	<color name="course_color12">#806d4c41</color>
+	<color name="course_color13">#805e35b1</color>
+	<color name="course_color14">#80c0ca33</color>
+	<color name="course_color15">#806d4c41</color>
+	<color name="course_color16">#80311b92</color>
+    
     <color name="transparent">#00000000</color>
     
     <color name="white">#ffffff</color>

@@ -30,7 +30,6 @@ public class BaseUtils extends Application{
 		super.onCreate();
 		instance = this;
 		context = this;
-//		wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
 
 		userEntity = new DbUser(context).getUserEnitty();
 		dateEntity = new DbDate(context).getDateEntity();
