@@ -68,7 +68,16 @@
 		android:layout_below="@+id/tv_month"
 		android:orientation="horizontal">
 		<TextView 
-			android:id="@+id/tv_schedule_day1"
+		    android:id="@+id/tv_sunday"
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:layout_weight="3"
+			android:gravity="center"
+			android:text="周日"
+			android:textSize="14sp"
+			android:textColor="@color/black_text"/>
+		<TextView 
+			android:id="@+id/tv_monday"
 			android:layout_width="0dp"
 			android:layout_height="match_parent"
 			android:layout_weight="3"
@@ -77,6 +86,7 @@
 			android:textSize="14sp"
 			android:textColor="@color/black_text"/>
 		<TextView 
+		    android:id="@+id/tv_tuesday"
 			android:layout_width="0dp"
 			android:layout_height="match_parent"
 			android:layout_weight="3"
@@ -84,7 +94,8 @@
 			android:text="周二"
 			android:textSize="14sp"
 			android:textColor="@color/black_text"/>
-		<TextView 
+		<TextView
+		    android:id="@+id/tv_wednesday"
 			android:layout_width="0dp"
 			android:layout_height="match_parent"
 			android:layout_weight="3"
@@ -93,6 +104,7 @@
 			android:textSize="14sp"
 			android:textColor="@color/black_text"/>
 		<TextView 
+		    android:id="@+id/tv_thursday"
 			android:layout_width="0dp"
 			android:layout_height="match_parent"
 			android:layout_weight="3"
@@ -101,6 +113,7 @@
 			android:textSize="14sp"
 			android:textColor="@color/black_text"/>
 		<TextView 
+		    android:id="@+id/tv_friday"
 			android:layout_width="0dp"
 			android:layout_height="match_parent"
 			android:layout_weight="3"
@@ -109,19 +122,12 @@
 			android:textSize="14sp"
 			android:textColor="@color/black_text"/>
 		<TextView 
+		    android:id="@+id/tv_saturday"
 			android:layout_width="0dp"
 			android:layout_height="match_parent"
 			android:layout_weight="3"
 			android:gravity="center"
 			android:text="周六"
-			android:textSize="14sp"
-			android:textColor="@color/black_text"/>
-		<TextView 
-			android:layout_width="0dp"
-			android:layout_height="match_parent"
-			android:layout_weight="3"
-			android:gravity="center"
-			android:text="周日"
 			android:textSize="14sp"
 			android:textColor="@color/black_text"/>
 	</LinearLayout>
@@ -147,7 +153,7 @@
 		<TextView
 		    android:id="@+id/tv_schedule_1_4"
 		    android:layout_width="wrap_content"
-		    android:layout_height="48dp"
+		    android:layout_height="24dp"
 		    android:gravity="center_vertical"
 		    android:layout_marginLeft="16dp"
 		    android:layout_marginStart="16dp"
@@ -162,7 +168,7 @@
 		<TextView
 		    android:id="@+id/tv_schedule_5_8"
 		    android:layout_width="wrap_content"
-		    android:layout_height="48dp"
+		    android:layout_height="24dp"
 		    android:layout_marginLeft="16dp"
 		    android:layout_marginStart="16dp"
 		    android:gravity="center_vertical"
@@ -177,7 +183,7 @@
 		<TextView
 		    android:id="@+id/tv_schedule_9"
 		    android:layout_width="wrap_content"
-		    android:layout_height="48dp"
+		    android:layout_height="24dp"
 		    android:layout_marginLeft="16dp"
 		    android:layout_marginStart="16dp"
 		    android:gravity="center_vertical"
@@ -202,8 +208,8 @@
 	    android:layout_marginEnd="16dp"
 	    android:layout_marginRight="16dp"
 	    android:layout_marginBottom="16dp"
-	    custom:button_color="@color/yellow_500"
-	    custom:button_colorPressed="@color/yellow_700"/>
+	    custom:button_color="@color/blue_400"
+	    custom:button_colorPressed="@color/blue_700"/>
 	
 	<!-- REFRESH PAGE -->
 	<RelativeLayout

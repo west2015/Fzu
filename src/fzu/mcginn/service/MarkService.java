@@ -42,7 +42,7 @@ public class MarkService {
 				mark.setCourseName(es.get(1).text());
 				mark.setScore(es.get(3).text());
 				mark.setGradePoint(es.get(4).text());
-				mark.setGradeCridit(es.get(2).text());
+				mark.setGradeCredit(es.get(2).text());
 				String time = es.get(0).text();
 				if(map.containsKey(time)){
 					List<MarkEntity> list = map.get(time);
@@ -66,7 +66,7 @@ public class MarkService {
 					mark.setCourseName(es.get(1).text());
 					mark.setScore(es.get(3).getAllElements().get(0).text());
 					mark.setGradePoint(es.get(4).text());
-					mark.setGradeCridit(es.get(2).text());
+					mark.setGradeCredit(es.get(2).text());
 					String time = es.get(0).text();
 					if(map.containsKey(time)){
 						List<MarkEntity> list = map.get(time);

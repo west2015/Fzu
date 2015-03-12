@@ -1,5 +1,17 @@
 package fzu.mcginn.activity;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.View.OnFocusChangeListener;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+
 import com.material.widget.InputText;
 import com.nispok.snackbar.Snackbar;
 import com.nispok.snackbar.SnackbarManager;
@@ -8,23 +20,9 @@ import com.nispok.snackbar.listeners.ActionSwipeListener;
 
 import fzu.mcginn.R;
 import fzu.mcginn.entity.UserEntity;
-import fzu.mcginn.service.ScheduleService;
 import fzu.mcginn.service.LoginService;
 import fzu.mcginn.utils.BaseUtils;
 import fzu.mcginn.utils.InfoUtils;
-import android.app.Activity;
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.View.OnFocusChangeListener;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 public class LoginActivity extends Activity{
 	

@@ -1,6 +1,9 @@
 package fzu.mcginn.service;
 
-import org.json.JSONObject;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.TimeZone;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -22,21 +25,27 @@ public class TimeService {
 		if(isRefresh || resEntity == null){
 			while(time > 0 && resEntity == null){
 				--time;
-				resEntity = getTime1();
+				resEntity = getTime();
 			}
 			if(resEntity != null){
 				// 获取成功
 				BaseUtils.getInstance().setDateEntity(resEntity);
 			}
 		}
-		if(resEntity == null){
-			resEntity = BaseUtils.getInstance().getDateEntity();
-		}
 		return resEntity;
+	}
+
+	// 获取星期几	
+	public int getWeekDay(){
+		SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日");
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
+		int res = (calendar.get(Calendar.DAY_OF_WEEK) + 5) % 7;
+		return res;
 	}
 	
 	// 解析html获取时间
-	public DateEntity getTime1(){
+	public DateEntity getTime(){
 		String url = "http://59.77.226.32/tt.asp";
 		String res = HttpUtils.getData(url);
 		if(res != null){
@@ -55,29 +64,5 @@ public class TimeService {
 		}
 		return null;
 	}
-	// 调用接口获取时间
-	public DateEntity getNetTime2(){
-		String url = "http://api.west2online.com/fzuhelper/nowdate.php";
-		String res = HttpUtils.getData(url);
-		if(res != null){
-			try{
-				JSONObject json = new JSONObject(res);
-				Integer week = Integer.parseInt(json.getString("week"));
-				String date = json.getString("date");
-				DateEntity resEntity = new DateEntity();
-				resEntity.setCurrentWeek(week);
-				resEntity.setYear(InfoUtils.getNumber(date, 4, 0));
-				resEntity.setMonth(InfoUtils.getNumber(date, 4, 1));
-				resEntity.setDay(InfoUtils.getNumber(date, 4, 2));
-				resEntity.setWeekDay(date.substring(date.length()-3, date.length()));
-//				Log.e("!!!!!!!!!!!!",resEntity.getYear()+"年"+resEntity.getMonth()+"月"+resEntity.getDay()+"日"+resEntity.getWeekDay()+"第"+resEntity.getWeek()+"周");
-				return resEntity;
-			}
-			catch(Exception e){
-				e.printStackTrace();
-			}
-		}
-		return null;
-	}
-	
+
 }

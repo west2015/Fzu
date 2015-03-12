@@ -20,11 +20,15 @@ public class DbUser {
 	}
 	
 	public void setUserEntity(UserEntity entity){
-		if(entity == null) return ;
 		Editor ed = sp.edit();
-		ed.putString(USERNAME, entity.getUsername());
-		ed.putString(PASSWORD, entity.getPassword());
-		ed.putString(REALNAME, entity.getRealname());
+		if(entity == null){
+			ed.clear();
+		}
+		else{
+			ed.putString(USERNAME, entity.getUsername());
+			ed.putString(PASSWORD, entity.getPassword());
+			ed.putString(REALNAME, entity.getRealname());
+		}
 		ed.commit();
 	}
 	

@@ -1,6 +1,12 @@
 package fzu.mcginn.activity;
 
+import com.nispok.snackbar.Snackbar;
+import com.nispok.snackbar.SnackbarManager;
+import com.nispok.snackbar.listeners.ActionClickListener;
+import com.nispok.snackbar.listeners.ActionSwipeListener;
+
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -9,8 +15,12 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
+import android.view.KeyEvent;
+import android.view.View;
+import android.view.View.OnKeyListener;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import fzu.mcginn.R;
 import fzu.mcginn.adapter.MenuAdapter;
 import fzu.mcginn.entity.DateEntity;
@@ -24,8 +34,9 @@ import fzu.mcginn.utils.InfoUtils;
 public class MainActivity extends FragmentActivity
 						  implements MenuAdapter.onItemClick,
 						  			 MessageInterface{
-	
+
 	private final int[] iconId = {
+			R.drawable.ic_menu_black,
 			R.drawable.ic_menu_black,
 			R.drawable.ic_menu_black,
 			R.drawable.ic_menu_black,
@@ -33,11 +44,13 @@ public class MainActivity extends FragmentActivity
 			R.drawable.ic_menu_black,
 			R.drawable.ic_menu_black
 	};
+
 	private final String[] text = {
-		"课表","成绩","考场","二手市场","教务处通知","设置"	
+		"课表","成绩","考场","二手市场","教务处通知","设置"	,"注销"
 	};
 
 	private Context context;
+	private int curPosition = -1;
 	private Fragment fm;
 	private FragmentTransaction ft;
 	private UserEntity userEntity;
@@ -48,7 +61,7 @@ public class MainActivity extends FragmentActivity
 	private TextView tvName;
 	private TextView tvWeek;
 	private TextView tvDate;
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
@@ -64,14 +77,15 @@ public class MainActivity extends FragmentActivity
 		tvName = (TextView) findViewById(R.id.tv_name);
 		tvWeek = (TextView) findViewById(R.id.tv_week);
 		tvDate = (TextView) findViewById(R.id.tv_date);
-		
+
 		context = this;
 		userEntity = BaseUtils.getInstance().getUserEntity();
-
+		
 		tvName.setText(userEntity != null && userEntity.getRealname() != null ? userEntity.getRealname() : "王大锤");
 		menuList.setDividerHeight(0);
 		menuList.setAdapter(new MenuAdapter(context,iconId,text));
 		
+		curPosition = 0;
 		setFragment(new ScheduleFragment());
 		new Thread(getNetTimeRun).start();
 	}
@@ -102,6 +116,33 @@ public class MainActivity extends FragmentActivity
 		}
 	};
 	
+	@Override
+	public void onItem(int position) {
+		// TODO Auto-generated method stub
+		if(position != 6)
+			Message(InfoUtils.CLOSE_DRAWER);
+		if(position == curPosition){
+			return ;
+		}
+		Fragment mFragment = null;
+		switch(position){
+		case 0:mFragment = new ScheduleFragment();break;
+		case 1:break;
+		case 2:break;
+		case 3:break;
+		case 4:break;
+		case 5:break;
+		case 6:
+			BaseUtils.getInstance().setUserEntity(null);
+			BaseUtils.getInstance().setDateEntity(null);
+			BaseUtils.getInstance().setScheduleJson(null);
+			skip2Activity(LoginActivity.class,true);
+			break;
+		}
+		curPosition = position;
+		setFragment(mFragment);
+	}
+	
 	private void setFragment(Fragment mFragment){
 		if(mFragment == null){
 			return ;
@@ -113,30 +154,39 @@ public class MainActivity extends FragmentActivity
 	}
 	
 	@Override
-	public void onItem(int position) {
-		// TODO Auto-generated method stub
-		Fragment mFragment = null;
-		switch(position){
-		case 0:mFragment = new ScheduleFragment();break;
-		case 1:break;
-		case 2:break;
-		case 3:break;
-		case 4:break;
-		case 5:break;
+	public void Message(String msg) {
+		if(msg.equals(InfoUtils.OPEN_DRAWER)){
+			drawer.openDrawer(Gravity.LEFT);
+		} else
+		if(msg.equals(InfoUtils.CLOSE_DRAWER)){
+			drawer.closeDrawer(Gravity.LEFT);
+		} else
+		if(msg.equals(InfoUtils.REFRESH_TIME)){
+			Message mMsg = mHandler.obtainMessage();
+			mMsg.obj = InfoUtils.SR_TIME_SUCCEED;
+			mHandler.sendMessage(mMsg);
 		}
-		setFragment(mFragment);
-		drawer.closeDrawer(Gravity.LEFT);
+	}
+	
+	private void skip2Activity(Class mClass,boolean isFinish){
+		startActivity(new Intent(this,mClass));
+		if(isFinish){
+			finish();
+		}
 	}
 
-	@Override
-	public void Message(String Msg) {
-		// TODO Auto-generated method stub
-		if(Msg.equals(InfoUtils.OPEN_DRAWER)){
-			drawer.openDrawer(Gravity.LEFT);
-		}
-		if(Msg.equals(InfoUtils.CLOSE_DRAWER)){
-			drawer.closeDrawer(Gravity.LEFT);
-		}
+	public boolean onKeyDown(int KeyCode,KeyEvent event){
+		SnackbarManager.show(
+                Snackbar.with(context)
+                      	.text("是否退出?")
+                        .actionLabel("是的")
+                        .actionColorResource(R.color.yellow_500)
+                        .actionListener(new ActionClickListener() {
+                            public void onActionClicked(Snackbar snackbar) {
+                            	MainActivity.this.finish();
+                            }
+                        }));
+		return false;
 	}
 	
 }

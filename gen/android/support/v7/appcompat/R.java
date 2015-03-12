@@ -132,7 +132,7 @@ public final class R {
 		public static final int abc_split_action_bar_is_narrow = 0x7f070002;
 	}
 	public static final class color {
-		public static final int abc_search_url_text_holo = 0x7f080126;
+		public static final int abc_search_url_text_holo = 0x7f080127;
 		public static final int abc_search_url_text_normal = 0x7f080000;
 		public static final int abc_search_url_text_pressed = 0x7f080002;
 		public static final int abc_search_url_text_selected = 0x7f080001;
@@ -334,7 +334,7 @@ public final class R {
 		public static final int abc_popup_menu_item_layout = 0x7f030014;
 		public static final int abc_search_dropdown_item_icons_2line = 0x7f030015;
 		public static final int abc_search_view = 0x7f030016;
-		public static final int support_simple_spinner_dropdown_item = 0x7f03002b;
+		public static final int support_simple_spinner_dropdown_item = 0x7f03002c;
 	}
 	public static final class string {
 		public static final int abc_action_bar_home_description = 0x7f0b0001;
@@ -554,7 +554,7 @@ public final class R {
 		public static final int MenuItem_android_titleCondensed = 8;
 		public static final int MenuItem_android_visible = 4;
 		public static final int MenuItem_showAsAction = 13;
-		public static final int[] MenuView = { 0x010100ae, 0x0101012c, 0x0101012d, 0x0101012e, 0x0101012f, 0x01010130, 0x01010131, 0x0101052f };
+		public static final int[] MenuView = { 0x010100ae, 0x0101012c, 0x0101012d, 0x0101012e, 0x0101012f, 0x01010130, 0x01010131, 0x01010435 };
 		public static final int MenuView_android_headerBackground = 4;
 		public static final int MenuView_android_horizontalDivider = 2;
 		public static final int MenuView_android_itemBackground = 5;

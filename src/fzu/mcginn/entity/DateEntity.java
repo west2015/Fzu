@@ -73,6 +73,26 @@ public class DateEntity {
 
 	public void setWeekDay(String weekDay) {
 		this.weekDay = weekDay;
+		if(weekDay.contains("一")){
+			this.weekDayNum = 0;
+		} else
+		if(weekDay.contains("二")){
+			this.weekDayNum = 1;
+		} else
+		if(weekDay.contains("三")){
+			this.weekDayNum = 2;
+		} else
+		if(weekDay.contains("四")){
+			this.weekDayNum = 3;
+		} else
+		if(weekDay.contains("五")){
+			this.weekDayNum = 4;	
+		} else
+		if(weekDay.contains("六")){
+			this.weekDayNum = 5;
+		} else{
+			this.weekDayNum = 6;
+		}
 	}
 	
 	

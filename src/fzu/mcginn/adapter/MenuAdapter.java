@@ -81,7 +81,7 @@ public class MenuAdapter extends BaseAdapter{
 		}
 		else{
 			holder.btn.setTextColor(context.getResources().getColor(R.color.black_text));
-			holder.imgIcon.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_menu_black));
+			holder.imgIcon.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_menu_grey));
 			holder.rlItem.setBackgroundColor(Color.TRANSPARENT);
 		}
 		

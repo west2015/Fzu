@@ -1,10 +1,10 @@
 package fzu.mcginn.entity;
 
 public class MarkEntity {
-	private String courseName,score;
-	
+	private String courseName;
+	private String score;
 	private String gradePoint;
-	private String gradeCridit;
+	private String gradeCredit;
 	
 	public String getCourseName(){
 		return courseName;
@@ -24,11 +24,11 @@ public class MarkEntity {
 	public void setGradePoint(String gradePoint) {
 		this.gradePoint = gradePoint;
 	}
-	public String getGradeCridit() {
-		return gradeCridit;
+	public String getGradeCredit() {
+		return gradeCredit;
 	}
-	public void setGradeCridit(String gradeCridit) {
-		this.gradeCridit = gradeCridit;
+	public void setGradeCredit(String gradeCredit) {
+		this.gradeCredit = gradeCredit;
 	}
 	
 	

@@ -19,7 +19,6 @@ public class DbSchedule {
 	}
 
 	public void setScheduleJson(String json){
-		if(json == null) return ;
 		Editor ed = sp.edit();
 		ed.putString(SCHEDULE_JSON, json);
 		ed.commit();
@@ -28,15 +27,15 @@ public class DbSchedule {
 	public String getScheduleJson(){
 		return sp.getString(SCHEDULE_JSON, null);
 	}
-	
-	public void setDisCourses(String str){
+
+	public void setDisWay(String str){
 		if(str == null) return ;
 		Editor ed = sp.edit();
 		ed.putString(DIS_COURSES, str);
 		ed.commit();
 	}
 
-	public String getDisCourses(){
+	public String getDisWay(){
 		return sp.getString(DIS_COURSES, InfoUtils.SR_SCHEDULE_DIS_WEEK);
 	}
 }

@@ -13,7 +13,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import android.util.Log;
+import android.content.Context;
+import fzu.mcginn.database.DbSchedule;
 import fzu.mcginn.entity.CourseEntity;
 import fzu.mcginn.entity.DateEntity;
 import fzu.mcginn.entity.UserEntity;
@@ -21,7 +22,15 @@ import fzu.mcginn.utils.BaseUtils;
 import fzu.mcginn.utils.FzuHttpUtils;
 
 public class ScheduleService {
-
+	
+	public void setDisWay(Context context,String str){
+		new DbSchedule(context).setDisWay(str);
+	}
+	
+	public String getDisWay(Context context){
+		return new DbSchedule(context).getDisWay();
+	}
+	
 	public String getSchedule(boolean isRefresh){
 		int time = 10;
 		String res = null;
@@ -162,35 +171,28 @@ public class ScheduleService {
 	}
 	
 	public List<CourseEntity> parseAll(String res){
-		List<CourseEntity> mList = new ArrayList<CourseEntity>();
 		try {
+			List<CourseEntity> mList = new ArrayList<CourseEntity>();
 			JSONArray jsonArr = new JSONArray(res);
-			JSONObject json = jsonArr.getJSONObject(0);
-			JSONArray arrAll = json.getJSONArray("courseArr");
-			// schedule
-			for(int i=0;i<arrAll.length();++i){
-				// course
-				JSONObject courseJson = arrAll.getJSONObject(i);
-				CourseEntity entity = new CourseEntity();
-				entity.setName(courseJson.getString("name"));
-				entity.setTeacherName(courseJson.getString("teachername"));
-				entity.setPlace(courseJson.getString("place"));
-				entity.setLesson(courseJson.getInt("lesson"));
-				entity.setLength(courseJson.getInt("length"));
-				entity.setStartWeek(courseJson.getInt("startweek"));
-				entity.setEndWeek(courseJson.getInt("endweek"));
-				mList.add(entity);
+			// week
+			for(int i=0;i<jsonArr.length();++i){
+				JSONObject jsonWeek = jsonArr.getJSONObject(i);
+				JSONArray arrWeek = jsonWeek.getJSONArray("courseArr");
+				// lesson
+				for(int j=0;j<arrWeek.length();++j){
+					JSONObject courseJson = arrWeek.getJSONObject(j);
+					CourseEntity entity = new CourseEntity();
+					entity.setName(courseJson.getString("name"));
+					entity.setTeacherName(courseJson.getString("teachername"));
+					entity.setPlace(courseJson.getString("place"));
+					entity.setWeekday(courseJson.getInt("weekday"));
+					entity.setLesson(courseJson.getInt("lesson"));
+					entity.setLength(courseJson.getInt("length"));
+					entity.setStartWeek(courseJson.getInt("startweek"));
+					entity.setEndWeek(courseJson.getInt("endweek"));
+					mList.add(entity);
+				}
 			}
-//			for(int i=0;i<mList.size();++i){
-//				CourseEntity entity = mList.get(i);
-//				Log.e("¿Î±í",entity.getName() +"\n" +
-//							entity.getTeacherName() + "\n" + 
-//							entity.getPlace() + "\n" + 
-//							entity.getLesson() + "\n" + 
-//							entity.getLength() + "\n" + 
-//							entity.getStartWeek() + "\n" + 
-//							entity.getEndWeek());
-//			}
 			return mList;
 		} catch (JSONException e) {
 			e.printStackTrace();

@@ -36,19 +36,19 @@ public final class R {
 		public static final int sb__text_size = 0x7f090017;
 	}
 	public static final class drawable {
-		public static final int sb__bg = 0x7f020071;
-		public static final int sb__btn_bg = 0x7f020072;
+		public static final int sb__bg = 0x7f020073;
+		public static final int sb__btn_bg = 0x7f020074;
 	}
 	public static final class id {
-		public static final int sb__action = 0x7f060096;
-		public static final int sb__text = 0x7f060097;
+		public static final int sb__action = 0x7f06009e;
+		public static final int sb__text = 0x7f06009f;
 	}
 	public static final class interpolator {
 		public static final int sb__accelerate_cubic = 0x7f050000;
 		public static final int sb__decelerate_cubic = 0x7f050001;
 	}
 	public static final class layout {
-		public static final int sb__template = 0x7f030028;
+		public static final int sb__template = 0x7f030029;
 	}
 	public static final class style {
 		public static final int Snackbar = 0x7f0c0083;

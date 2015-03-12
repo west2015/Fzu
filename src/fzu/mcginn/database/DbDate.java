@@ -21,11 +21,17 @@ public class DbDate {
 	}
 	
 	public void setDateEntity(DateEntity entity){
-		if(entity == null) return ;
 		Editor ed = sp.edit();
-		ed.putInt(DB_WEEK, entity.getCurrentWeek() != null ? entity.getCurrentWeek() : -1);
-		ed.putInt(DB_SCHOOL_YEAR, entity.getSchoolYear() != null ? entity.getSchoolYear() : -1);
-		ed.putInt(DB_TERM, entity.getTerm() != null ? entity.getTerm() : -1);
+		if(entity == null){
+			ed.putInt(DB_WEEK, -1);
+			ed.putInt(DB_SCHOOL_YEAR, -1);
+			ed.putInt(DB_TERM, -1);
+		}
+		else{
+			ed.putInt(DB_WEEK, entity.getCurrentWeek() != null ? entity.getCurrentWeek() : -1);
+			ed.putInt(DB_SCHOOL_YEAR, entity.getSchoolYear() != null ? entity.getSchoolYear() : -1);
+			ed.putInt(DB_TERM, entity.getTerm() != null ? entity.getTerm() : -1);
+		}
 		ed.commit();
 	}
 	

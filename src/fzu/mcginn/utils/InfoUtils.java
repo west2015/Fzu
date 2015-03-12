@@ -13,6 +13,8 @@ public class InfoUtils {
 	public static final String OPEN_DRAWER = "open_drawer";
 	public static final String CLOSE_DRAWER = "close_drawer";
 
+	public static final String 	REFRESH_TIME = "refresh_time";
+	
 	public static final String SCHEDULE_ADD = "schedule_add";
 	public static final String SCHEDULE_SETTING = "schedule_setting";
 
