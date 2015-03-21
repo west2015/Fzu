@@ -57,7 +57,7 @@ public class SimpleAdapter extends BaseAdapter{
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
 		if(convertView == null){
-			convertView = LayoutInflater.from(context).inflate(R.layout.item_simple_list, null);
+			convertView = LayoutInflater.from(context).inflate(R.layout.item_simple, null);
 			holder = new ViewHolder();
 			holder.rb = (RaisedButton) convertView.findViewById(R.id.btn);
 			convertView.setTag(holder);

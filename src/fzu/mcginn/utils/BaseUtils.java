@@ -18,6 +18,7 @@ public class BaseUtils extends Application{
 	private UserEntity userEntity;
 	private DateEntity dateEntity;
 	private String scheduleJson;
+	private String markJson;
 	
 	public static BaseUtils getInstance(){
 		if(instance == null){
@@ -34,6 +35,7 @@ public class BaseUtils extends Application{
 		userEntity = new DbUser(context).getUserEnitty();
 		dateEntity = new DbDate(context).getDateEntity();
 		scheduleJson = new DbSchedule(context).getScheduleJson();
+		markJson = new DbMark(context).getMarkJson();
 	}
 
 	@SuppressWarnings("deprecation")
@@ -77,6 +79,15 @@ public class BaseUtils extends Application{
 	public void setScheduleJson(String scheduleJson) {
 		new DbSchedule(context).setScheduleJson(scheduleJson);
 		this.scheduleJson = scheduleJson;
+	}
+
+	public String getMarkJson() {
+		return markJson;
+	}
+	
+	public void setMarkJson(String markJson){
+		new DbMark(context).setMarkJson(markJson);
+		this.markJson = markJson;
 	}
 
 }

@@ -19,7 +19,6 @@ import android.support.v4.view.ViewPager;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -75,6 +74,7 @@ import fzu.mcginn.service.TimeService;
 import fzu.mcginn.utils.BaseUtils;
 import fzu.mcginn.utils.InfoUtils;
 import fzu.mcginn.utils.MetricsConverter;
+import fzu.mcginn.utils.ViewUtils;
 
 public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemClick{
 
@@ -101,11 +101,6 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 		R.id.tv_monday,R.id.tv_tuesday,R.id.tv_wednesday,R.id.tv_thursday,R.id.tv_friday,R.id.tv_saturday,R.id.tv_sunday
 	};
 
-	private final String[] arrWeek = {
-		"第1周","第2周","第3周","第4周","第5周","第6周","第7周","第8周","第9周","第10周",
-		"第11周","第12周","第13周","第14周","第15周","第16周","第17周","第18周","第19周","第20周",
-		"第21周","第22周","第23周","第24周","第25周"};
-
 	private final int[] bg = {
 		R.drawable.course_bg1 ,R.drawable.course_bg2 ,R.drawable.course_bg3 ,R.drawable.course_bg4 ,
 		R.drawable.course_bg5 ,R.drawable.course_bg6 ,R.drawable.course_bg7 ,R.drawable.course_bg8 ,
@@ -113,9 +108,17 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 		R.drawable.course_bg13,R.drawable.course_bg14,R.drawable.course_bg15,R.drawable.course_bg16,
 	};
 	
+	private final String[] arrWeek = {
+			"第1周","第2周","第3周","第4周","第5周","第6周","第7周","第8周","第9周","第10周",
+			"第11周","第12周","第13周","第14周","第15周","第16周","第17周","第18周","第19周","第20周",
+			"第21周","第22周","第23周","第24周","第25周"};
+
+	private final String[] TAB_TITLE = {"   周一   ","   周二   ","   周三   ","   周四   ","   周五   ","   周六   ","   周日   "};
+	
 	private Activity activity;
 	private Context context;
 	private FragmentManager fm;
+	private MessageInterface mListener;
 
 	private Point p;
 	private boolean isWeekView;
@@ -144,7 +147,6 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 	private boolean isAddLesson;
 	private ListView lvWeekDayPicker;
 	private ListView lvLessonPicker;
-	private EditText etCourse;
 
 	// MENU_SETTING
 	private String disWay;
@@ -169,7 +171,6 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 	private String scheduleJson;
 	private RevealColorView rcv;
 	private FloatingActionButton fab;
-	private MessageInterface mListener;
 	private RelativeLayout rlSchedule14;
 	private RelativeLayout rlSchedule58;
 	private RelativeLayout rlSchedule9;
@@ -181,7 +182,6 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 	private boolean tabHasSetView;
 	private PagerSlidingTabStrip tab;
 	private ViewPager viewPager;
-	private ScheduleAdapter viewPagerAdapter;
 	private RelativeLayout rl_tab;
 
 	public void onCreate(Bundle savedInstanceState){
@@ -261,7 +261,7 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 			// 延迟防止界面卡顿
 			try {
 				isRefreshing = true;
-				Thread.sleep(1000);
+				Thread.sleep(500);
 				String res = new ScheduleService().getSchedule(toRefresh);
 				Message msg = mHandler.obtainMessage();
 				msg.what = 1;
@@ -408,97 +408,69 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 		}
 		return text;
 	}
-	
-	private void showSingleClass(TextView text){
-		
-	}
 
 	private void setListener(View view){
 		// 切换单日视图
-		fab.setOnClickListener(new OnClickListener(){
-			public void onClick(View v) {
-				if(isChanging) return ;
+		fab.setOnClickListener(new OnClickListener(){public void onClick(View v) {
+			if(isChanging) return ;
+			changePage();
+		}});
+		// 隐藏Picker
+		btnHide.setOnClickListener(new OnClickListener(){public void onClick(View v) {
+			if(isWeekPicker)
+				sendMessage(CLOSE_WEEK_PICKER);
+			if(isMenuView)
+				sendMessage(CLOSE_MENU);
+		}});
+		// 打开菜单、返回周视图
+		av.setOnClickListener(new OnClickListener(){public void onClick(View v) {
+			if(isChanging) return ;
+			if(isWeekView){
+				mListener.Message(InfoUtils.OPEN_DRAWER);
+			} else{
 				changePage();
 			}
-		});
-		// 隐藏Picker
-		btnHide.setOnClickListener(new OnClickListener(){
-			public void onClick(View v) {
-				if(isWeekPicker)
-					sendMessage(CLOSE_WEEK_PICKER);
-				if(isMenuView)
-					sendMessage(CLOSE_MENU);
-			}
-		});
-		// 打开菜单、返回周视图
-		av.setOnClickListener(new OnClickListener(){
-			public void onClick(View v) {
-				
-				if(isChanging) return ;
-				if(isWeekView){
-					mListener.Message(InfoUtils.OPEN_DRAWER);
-				} else{
-					changePage();
-				}
-			}
-		});
+		}});
 		// week picker 
-		btnWeek.setOnClickListener(new OnClickListener(){
-			public void onClick(View v) {
-				
-				if(!isWeekView || isRefreshing) return ;
-				if(isMenuView){
-					sendMessage(CLOSE_MENU);
-					return ;
-				}
-				sendMessageDelay(OPEN_WEEK_PICKER,null,200L);
+		btnWeek.setOnClickListener(new OnClickListener(){public void onClick(View v) {
+			if(!isWeekView || isRefreshing) return ;
+			if(isMenuView){
+				sendMessage(CLOSE_MENU);
+				return ;
 			}
-		});
+			sendMessageDelay(OPEN_WEEK_PICKER,null,200L);
+		}});
 		// menu picker
-		view.findViewById(R.id.av_menu).setOnClickListener(new OnClickListener(){
-			public void onClick(View v) {
-				
-				if(!isWeekView || isRefreshing) return ;
-				if(isWeekPicker){
-					sendMessage(CLOSE_WEEK_PICKER);
-					return ;
-				}
-				sendMessage(OPEN_MENU);
+		view.findViewById(R.id.av_menu).setOnClickListener(new OnClickListener(){public void onClick(View v) {
+			if(!isWeekView || isRefreshing) return ;
+			if(isWeekPicker){
+				sendMessage(CLOSE_WEEK_PICKER);
+				return ;
 			}
-		});
-		btnAdd.setOnClickListener(new OnClickListener(){
-			public void onClick(View v) {
-				
-				if(!isWeekView || !isMenuView) return ;
-				showAdd();
-				sendMessage(CLOSE_MENU);
-			}
-		});
-		btnDel.setOnClickListener(new OnClickListener(){
-			public void onClick(View v) {
-				
-				if(!isWeekView || !isMenuView) return ;
-				showDel();
-				sendMessage(CLOSE_MENU);
-			}
-		});
-		btnRefresh.setOnClickListener(new OnClickListener(){
-			public void onClick(View v) {
-				if(!isWeekView || !isMenuView) return ;
-				toRefresh = true;
-				rlRefresh.setVisibility(View.VISIBLE);
-				sendMessage(CLOSE_MENU);
-				new Thread(getScheduleRun).start();
-			}
-		});
-		btnSetting.setOnClickListener(new OnClickListener(){
-			public void onClick(View v) {
-				
-				if(!isWeekView || !isMenuView) return ;
-				showSetting();
-				sendMessage(CLOSE_MENU);
-			}
-		});			
+			sendMessage(OPEN_MENU);
+		}});
+		btnAdd.setOnClickListener(new OnClickListener(){public void onClick(View v) {
+			if(!isWeekView || !isMenuView) return ;
+			showAdd();
+			sendMessage(CLOSE_MENU);
+		}});
+		btnDel.setOnClickListener(new OnClickListener(){public void onClick(View v) {
+			if(!isWeekView || !isMenuView) return ;
+			showDel();
+			sendMessage(CLOSE_MENU);
+		}});
+		btnRefresh.setOnClickListener(new OnClickListener(){public void onClick(View v) {
+			if(!isWeekView || !isMenuView) return ;
+			toRefresh = true;
+			rlRefresh.setVisibility(View.VISIBLE);
+			sendMessage(CLOSE_MENU);
+			new Thread(getScheduleRun).start();
+		}});
+		btnSetting.setOnClickListener(new OnClickListener(){public void onClick(View v) {
+			if(!isWeekView || !isMenuView) return ;
+			showSetting();
+			sendMessage(CLOSE_MENU);
+		}});			
 	}
 
 	@SuppressLint("HandlerLeak")
@@ -521,12 +493,6 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 	                              	.text("遇到错误啦")
 	                                .actionLabel("重试")
 	                                .actionColorResource(R.color.yellow_500)
-	                                .swipeListener(new ActionSwipeListener() {
-	                                    @Override
-	                                    public void onSwipeToDismiss() {
-	                                    	
-	                                    }
-	                                })
 	                                .actionListener(new ActionClickListener() {
 	                                    @Override
 	                                    public void onActionClicked(Snackbar snackbar) {
@@ -536,7 +502,6 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 	                                    	}
 	                                    }
 	                                }));
-
 				}
 			}
 			else
@@ -597,14 +562,12 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 
 	private void showAdd(){
 		isAddWeekDay = isAddLesson = false;
-		
 		final AlertDialog dialog = new AlertDialog.Builder(context).create();
 		dialog.setView(LayoutInflater.from(context).inflate(R.layout.dialog_schedule_add,null));
 		dialog.show();
 		Window w = dialog.getWindow();
 		w.setContentView(R.layout.dialog_schedule_add);
 		// findView
-		etCourse = (EditText) w.findViewById(R.id.et_course);
 		lvWeekDayPicker = (ListView) w.findViewById(R.id.lv_weekday_picker);
 		lvLessonPicker = (ListView) w.findViewById(R.id.lv_lesson_picker);
 		// setListener
@@ -641,9 +604,7 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 			}
 		});
 		w.findViewById(R.id.rl_hide).setOnClickListener(new OnClickListener(){
-			@Override
 			public void onClick(View v) {
-				
 				ScaleAnimation animationS = new ScaleAnimation(
 						1.0f, 1.0f, 1.0f, 0f, 
 						Animation.RELATIVE_TO_SELF, 1.0f, 
@@ -657,7 +618,7 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 				animationS.setAnimationListener(new AnimationListener(){
 					public void onAnimationStart(Animation animation) {}
 					public void onAnimationRepeat(Animation animation) {}
-					public void onAnimationEnd(Animation animation) {
+					public void onAnimationEnd(Animation animation){
 						lvWeekDayPicker.setVisibility(View.GONE);
 						lvLessonPicker.setVisibility(View.GONE);
 						isAddWeekDay = isAddLesson = false;
@@ -673,21 +634,15 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 				}
 			}
 		});
-		w.findViewById(R.id.btn_add).setOnClickListener(new OnClickListener(){
-			public void onClick(View v) {
-				
-				Toast.makeText(context, "ADD", Toast.LENGTH_SHORT).show();
-				dialog.dismiss();
-			}
-		});
-		w.findViewById(R.id.btn_cancel).setOnClickListener(new OnClickListener(){
-			public void onClick(View v) {
-				
-				dialog.dismiss();
-			}
-		});
+		w.findViewById(R.id.btn_add).setOnClickListener(new OnClickListener(){public void onClick(View v) {
+			Toast.makeText(context, "ADD", Toast.LENGTH_SHORT).show();
+			dialog.dismiss();
+		}});
+		w.findViewById(R.id.btn_cancel).setOnClickListener(new OnClickListener(){public void onClick(View v) {
+			dialog.dismiss();
+		}});
 	}
-	
+
 	private void showDel(){
 		final AlertDialog dialog = new AlertDialog.Builder(context).create();
 		dialog.show();
@@ -695,19 +650,13 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 		w.setContentView(R.layout.dialog_schedule_del);
 		// findView
 		// setListener
-		w.findViewById(R.id.btn_del).setOnClickListener(new OnClickListener(){
-			public void onClick(View v) {
-				
-				Toast.makeText(context, "DEL", 1).show();
-				dialog.dismiss();
-			}
-		});
-		w.findViewById(R.id.btn_cancel).setOnClickListener(new OnClickListener(){
-			public void onClick(View v) {
-				
-				dialog.dismiss();
-			}
-		});
+		w.findViewById(R.id.btn_del).setOnClickListener(new OnClickListener(){public void onClick(View v) {
+			Toast.makeText(context, "DEL", 1).show();
+			dialog.dismiss();
+		}});
+		w.findViewById(R.id.btn_cancel).setOnClickListener(new OnClickListener(){public void onClick(View v) {
+			dialog.dismiss();
+		}});
 	}
 	
 	private void showSetting(){
@@ -728,7 +677,6 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 		etSchoolYear = (EditText) w.findViewById(R.id.et_school_year);
 		cbAll = (CheckBox) w.findViewById(R.id.cb_all);
 		cbWeek = (CheckBox) w.findViewById(R.id.cb_week);
-
 		if(disWay.equals(InfoUtils.SR_SCHEDULE_DIS_ALL)){
 			cbAll.setChecked(true);
 			cbWeek.setChecked(false);
@@ -742,8 +690,8 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 			 if(date.getTerm()!=null) btnSetTerm.setText("0" + date.getTerm() + "学期");
 			 if(date.getCurrentWeek()!=null) btnSetWeek.setText("第"+date.getCurrentWeek()+"周");
 		}
-		lvTermPicker.setAdapter(new ArrayAdapter<String>(context, R.layout.item_text_list, new String[]{"01学期","02学期"}));
-		lvWeekPicker.setAdapter(new ArrayAdapter<String>(context, R.layout.item_text_list, arrWeek));
+		lvTermPicker.setAdapter(new ArrayAdapter<String>(context, R.layout.item_text, new String[]{"01学期","02学期"}));
+		lvWeekPicker.setAdapter(new ArrayAdapter<String>(context, R.layout.item_text, arrWeek));
 		// setListener
 		cbAll.setOnClickListener(new OnClickListener(){public void onClick(View arg0) {
 			if(disWay.equals(InfoUtils.SR_SCHEDULE_DIS_ALL)){
@@ -786,11 +734,9 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 			if(isSetTerm) return ;
 			showSettingPicker(1);
 		}});
-		rlHide.setOnFocusChangeListener(new OnFocusChangeListener(){
-			public void onFocusChange(View v, boolean hasFocus) {
-				rlHide.performClick();
-			}
-		});
+		rlHide.setOnFocusChangeListener(new OnFocusChangeListener(){public void onFocusChange(View v, boolean hasFocus) {
+			rlHide.performClick();
+		}});
 		rlHide.setOnClickListener(new OnClickListener(){public void onClick(View v) {
 			hideSettingPicker(0);
 			hideSettingPicker(1);
@@ -805,21 +751,17 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 			}
 		}});
 		// 保存
-		w.findViewById(R.id.btn_save).setOnClickListener(new OnClickListener(){
-			public void onClick(View v) {
-				int schYear = InfoUtils.getNumber(etSchoolYear.getText().toString());
-				int term = InfoUtils.getNumber(btnSetTerm.getText().toString());
-				int week = InfoUtils.getNumber(btnSetWeek.getText().toString());
-				applySetting(schYear,term,week);
-				dialog.dismiss();
-			}
-		});
+		w.findViewById(R.id.btn_save).setOnClickListener(new OnClickListener(){public void onClick(View v) {
+			int schYear = InfoUtils.getNumber(etSchoolYear.getText().toString());
+			int term = InfoUtils.getNumber(btnSetTerm.getText().toString());
+			int week = InfoUtils.getNumber(btnSetWeek.getText().toString());
+			applySetting(schYear,term,week);
+			dialog.dismiss();
+		}});
 		// 取消
-		w.findViewById(R.id.btn_cancel).setOnClickListener(new OnClickListener(){
-			public void onClick(View v) {
-				dialog.dismiss();
-			}
-		});
+		w.findViewById(R.id.btn_cancel).setOnClickListener(new OnClickListener(){public void onClick(View v) {
+			dialog.dismiss();
+		}});
 	}
 	
 	private void applySetting(int schoolYear,int term,int week){
@@ -895,16 +837,6 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 		});
 	}
 
-	private Point getRelativePoint(View view1, View view2) {
-	    int[] arrPoint1 = new int[2];
-	    int[] arrPoint2 = new int[2];
-	    view1.getLocationOnScreen(arrPoint1);
-	    view2.getLocationOnScreen(arrPoint2);
-	    arrPoint2[0] = (arrPoint2[0] - arrPoint1[0] + view2.getWidth() / 2);
-	    arrPoint2[1] = (arrPoint2[1] - arrPoint1[1] + view2.getHeight() / 2);
-	    return new Point(arrPoint2[0], arrPoint2[1]);
-	}
-
 	/*
 	 * 刷新单日视图
 	 */
@@ -924,7 +856,7 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 			listView.setVerticalScrollBarEnabled(false);
 			views.add(listView);
 		}
-		viewPager.setAdapter(new ViewPagerAdapter(views));
+		viewPager.setAdapter(new ViewPagerAdapter(views,TAB_TITLE));
 		int position = new TimeService().getWeekDay();
 		if(!(0<=position && position<7)){
 			position = 0;
@@ -956,7 +888,7 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 	}
 	
 	private void moveFab(long duration){
-		p = getRelativePoint(fab,viewCenter);
+		p = ViewUtils.getRelativePoint(fab,viewCenter);
 		TranslateAnimation animationX = new TranslateAnimation(
 				Animation.RELATIVE_TO_SELF, 0f,
 				Animation.RELATIVE_TO_SELF, p.x/(1.0f*fab.getWidth()) + 0.5f * p.x / Math.abs(p.x),
@@ -983,12 +915,12 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 	
 	private void showRcv(int color){
 		fab.setVisibility(View.INVISIBLE);
-		p = getRelativePoint(rcv,viewCenter);
+		p = ViewUtils.getRelativePoint(rcv,viewCenter);
 		rcv.reveal(p.x, p.y, color, null);
 	}
 	
 	private void hideRcv(int color){
-		p = getRelativePoint(rcv,fab);
+		p = ViewUtils.getRelativePoint(rcv,fab);
 		rcv.hide(p.x, p.y, color, null);
 	}
 
@@ -998,7 +930,6 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 		animationA.setDuration(1000);
 		animationA.setInterpolator(new DecelerateInterpolator());
 		viewPager.startAnimation(animationA);
-
 		TranslateAnimation animationY = new TranslateAnimation(
 				Animation.RELATIVE_TO_SELF, 0f,
 				Animation.RELATIVE_TO_SELF, 0f,
@@ -1088,7 +1019,6 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 	
 	private void openMenu(){
 		isMenuView = true;
-
 		llMenu.setVisibility(View.VISIBLE);
 		btnHide.setVisibility(View.VISIBLE);
 		ScaleAnimation animationSX = new ScaleAnimation(
@@ -1112,7 +1042,6 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 	
 	private void closeMenu(){
 		isMenuView = false;
-		
 		ScaleAnimation animationSX = new ScaleAnimation(
 				1.0f, 0.0f, 1.0f, 1.0f, 
 				Animation.RELATIVE_TO_SELF, 1.0f,
@@ -1156,8 +1085,7 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 	private void sendMessageDelay(int message,Object obj,long delay){
 		Message msg = mHandler.obtainMessage();
 		msg.what = message;
-		if(obj != null)
-			msg.obj = obj;
+		if(obj != null) msg.obj = obj;
 		mHandler.sendMessageDelayed(msg, delay);
 	}
 

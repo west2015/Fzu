@@ -142,7 +142,9 @@
 		android:layout_marginTop="4dp"/>
 	
 	<!-- SCHEDULE -->
-	<ScrollView android:scrollbars="none"
+	<ScrollView 
+	    android:overScrollMode="never"
+	    android:scrollbars="none"
 	    android:layout_width="match_parent" android:layout_height="match_parent" android:layout_below="@+id/view_divider">
 	<LinearLayout
 		android:layout_width="match_parent"
@@ -254,7 +256,8 @@
 	    android:divider="@color/black_dividers"
 	    android:dividerHeight="0.1dp"
 	    android:background="@drawable/btn_bg"
-	    android:scrollbars="none"/>
+	    android:scrollbars="none"
+	    android:overScrollMode="never"/>
 	
 	<!-- MENU -->
 	<LinearLayout
@@ -276,7 +279,7 @@
 	        android:layout_height="48dp"
 	        android:background="@color/transparent"
 	        android:text="添加 "
-	        android:textSize="16sp"
+	        android:textSize="14sp"
 	        android:textColor="@color/black_text"/>
 	    <View 
 	        android:visibility="gone"
@@ -290,7 +293,7 @@
 	        android:layout_height="48dp"
 	        android:background="@color/transparent"
 	        android:text="删除"
-	        android:textSize="16sp"
+	        android:textSize="14sp"
 	        android:textColor="@color/black_text"/>
 	    <Button 
 	        android:id="@+id/btn_refresh"
@@ -298,7 +301,7 @@
 	        android:layout_height="48dp"
 	        android:background="@color/transparent"
 	        android:text="刷新"
-	        android:textSize="16sp"
+	        android:textSize="14sp"
 	        android:textColor="@color/black_text"/>
 	    <View 
 	        android:layout_width="match_parent"
@@ -310,7 +313,7 @@
 	        android:layout_height="48dp"
 	        android:background="@color/transparent"
 	        android:text="设置"
-	        android:textSize="16sp"
+	        android:textSize="14sp"
 	        android:textColor="@color/black_text"/>
 	</LinearLayout>
 	

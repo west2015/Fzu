@@ -1,96 +1,135 @@
 package fzu.mcginn.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+
 import fzu.mcginn.entity.MarkEntity;
-import fzu.mcginn.entity.UserEntity;
+import fzu.mcginn.utils.BaseUtils;
 import fzu.mcginn.utils.FzuHttpUtils;
-import android.app.Activity;
 
 public class MarkService {
-	private Activity activity;
-	public MarkService(Activity activity){
-		this.activity = activity;
+
+	/*
+	 * 按学期排序
+	 */
+	public List<MarkEntity> sort(List<MarkEntity> mList){
+		if(mList == null)
+			return mList;
+		Comparator<MarkEntity> C = new Comparator<MarkEntity>(){
+			public int compare(MarkEntity arg0, MarkEntity arg1) {
+				return -arg0.getTerm().compareTo(arg1.getTerm());
+			}
+		};
+		Collections.sort(mList,C);
+		return mList;
 	}
 
+	/*
+	 * 获取成绩
+	 */
+	public List<MarkEntity> getMark(boolean isRefresh){
+		int time = 10;
+		String markJson = null;
+		if(!isRefresh){
+			markJson = BaseUtils.getInstance().getMarkJson();
+		}
+		if(isRefresh || markJson == null || markJson.length() < 10){
+			while(time>0 && (markJson == null || markJson.length() < 10)){
+				--time;
+				markJson = getMarkJson("","");
+			}
+			if(markJson != null && markJson.length() > 10){
+				BaseUtils.getInstance().setMarkJson(markJson);
+			}
+		}
+		return sort(getMarkList(markJson));
+	}
 	
-	
-	public Map<String,List<MarkEntity>> queryMark(){
-		
-		String url="http://59.77.226.34/xszy/wdcj/cjyl/zhcx_xs.asp?xn=&xq=&zylb=%B1%BE%D7%A8%D2%B5&px=kcmc&change=yes&subs=%B3%C9%BC%A8%B2%E9%D1%AF";
+	/*
+	 * @xn 学年
+	 * @xq 学期
+	 */
+	public String getMarkJson(String xn,String xq){
+		String url="http://59.77.226.34/xszy/wdcj/cjyl/zhcx_xs.asp?"
+				+ "xn="+xn+"&xq="+xq
+						+ "&zylb=%B1%BE%D7%A8%D2%B5&px=kcmc&change=yes&subs=%B3%C9%BC%A8%B2%E9%D1%AF";
 		String res = FzuHttpUtils.getData(url);
-		if(res==null) return null;
-		List<String> timeList = new ArrayList<String>();
-		Map<String,List<MarkEntity>> map = new TreeMap<String,List<MarkEntity>>();
-		try{
-
-			Document doc = Jsoup.parse(res);
-			Elements ele = doc.select("tr[bgcolor=ffffff]");
-			if (ele == null || ele.size() == 0)
-				return map;
+		if(res==null || res.length()==0) return "";
+		Document doc = Jsoup.parse(res);
+		Elements ele = doc.select("tr[bgcolor=ffffff]");
+		if (ele == null || ele.size() == 0)
+			return "";
+		JSONArray markArray = new JSONArray();
+		for (int i = 0; i < ele.size(); i++) {
+			Element e = ele.get(i);
+			Elements es =e.getElementsByTag("td");
+			if(es==null) return "";
+			JSONObject obj  = new JSONObject();
+			try {
+				obj.put("term", es.get(0).text());
+				obj.put("coursename",es.get(1).text());
+				obj.put("gradecridit", es.get(2).text());
+				obj.put("score", es.get(3).text());
+				obj.put("gradepoint", es.get(4).text());
+			} catch (JSONException e1) {
+				e1.printStackTrace();
+			}
+			markArray.put(obj);
+		}
+		//挂科部分
+		ele = doc.select("tr[bgcolor=ffcccc]");
+		if (ele != null && ele.size() != 0){
 			for (int i = 0; i < ele.size(); i++) {
 				Element e = ele.get(i);
 				Elements es =e.getElementsByTag("td");
-				if(es==null) return map;
-				MarkEntity mark = new MarkEntity();
-				mark.setCourseName(es.get(1).text());
-				mark.setScore(es.get(3).text());
-				mark.setGradePoint(es.get(4).text());
-				mark.setGradeCredit(es.get(2).text());
-				String time = es.get(0).text();
-				if(map.containsKey(time)){
-					List<MarkEntity> list = map.get(time);
-					list.add(mark);
+				if(es==null) return markArray.toString();
+				JSONObject obj  = new JSONObject();
+				try {
+					obj.put("term", es.get(0).text());
+					obj.put("coursename",es.get(1).text());
+					obj.put("gradecridit", es.get(2).text());
+					obj.put("score", es.get(3).text());
+					obj.put("gradepoint", es.get(4).text());
+				} catch (JSONException e1) {
+					e1.printStackTrace();
 				}
-				else{
-					timeList.add(time);
-					List<MarkEntity> list = new ArrayList<MarkEntity>();
-					list.add(mark);
-					map.put(time, list);
-				}
+				markArray.put(obj);
 			}
-			
-			ele = doc.select("tr[bgcolor=ffcccc]");
-			if (ele != null && ele.size() != 0){
-				for (int i = 0; i < ele.size(); i++) {
-					Element e = ele.get(i);
-					Elements es =e.getElementsByTag("td");
-					if(es==null) return map;
-					MarkEntity mark = new MarkEntity();
-					mark.setCourseName(es.get(1).text());
-					mark.setScore(es.get(3).getAllElements().get(0).text());
-					mark.setGradePoint(es.get(4).text());
-					mark.setGradeCredit(es.get(2).text());
-					String time = es.get(0).text();
-					if(map.containsKey(time)){
-						List<MarkEntity> list = map.get(time);
-						list.add(mark);
-					}
-					else{
-						timeList.add(time);
-						List<MarkEntity> list = new ArrayList<MarkEntity>();
-						list.add(mark);
-						map.put(time, list);
-					}
-				}
-			}
-			return map;
 		}
-		catch(Exception e){
-			e.printStackTrace();
-			return map;
-		}
+		return markArray.toString();
 	}
 	
-	
-	
-	
-	
+	public List<MarkEntity> getMarkList(String markJson){
+		List<MarkEntity> marks = new ArrayList<MarkEntity>();
+		if(markJson==null || markJson.length()==0)
+			return null;
+		try {
+			JSONArray markArray = new JSONArray(markJson);
+			if(markArray==null||markArray.length()==0)  return marks;
+			for(int i=0;i<markArray.length();i++){
+				MarkEntity mark = new MarkEntity();
+				JSONObject obj = markArray.getJSONObject(i);
+				mark.setCourseName(obj.getString("coursename"));
+				mark.setScore(obj.getString("score"));
+				mark.setGradePoint(obj.getString("gradepoint"));
+				mark.setGradeCredit(obj.getString("gradecridit"));
+				mark.setTerm(obj.getString("term"));
+				marks.add(mark);
+			}
+		} catch (JSONException e1) {
+			e1.printStackTrace();
+		}
+		return marks;
+	}
 	
 }

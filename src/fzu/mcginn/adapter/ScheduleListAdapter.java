@@ -52,7 +52,7 @@ public class ScheduleListAdapter extends BaseAdapter{
 		// TODO Auto-generated method stub
 		if(convertView == null){
 			holder = new ViewHolder();
-			convertView = LayoutInflater.from(context).inflate(R.layout.item_schedule_list, null);
+			convertView = LayoutInflater.from(context).inflate(R.layout.item_schedule, null);
 			holder.tvLesson = (TextView) convertView.findViewById(R.id.tv_lesson);
 			holder.tvName = (TextView) convertView.findViewById(R.id.tv_name);
 			holder.tvTeacherName = (TextView) convertView.findViewById(R.id.tv_teacher_name);

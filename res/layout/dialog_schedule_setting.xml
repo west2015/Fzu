@@ -239,7 +239,8 @@
 	    android:layout_marginTop="2dp"
 	    android:background="@drawable/btn_bg"
 	    android:divider="@color/black_dividers"
-	    android:dividerHeight="0.1dp"/>
+	    android:dividerHeight="0.1dp"
+	    android:overScrollMode="never"/>
 	
 	<!-- WEEK PICKER -->
 	<ListView 
@@ -253,7 +254,8 @@
 	    android:background="@drawable/btn_bg"
 	    android:scrollbars="none"
 	    android:divider="@color/black_dividers"
-	    android:dividerHeight="0.1dp"/>
+	    android:dividerHeight="0.1dp"
+	    android:overScrollMode="never"/>
 	
 	
 </RelativeLayout>

@@ -1,11 +1,18 @@
 package fzu.mcginn.entity;
 
 public class MarkEntity {
+	private String term;
 	private String courseName;
 	private String score;
 	private String gradePoint;
 	private String gradeCredit;
-	
+
+	public String getTerm() {
+		return term;
+	}
+	public void setTerm(String term) {
+		this.term = term;
+	}
 	public String getCourseName(){
 		return courseName;
 	}
@@ -30,7 +37,5 @@ public class MarkEntity {
 	public void setGradeCredit(String gradeCredit) {
 		this.gradeCredit = gradeCredit;
 	}
-	
-	
 	
 }

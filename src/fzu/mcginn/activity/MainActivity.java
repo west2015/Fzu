@@ -1,10 +1,5 @@
 package fzu.mcginn.activity;
 
-import com.nispok.snackbar.Snackbar;
-import com.nispok.snackbar.SnackbarManager;
-import com.nispok.snackbar.listeners.ActionClickListener;
-import com.nispok.snackbar.listeners.ActionSwipeListener;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,15 +11,18 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
 import android.view.KeyEvent;
-import android.view.View;
-import android.view.View.OnKeyListener;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.nispok.snackbar.Snackbar;
+import com.nispok.snackbar.SnackbarManager;
+import com.nispok.snackbar.listeners.ActionClickListener;
+
 import fzu.mcginn.R;
 import fzu.mcginn.adapter.MenuAdapter;
 import fzu.mcginn.entity.DateEntity;
 import fzu.mcginn.entity.UserEntity;
+import fzu.mcginn.fragment.MarkFragment;
 import fzu.mcginn.fragment.ScheduleFragment;
 import fzu.mcginn.interfaces.MessageInterface;
 import fzu.mcginn.service.TimeService;
@@ -127,7 +125,7 @@ public class MainActivity extends FragmentActivity
 		Fragment mFragment = null;
 		switch(position){
 		case 0:mFragment = new ScheduleFragment();break;
-		case 1:break;
+		case 1:mFragment = new MarkFragment();break;
 		case 2:break;
 		case 3:break;
 		case 4:break;

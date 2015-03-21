@@ -8,21 +8,27 @@ import android.view.View;
 
 public class ViewPagerAdapter extends PagerAdapter{
 
-	private final String[] TITLE = {"   周一   ","   周二   ","   周三   ","   周四   ","   周五   ","   周六   ","   周日   "};
-	
 	private List<View> views;
-	public ViewPagerAdapter(List<View> views){
-		this.views=views;
+	private String[] TITLE;
+	
+	public ViewPagerAdapter(List<View> views,String[] TITLE){
+		this.views = views;
+		this.TITLE = TITLE;
 	}
+	
+	public ViewPagerAdapter(List<View> views,List<String> titles){
+		this.views = views;
+		TITLE = new String[titles.size()];
+		TITLE = titles.toArray(TITLE);
+	}
+	
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
 		return views.size();
 	}
 
 	@Override
 	public boolean isViewFromObject(View arg0, Object arg1) {
-		// TODO Auto-generated method stub
 		return arg0==arg1;
 	}
 	
@@ -41,4 +47,5 @@ public class ViewPagerAdapter extends PagerAdapter{
     public CharSequence getPageTitle(int position) {
         return TITLE[position];
     }
+
 }
