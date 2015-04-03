@@ -9,7 +9,7 @@
 	<!-- TITLE -->
 	<RelativeLayout 
 	    android:layout_width="match_parent"
-	    android:layout_height="128dp"
+	    android:layout_height="56dp"
 	    android:background="@color/teal_a700">
 	   	<com.material.widget.ActionView
 	   	    android:id="@+id/av_drawer"
@@ -21,39 +21,57 @@
 	   	<TextView 
 	   	    android:layout_width="wrap_content"
 	   	    android:layout_height="56dp"
-	   	    android:layout_marginTop="28dp"
 	   	    android:layout_marginLeft="80dp"
 	   	    android:gravity="center_vertical"
 			android:text="成绩"
 			android:textSize="24sp"
 			android:textColor="@color/white_text"/>
 	   	<ImageView 
-	   	    android:layout_width="56dp"
-	   	    android:layout_height="56dp"
+	   	    android:id="@+id/img_refresh"
+	   	    android:layout_width="48dp"
+	   	    android:layout_height="48dp"
 	   	    android:layout_alignParentRight="true"
-	   	    android:padding="16dp"
-	   	    android:src="@drawable/ic_credit_card_white_48dp"
+	   	    android:layout_marginTop="4dp"
+	   	    android:padding="12dp"
+	   	    android:src="@drawable/ic_refresh_white_48dp"
 	   	    android:scaleType="fitCenter"/>
 	   	<com.material.widget.RaisedButton
-	   	    android:id="@+id/btn_credit"
-	   	    android:layout_width="56dp"
+	   	    android:id="@+id/btn_refresh"
+	   	    android:layout_width="48dp"
 	   	    android:layout_height="56dp"
 	   	    android:layout_alignParentRight="true"
 	   	    android:background="@color/transparent"
 	   	    android:paddingTop="8dp"
 	   	    android:paddingBottom="8dp"/>
 	   	<ImageView 
-	   	    android:layout_width="56dp"
-	   	    android:layout_height="56dp"
-	   	    android:layout_toLeftOf="@+id/btn_credit"
-	   	    android:padding="16dp"
+	   	    android:layout_width="48dp"
+	   	    android:layout_height="48dp"
+	   	    android:layout_toLeftOf="@+id/btn_refresh"
+	   	    android:layout_marginTop="4dp"
+	   	    android:padding="12dp"
 	   	    android:src="@drawable/ic_content_copy_white_48dp"
 	   	    android:scaleType="fitCenter"/>
 	   	<com.material.widget.RaisedButton
 	   	    android:id="@+id/btn_copy"
-	   	    android:layout_width="56dp"
+	   	    android:layout_width="48dp"
 	   	    android:layout_height="56dp"
-	   	    android:layout_toLeftOf="@+id/btn_credit"
+	   	    android:layout_toLeftOf="@+id/btn_refresh"
+	   	    android:background="@color/transparent"
+	   	    android:paddingTop="8dp"
+	   	    android:paddingBottom="8dp"/>
+	   	<ImageView 
+	   	    android:layout_width="48dp"
+	   	    android:layout_height="48dp"
+	   	    android:layout_toLeftOf="@+id/btn_copy"
+	   	    android:layout_marginTop="4dp"
+	   	    android:padding="12dp"
+	   	    android:src="@drawable/ic_more_white_48dp"
+	   	    android:scaleType="fitCenter"/>
+	   	<com.material.widget.RaisedButton
+	   	    android:id="@+id/btn_credit"
+	   	    android:layout_width="48dp"
+	   	    android:layout_height="56dp"
+	   	    android:layout_toLeftOf="@+id/btn_copy"
 	   	    android:background="@color/transparent"
 	   	    android:paddingTop="8dp"
 	   	    android:paddingBottom="8dp"/>
@@ -63,24 +81,32 @@
        	android:id="@+id/rl_mark_report"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="56dp"
         android:background="@color/white">
     	<!-- MARK REPORT -->
+    	<View
+    	    android:layout_width="match_parent"
+    	    android:layout_height="48dp"
+    	    android:background="@color/teal_a700"/>
         <com.material.widget.PagerSlidingTabStrip
 	        android:id="@+id/tab_mark_report"
 	        android:layout_width="match_parent"
-	        android:layout_height="56dp"
-	        android:background="@color/teal_a700"/>
-	    <android.support.v4.view.ViewPager
-		    android:id="@+id/viewpager_mark_report"
-		    android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:layout_below="@+id/tab_mark_report"
-			android:layout_above="@+id/rl_share"
-			android:overScrollMode="never"
-			android:background="@color/white"/>
-	    <!-- PULL TO REFRESH -->
+	        android:layout_height="48dp"
+	        android:layout_marginLeft="60dp"
+	        android:background="@color/teal_a700"
+	        custom:pstsTextColorSelected="@color/white_text"
+	        custom:pstsTextColorNoSelected="@color/white_secondary"
+	        custom:pstsIndicatorColor="@color/white_text"/>
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager_mark_report"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/tab_mark_report"
+            android:background="@color/white"
+            android:overScrollMode="never" />
+		<!-- PULL TO REFRESH -->
 	    <android.support.v4.widget.SwipeRefreshLayout
+	        android:visibility="gone"
 			android:id="@+id/srl"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"

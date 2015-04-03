@@ -40,9 +40,15 @@ public class ScheduleService {
 		if(isRefresh || res == null){
 			UserEntity user = BaseUtils.getInstance().getUserEntity();
 			DateEntity date = BaseUtils.getInstance().getDateEntity();
+			String schYear = "";
+			String term = "";
+			if(date != null){
+				schYear = date.getSchoolYear() == null ? "" : date.getSchoolYear().toString();
+				term = date.getTerm() == null ? "" : date.getTerm().toString();
+			}
 			while(time > 0 && (res == null || res.length() < 10)){
 				--time;
-				res = querySchedule(user,date.getSchoolYear(),date.getTerm());
+				res = querySchedule(user,schYear,term);
 			}
 		}
 		if(res != null && res.length() > 10){
@@ -52,7 +58,7 @@ public class ScheduleService {
 	}
 
 	// 解析html获取课表
-	public String querySchedule(UserEntity user,Integer xn,Integer xq){
+	public String querySchedule(UserEntity user,String xn,String xq){
 		JSONArray jsonArr = new JSONArray();
 		String url="http://59.77.226.34/xszy/wsxk/wdkb/kb_xs.asp?menu_no="
 									+"&xh="+user.getUsername()

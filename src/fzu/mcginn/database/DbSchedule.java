@@ -36,6 +36,6 @@ public class DbSchedule {
 	}
 
 	public String getDisWay(){
-		return sp.getString(DIS_COURSES, InfoUtils.SR_SCHEDULE_DIS_WEEK);
+		return sp.getString(DIS_COURSES, InfoUtils.SR_SCHEDULE_DIS_ALL);
 	}
 }

@@ -12,6 +12,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 import fzu.mcginn.R;
 import fzu.mcginn.entity.MarkEntity;
+import fzu.mcginn.utils.InfoUtils;
 
 public class GradePointAdapter extends BaseAdapter{
 	
@@ -44,16 +45,16 @@ public class GradePointAdapter extends BaseAdapter{
 			double x = 0,y = 0;
 			if (hasAllScore) {
 				for (int j = start; j < end; ++j) {
-					double credit = Double.parseDouble(xList.get(j)
-							.getGradeCredit().replace(" ", "").substring(1));
-					double grade = Double.parseDouble(xList.get(j)
-							.getGradePoint().replace(" ", "").substring(1));
+					double credit = InfoUtils.getDouble(xList.get(j)
+							.getGradeCredit());
+					double grade = InfoUtils.getDouble(xList.get(j)
+							.getGradePoint());
 					y += credit;
 					x += credit * grade;
 					// Test
-					String mCredit = xList.get(j).getGradeCredit().substring(1);
-					String mGradePoint = xList.get(j).getGradePoint().substring(1);
-					Log.e("!!!!", "Credit=" + mCredit + ",GradePoint="+mGradePoint);
+//					String mCredit = xList.get(j).getGradeCredit().substring(1);
+//					String mGradePoint = xList.get(j).getGradePoint().substring(1);
+//					Log.e("!!!!", "Credit=" + mCredit + ",GradePoint="+mGradePoint);
 //					Log.e("!!!!!!!!", "Credit = " + xList.get(j).getGradeCredit() + ", GradePoint = " + xList.get(j).getGradePoint());
 				}
 				if (y != 0) {

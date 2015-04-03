@@ -28,19 +28,14 @@ public class ScheduleAdapter extends FragmentPagerAdapter {
 		notifyDataSetChanged();
 	}
 	
-	@Override
 	public Fragment getItem(int position) {
-		// TODO Auto-generated method stub
 		return DayScheduleFragment.newInstance(position+1,week,json);
 	}
 
-	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
 		return TITLE.length;
 	}
 	
-    @Override
     public CharSequence getPageTitle(int position) {
         return TITLE[position];
     }

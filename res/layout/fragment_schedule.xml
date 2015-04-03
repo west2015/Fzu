@@ -33,7 +33,7 @@
 		    android:textSize="24sp"
 		    android:textColor="@color/white_text"/>
 		<ImageView 
-		    android:src="@drawable/ic_arrow_drop_down_white_18dp"
+		    android:src="@drawable/ic_arrow_drop_down_white_24dp"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:layout_toRightOf="@+id/btn_week"
@@ -142,7 +142,8 @@
 		android:layout_marginTop="4dp"/>
 	
 	<!-- SCHEDULE -->
-	<ScrollView 
+	<com.material.widget.DampScrollView 
+	    android:id="@+id/schedule_dsv"
 	    android:overScrollMode="never"
 	    android:scrollbars="none"
 	    android:layout_width="match_parent" android:layout_height="match_parent" android:layout_below="@+id/view_divider">
@@ -198,7 +199,7 @@
 		    android:layout_height="wrap_content">
 		</RelativeLayout>
 	</LinearLayout>
-	</ScrollView>
+	</com.material.widget.DampScrollView>
 
 	<com.material.widget.FloatingActionButton 
 	    android:id="@+id/fab_schedule"
@@ -341,7 +342,10 @@
 	        android:id="@+id/tab_schedule"
 	        android:layout_width="match_parent"
 	        android:layout_height="48dp"
-	        android:layout_alignParentBottom="true"/>
+	        android:layout_alignParentBottom="true"
+	        custom:pstsIndicatorColor="@color/white"
+	        custom:pstsTextColorSelected="@color/white_text"
+	        custom:pstsTextColorNoSelected="@color/white_secondary"/>
 	</RelativeLayout>
 	
 	<android.support.v4.view.ViewPager

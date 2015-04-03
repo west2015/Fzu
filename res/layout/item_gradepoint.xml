@@ -8,7 +8,7 @@
 	<TextView 
 	    android:id="@+id/tv_term"
 	    android:layout_width="match_parent"
-	    android:layout_height="48dp"
+	    android:layout_height="56dp"
 	    android:layout_marginLeft="20dp"
 	    android:layout_marginStart="20dp"
 		android:layout_toLeftOf="@+id/tv_gradepoint"
@@ -23,7 +23,7 @@
 	<TextView
 	    android:id="@+id/tv_gradepoint"
 	    android:layout_width="wrap_content"
-	    android:layout_height="48dp"
+	    android:layout_height="56dp"
 	    android:layout_alignParentEnd="true"
 	    android:layout_alignParentRight="true"
 	    android:layout_marginEnd="16dp"

@@ -8,6 +8,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
@@ -40,6 +41,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -48,7 +50,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.material.widget.ActionView;
+import com.material.widget.BounceListView;
 import com.material.widget.CheckBox;
+import com.material.widget.DampScrollView;
+import com.material.widget.DampScrollView.OnHeaderRefreshListener;
 import com.material.widget.FloatingActionButton;
 import com.material.widget.PagerSlidingTabStrip;
 import com.material.widget.RaisedButton;
@@ -59,10 +64,9 @@ import com.material.widget.action.DrawerAction;
 import com.nispok.snackbar.Snackbar;
 import com.nispok.snackbar.SnackbarManager;
 import com.nispok.snackbar.listeners.ActionClickListener;
-import com.nispok.snackbar.listeners.ActionSwipeListener;
 
 import fzu.mcginn.R;
-import fzu.mcginn.adapter.ScheduleAdapter;
+import fzu.mcginn.activity.CourseDetailActivity;
 import fzu.mcginn.adapter.ScheduleListAdapter;
 import fzu.mcginn.adapter.SimpleAdapter;
 import fzu.mcginn.adapter.ViewPagerAdapter;
@@ -76,7 +80,7 @@ import fzu.mcginn.utils.InfoUtils;
 import fzu.mcginn.utils.MetricsConverter;
 import fzu.mcginn.utils.ViewUtils;
 
-public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemClick{
+public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemClick, OnHeaderRefreshListener{
 
 	private final int OPEN_WEEK_PICKER = 1000;
 	private final int CLOSE_WEEK_PICKER = 1001;
@@ -108,10 +112,17 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 		R.drawable.course_bg13,R.drawable.course_bg14,R.drawable.course_bg15,R.drawable.course_bg16,
 	};
 	
+	private final int[] bgColor = {
+			R.color.course_color1 ,R.color.course_color2 ,R.color.course_color3 ,R.color.course_color4 ,
+			R.color.course_color5 ,R.color.course_color6 ,R.color.course_color7 ,R.color.course_color8 ,
+			R.color.course_color9 ,R.color.course_color10,R.color.course_color11,R.color.course_color12,
+			R.color.course_color13,R.color.course_color14,R.color.course_color15,R.color.course_color16,
+	};
+	
 	private final String[] arrWeek = {
-			"第1周","第2周","第3周","第4周","第5周","第6周","第7周","第8周","第9周","第10周",
-			"第11周","第12周","第13周","第14周","第15周","第16周","第17周","第18周","第19周","第20周",
-			"第21周","第22周","第23周","第24周","第25周"};
+		"第1周","第2周","第3周","第4周","第5周","第6周","第7周","第8周","第9周","第10周",
+		"第11周","第12周","第13周","第14周","第15周","第16周","第17周","第18周","第19周","第20周",
+		"第21周","第22周","第23周","第24周","第25周"};
 
 	private final String[] TAB_TITLE = {"   周一   ","   周二   ","   周三   ","   周四   ","   周五   ","   周六   ","   周日   "};
 	
@@ -123,9 +134,11 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 	private Point p;
 	private boolean isWeekView;
 	private boolean isChanging;
+	private boolean isDestroy;
 
 	private ActionView av;
 	private View viewCenter;
+	private DampScrollView dsv;
 
 	private Button btnHide;
 	// MENU
@@ -192,6 +205,7 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 		mListener = (MessageInterface) context;
 		fm = this.getActivity().getSupportFragmentManager();
 		
+		isDestroy = false;
 		isWeekView = true;
 		isChanging = false;
 		isRefreshing = toRefresh = false;
@@ -225,10 +239,16 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 		rlSchedule14 = (RelativeLayout) view.findViewById(R.id.rl_schedule_1_4);
 		rlSchedule58 = (RelativeLayout) view.findViewById(R.id.rl_schedule_5_8);
 		rlSchedule9 = (RelativeLayout) view.findViewById(R.id.rl_schedule_9);
+		dsv = (DampScrollView) view.findViewById(R.id.schedule_dsv);
 		for(int i=0;i<weekdayId.length;++i){
 			tvWeekday[i] = (TextView) view.findViewById(weekdayId[i]);
 		}
-
+		
+		// DampScrollView
+		ImageView img = new ImageView(context);
+		img.setImageResource(R.drawable.drawer_bg);
+		dsv.setImageView(img);
+		dsv.setOnHeaderRefreshListener((OnHeaderRefreshListener) this);
 		// SCHEDULE WEEK
 		sendMessage(SET_WEEKDAY);
 		lvWeek.setAdapter(new SimpleAdapter(context,arrWeek,this));
@@ -240,6 +260,13 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 		new Thread(getScheduleRun).start();
 		new Thread(getTimeRun).start();
 	}
+	
+	@Override
+	public void onHeaderRefresh(DampScrollView view) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 	/*
 	 * 获取时间、日期、周数
 	 */
@@ -272,7 +299,7 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 				else{
 					msg.obj = InfoUtils.SR_SCHEDULE_FAILED;
 				}
-				mHandler.sendMessageDelayed(msg, 1000);
+				mHandler.sendMessageDelayed(msg, 500);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -282,6 +309,9 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 	 * 处理课表界面
 	 */
 	private void display(){
+		if(isDestroy){
+			return ;
+		}
 		if(scheduleJson == null || scheduleJson.length() < 10){
 			return ;
 		}
@@ -302,7 +332,7 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 			}
 			
 			List<CourseEntity> xList = new ScheduleService().parseAll(scheduleJson);
-			for(int i=0;i<xList.size();++i)
+			for(int i=xList.size() - 1;i>=0;--i)
 			if(!(xList.get(i).getStartWeek()<=mWeek && mWeek<=xList.get(i).getEndWeek())){
 				CourseEntity entity = xList.get(i);
 				boolean hasConflict = false;
@@ -366,7 +396,8 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 		return view;
 	}
 	
-	private TextView newTextView(CourseEntity entity,int height,int length,int margin,boolean inWeek){
+	private TextView newTextView(final CourseEntity entity,int height,int length,int margin,boolean inWeek){
+		int tmpId = -1;
 		TextView text = new TextView(context);
 		LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
 		params.height = height * length + length - 2;
@@ -389,6 +420,7 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 					map.put(entity.getName(), colorIndex++);
 				}
 				text.setBackgroundResource(bg[map.get(entity.getName())]);
+				tmpId = bgColor[map.get(entity.getName())];
 			}
 			else{
 				int mNameColor = getResources().getColor(R.color.black_dividers);
@@ -399,8 +431,17 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 				text.setText(str);
 				text.setTextSize(13);
 				text.setBackgroundResource(R.drawable.course_bg0);
+				tmpId = R.color.grey_500;
 			}
-			final String temp = text.getText().toString();
+			final int idColor = tmpId;
+			text.setOnClickListener(new OnClickListener(){public void onClick(View v) {
+				Intent intent = new Intent(activity,CourseDetailActivity.class);
+				Bundle extras = new Bundle();
+				extras.putInt("color", idColor);
+				extras.putSerializable("course", entity);
+				intent.putExtras(extras);
+				activity.startActivity(intent);
+			}});
 		}
 		else{
 			text.setText("                ");
@@ -551,9 +592,11 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 				for(int i=0;i<weekdayId.length;++i)
 				if(cntWeekday == i){
 					tvWeekday[i].setTextColor(getResources().getColor(R.color.black_text));
+//					tvWeekday[i].setBackgroundResource(R.color.blue_500);
 				}
 				else{
-					tvWeekday[i].setTextColor(getResources().getColor(R.color.black_disabled));
+					tvWeekday[i].setTextColor(getResources().getColor(R.color.black_hint));
+//					tvWeekday[i].setBackgroundResource(R.color.white);
 				}
 				break;
 			}
@@ -844,17 +887,25 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 		List<View> views = new ArrayList<View>();
 		List<CourseEntity> mList = new ScheduleService().parseWeek(scheduleJson, InfoUtils.getNumber(btnWeek.getText().toString()));
 		for(int i=1;i<=7;++i){
-			ListView listView = new ListView(context);
+			BounceListView listView = new BounceListView(context);
 			List<CourseEntity> xList = new ArrayList<CourseEntity>();
 			for(int j=0;j<mList.size();++j)
 			if(mList.get(j).getWeekday() == i){
 				xList.add(mList.get(j));
 			}
-			listView.setAdapter(new ScheduleListAdapter(context,xList));
-			listView.setDivider(context.getResources().getDrawable(R.color.black_dividers));
-			listView.setDividerHeight(1);
-			listView.setVerticalScrollBarEnabled(false);
-			views.add(listView);
+			if(xList.size() > 0){
+				listView.setAdapter(new ScheduleListAdapter(context,xList));
+				listView.setDivider(context.getResources().getDrawable(R.color.black_dividers));
+				listView.setDividerHeight(1);
+				listView.setOverScrollMode(ListView.OVER_SCROLL_ALWAYS);
+				listView.setVerticalScrollBarEnabled(false);
+				views.add(listView);
+			}
+			else{
+				ImageView img = new ImageView(context);
+				img.setImageResource(R.drawable.no_course);
+				views.add(img);
+			}
 		}
 		viewPager.setAdapter(new ViewPagerAdapter(views,TAB_TITLE));
 		int position = new TimeService().getWeekDay();
@@ -1067,6 +1118,12 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 				btnHide.setVisibility(View.GONE);
 			}
 		});
+	}
+	
+	@Override
+	public void onDestroy() {
+		isDestroy = true;
+		super.onDestroy();
 	}
 	
 	// week picker click

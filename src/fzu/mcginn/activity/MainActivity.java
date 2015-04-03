@@ -13,6 +13,7 @@ import android.view.Gravity;
 import android.view.KeyEvent;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nispok.snackbar.Snackbar;
 import com.nispok.snackbar.SnackbarManager;
@@ -20,10 +21,10 @@ import com.nispok.snackbar.listeners.ActionClickListener;
 
 import fzu.mcginn.R;
 import fzu.mcginn.adapter.MenuAdapter;
+import fzu.mcginn.database.DbExam;
 import fzu.mcginn.entity.DateEntity;
 import fzu.mcginn.entity.UserEntity;
-import fzu.mcginn.fragment.MarkFragment;
-import fzu.mcginn.fragment.ScheduleFragment;
+import fzu.mcginn.fragment.*;
 import fzu.mcginn.interfaces.MessageInterface;
 import fzu.mcginn.service.TimeService;
 import fzu.mcginn.utils.BaseUtils;
@@ -89,13 +90,10 @@ public class MainActivity extends FragmentActivity
 	}
 
 	private void setListener(){
-		
 	}
-	
+
 	Runnable getNetTimeRun = new Runnable(){
-		@Override
 		public void run() {
-			// TODO Auto-generated method stub
 			dateEntity = new TimeService().getTime(false);
 			if(dateEntity != null){
 				Message msg = mHandler.obtainMessage();
@@ -116,7 +114,6 @@ public class MainActivity extends FragmentActivity
 	
 	@Override
 	public void onItem(int position) {
-		// TODO Auto-generated method stub
 		if(position != 6)
 			Message(InfoUtils.CLOSE_DRAWER);
 		if(position == curPosition){
@@ -126,14 +123,16 @@ public class MainActivity extends FragmentActivity
 		switch(position){
 		case 0:mFragment = new ScheduleFragment();break;
 		case 1:mFragment = new MarkFragment();break;
-		case 2:break;
-		case 3:break;
-		case 4:break;
-		case 5:break;
+		case 2:mFragment = new ExamFragment();break;
+		case 3:Toast.makeText(context, "开发中..", Toast.LENGTH_SHORT).show();break;
+		case 4:Toast.makeText(context, "开发中..", Toast.LENGTH_SHORT).show();break;
+		case 5:mFragment = new SettingFragment();break;
 		case 6:
 			BaseUtils.getInstance().setUserEntity(null);
 			BaseUtils.getInstance().setDateEntity(null);
 			BaseUtils.getInstance().setScheduleJson(null);
+			BaseUtils.getInstance().setMarkJson(null);
+			new DbExam(context).setExamJson(null);;
 			skip2Activity(LoginActivity.class,true);
 			break;
 		}
