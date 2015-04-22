@@ -10,7 +10,7 @@
 	<RelativeLayout 
 	    android:layout_width="match_parent"
 	    android:layout_height="56dp"
-	    android:background="@color/teal_a700">
+	    android:background="@color/blue_500">
 	   	<com.material.widget.ActionView
 	   	    android:id="@+id/av_drawer"
 	   	    android:layout_width="56dp"
@@ -87,13 +87,13 @@
     	<View
     	    android:layout_width="match_parent"
     	    android:layout_height="48dp"
-    	    android:background="@color/teal_a700"/>
+    	    android:background="@color/blue_500"/>
         <com.material.widget.PagerSlidingTabStrip
 	        android:id="@+id/tab_mark_report"
 	        android:layout_width="match_parent"
 	        android:layout_height="48dp"
 	        android:layout_marginLeft="60dp"
-	        android:background="@color/teal_a700"
+	        android:background="@color/blue_500"
 	        custom:pstsTextColorSelected="@color/white_text"
 	        custom:pstsTextColorNoSelected="@color/white_secondary"
 	        custom:pstsIndicatorColor="@color/white_text"/>

@@ -25,34 +25,34 @@ public final class R {
 		public static final int sb__text_color = 0x7f080112;
 	}
 	public static final class dimen {
-		public static final int sb__bg_corner_radius = 0x7f090017;
-		public static final int sb__max_width = 0x7f09001f;
-		public static final int sb__min_width = 0x7f09001e;
-		public static final int sb__offset = 0x7f090018;
-		public static final int sb__text_padding_bottom = 0x7f090019;
-		public static final int sb__text_padding_left = 0x7f09001a;
-		public static final int sb__text_padding_right = 0x7f09001c;
-		public static final int sb__text_padding_top = 0x7f09001b;
-		public static final int sb__text_size = 0x7f09001d;
+		public static final int sb__bg_corner_radius = 0x7f090013;
+		public static final int sb__max_width = 0x7f09001b;
+		public static final int sb__min_width = 0x7f09001a;
+		public static final int sb__offset = 0x7f090014;
+		public static final int sb__text_padding_bottom = 0x7f090015;
+		public static final int sb__text_padding_left = 0x7f090016;
+		public static final int sb__text_padding_right = 0x7f090018;
+		public static final int sb__text_padding_top = 0x7f090017;
+		public static final int sb__text_size = 0x7f090019;
 	}
 	public static final class drawable {
-		public static final int sb__bg = 0x7f02007d;
-		public static final int sb__btn_bg = 0x7f02007e;
+		public static final int sb__bg = 0x7f02007e;
+		public static final int sb__btn_bg = 0x7f02007f;
 	}
 	public static final class id {
-		public static final int sb__action = 0x7f0600e0;
-		public static final int sb__text = 0x7f0600e1;
+		public static final int sb__action = 0x7f0600e1;
+		public static final int sb__text = 0x7f0600e2;
 	}
 	public static final class interpolator {
 		public static final int sb__accelerate_cubic = 0x7f050000;
 		public static final int sb__decelerate_cubic = 0x7f050001;
 	}
 	public static final class layout {
-		public static final int sb__template = 0x7f030034;
+		public static final int sb__template = 0x7f030033;
 	}
 	public static final class style {
-		public static final int Snackbar = 0x7f0c008d;
-		public static final int Snackbar_Text = 0x7f0c008e;
-		public static final int Snackbar_Text_Action = 0x7f0c008f;
+		public static final int Snackbar = 0x7f0c0085;
+		public static final int Snackbar_Text = 0x7f0c0086;
+		public static final int Snackbar_Text_Action = 0x7f0c0087;
 	}
 }

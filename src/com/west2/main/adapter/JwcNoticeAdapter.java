@@ -22,35 +22,28 @@ public class JwcNoticeAdapter extends BaseAdapter{
 		this.mList = mList;
 	}
 	
-	
 	public void update(List<JWCNoticeEntity> mList){
 		this.mList = mList;
 		notifyDataSetChanged();
 	}
 	
-	
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
 		return mList.size();
 	}
 
 	@Override
 	public Object getItem(int position) {
-		// TODO Auto-generated method stub
 		return mList.get(position);
 	}
 
 	@Override
 	public long getItemId(int position) {
-		// TODO Auto-generated method stub
 		return position;
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		// TODO Auto-generated method stub
-		
 		if(convertView == null){
 			holder = new ViewHolder();
 			convertView = LayoutInflater.from(context).inflate(R.layout.item_jwc_notice, null);
@@ -67,13 +60,11 @@ public class JwcNoticeAdapter extends BaseAdapter{
 		holder.tvTitle.setText(entity.getTitle());
 		
 		if(entity.isRed()){
-			holder.tvTime.setTextColor(R.color.red_100);
+			holder.tvTitle.setTextColor(context.getResources().getColor(R.color.red_400));
+			holder.tvTime.setTextColor(context.getResources().getColor(R.color.red_400));
 		}
-		
-		
 		return convertView;
 	}
-	
 	
 	public class ViewHolder{
 		private TextView tvTitle;

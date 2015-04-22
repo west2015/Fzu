@@ -1,7 +1,5 @@
 package com.west2.main.fragment;
 
-import java.util.Stack;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -17,13 +15,12 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
+import android.webkit.WebSettings.LayoutAlgorithm;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.webkit.WebSettings.LayoutAlgorithm;
 
 import com.material.widget.ActionView;
 import com.material.widget.RaisedButton;
-import com.material.widget.action.Action;
 import com.material.widget.action.BackAction;
 import com.material.widget.action.DrawerAction;
 import com.nispok.snackbar.Snackbar;
@@ -55,7 +52,7 @@ public class MarketFragment extends Fragment{
 	private String preURL;
 	
 	private String curHtml;
-	private boolean isIndex =true;
+	private boolean isIndex = true;
 	
 
 	
@@ -74,18 +71,14 @@ public class MarketFragment extends Fragment{
 		return view;
 	}
 
-
 	private void findView(View view) {
-		// TODO Auto-generated method stub
 		mWebView = (WebView) view.findViewById(R.id.webview);
 		nextPageButton = (RaisedButton) view.findViewById(R.id.btn_nextpage);
 		prePageButton = (RaisedButton) view.findViewById(R.id.btn_prepage);
 		mActionView = (ActionView) view.findViewById(R.id.av);
 	}
+	
 	private void setListener(View view) {
-		// TODO Auto-generated method stub
-		
-		
 		mWebView.setWebViewClient(new WebViewClient() {
 
 			public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -108,9 +101,11 @@ public class MarketFragment extends Fragment{
 		
 		nextPageButton.setOnClickListener(new OnClickListener() {
 			
-			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+				if(!isIndex){
+					mActionView.callOnClick();
+					return ;
+				}
 				if(nextPageUrl!=null)
 					curURL = nextPageUrl;
 				new LoadHtmlTask().execute();
@@ -119,10 +114,8 @@ public class MarketFragment extends Fragment{
 		});
 		
 		prePageButton.setOnClickListener(new OnClickListener() {
-			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				if(prePageUrl!=null)
 				curURL = prePageUrl;
 				new LoadHtmlTask().execute();
@@ -130,10 +123,8 @@ public class MarketFragment extends Fragment{
 		});
 		
 		mActionView.setOnClickListener(new OnClickListener() {
-			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				if(isIndex){
 					mListener.Message(InfoUtils.OPEN_DRAWER);
 				}else{
@@ -154,8 +145,6 @@ public class MarketFragment extends Fragment{
 		curURL = MarketService.URL_MARKET;
 		new LoadHtmlTask().execute();
 	}
-
-	
 	
 	private class LoadHtmlTask extends AsyncTask<Void, Void, String>{
 		@Override
@@ -212,12 +201,12 @@ public class MarketFragment extends Fragment{
 			
 			if(isIndex){
 				mActionView.setAction(new DrawerAction(), ActionView.ROTATE_CLOCKWISE);
-				nextPageButton.setVisibility(View.VISIBLE);
 				prePageButton.setVisibility(View.VISIBLE);
+				nextPageButton.setText("ÏÂÒ»Ò³");
 			}else{
 				mActionView.setAction(new BackAction(), ActionView.ROTATE_CLOCKWISE);
-				nextPageButton.setVisibility(View.GONE);
 				prePageButton.setVisibility(View.GONE);
+				nextPageButton.setText("·µ»Ø");
 			}
 			
 			if(result==null||result.length()<10){

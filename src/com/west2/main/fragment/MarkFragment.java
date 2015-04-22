@@ -32,6 +32,7 @@ import com.nispok.snackbar.Snackbar;
 import com.nispok.snackbar.SnackbarManager;
 import com.nispok.snackbar.listeners.ActionClickListener;
 import com.umeng.analytics.MobclickAgent;
+import com.umeng.fb.util.Log;
 import com.west2.main.R;
 import com.west2.main.adapter.GradePointAdapter;
 import com.west2.main.adapter.MarkDetailAdapter;
@@ -115,21 +116,26 @@ public class MarkFragment extends Fragment{
 				str.append(user.getRealname()+" "+user.getUsername()+"\n");
 				int position = viewPager.getCurrentItem();
 				String term = titles.get(position);
-				double x = 0,y = 0;
+				double totalCredit = 0, gradePoint = 0;
 				for(int i=0;i<mList.size();++i){
 					MarkEntity e = mList.get(i);
 					if(e.getTerm().equals(term)){
 						str.append(e.getCourseName() + " " + e.getScore() + "\n");
 						double credit = InfoUtils.getDouble(e.getGradeCredit());
-						double grade = InfoUtils.getDouble(e.getGradePoint());
-						x += grade * credit;
-						y += credit;
+						totalCredit += credit;
 					}
 				}
-				if(y != 0){
-					x = x / y;
-					x = Math.round(x * 1000000.0) / 1000000.0;
-					str.append("学期绩点 " + x);
+				if(totalCredit != 0){
+					for(int i=0;i<mList.size();++i){
+						MarkEntity e = mList.get(i);
+						if(e.getTerm().equals(term)){
+							double credit = InfoUtils.getDouble(e.getGradeCredit());
+							double grade = InfoUtils.getDouble(e.getGradePoint());
+							gradePoint += (grade*credit)/totalCredit;
+						}
+					}
+					gradePoint = Math.round(gradePoint * 1000000.0) / 1000000.0;
+					str.append("学期绩点 " + gradePoint);
 				}
 				ClipboardManager c = (ClipboardManager)context.getSystemService(context.CLIPBOARD_SERVICE);
 				c.setText(str.toString());

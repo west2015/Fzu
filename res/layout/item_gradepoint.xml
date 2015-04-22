@@ -33,6 +33,6 @@
 	    android:gravity="center_vertical"
 	    android:text="3.919745"
 	    android:textSize="16sp"
-	    android:textColor="@color/green_500"/>
+	    android:textColor="@color/blue_500"/>
 
 </RelativeLayout>

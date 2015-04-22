@@ -14,14 +14,12 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
-import com.material.widget.scroll.ObservableScrollViewCallbacks;
-import com.material.widget.scroll.ScrollState;
 import com.nispok.snackbar.Snackbar;
 import com.nispok.snackbar.SnackbarManager;
 import com.nispok.snackbar.listeners.ActionClickListener;
@@ -97,7 +95,6 @@ public class JwcNoticeFragment extends Fragment {
 		}});
 		
 		lv.setOnItemClickListener(new OnItemClickListener() {
-
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int position,
 					long arg3) {
@@ -108,7 +105,6 @@ public class JwcNoticeFragment extends Fragment {
 				intent.putExtras(b);
 				startActivity(intent);
 			}
-			
 		});
 		
 	}
@@ -156,8 +152,6 @@ public class JwcNoticeFragment extends Fragment {
 		mHandler.sendMessageDelayed(msg, delay);
 	}
 
-
-	
 	/*
 	 * 获取教务处通知
 	 */
@@ -177,17 +171,15 @@ public class JwcNoticeFragment extends Fragment {
 		}
 	}};
 	
-	
 	public void onResume() {
 	    super.onResume();
 	    MobclickAgent.onPageStart("JwcNoticeFragment"); //统计页面(仅有Activity的应用中SDK自动调用，不需要单独写)
 	    MobclickAgent.onResume(getActivity());;          //统计时长
 	}
+	
 	public void onPause() {
 	    super.onPause();
 	    MobclickAgent.onPageEnd("JwcNoticeFragment"); // （仅有Activity的应用中SDK自动调用，不需要单独写）保证 onPageEnd 在onPause 之前调用,因为 onPause 中会保存信息 
 	    MobclickAgent.onPause(getActivity());
 	}
-	
-
 }

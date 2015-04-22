@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +31,6 @@ public class GradePointAdapter extends BaseAdapter{
 	private void calcGPA(List<MarkEntity> xList){
 		mList = new ArrayList<GradePoint>();
 		for(int i=0;i<xList.size();++i){
-			Log.e("!!!!!!!!!", "GradePoint i = " + i);
 			boolean hasAllScore = true;
 			int start = i, end = i;
 			String term = xList.get(i).getTerm();
@@ -43,28 +41,24 @@ public class GradePointAdapter extends BaseAdapter{
 				}
 				++end;
 			}
-			double x = 0,y = 0;
-			if (hasAllScore) {
-				for (int j = start; j < end; ++j) {
-					double credit = InfoUtils.getDouble(xList.get(j)
-							.getGradeCredit());
-					double grade = InfoUtils.getDouble(xList.get(j)
-							.getGradePoint());
-					y += credit;
-					x += credit * grade;
-					// Test
-//					String mCredit = xList.get(j).getGradeCredit().substring(1);
-//					String mGradePoint = xList.get(j).getGradePoint().substring(1);
-//					Log.e("!!!!", "Credit=" + mCredit + ",GradePoint="+mGradePoint);
-//					Log.e("!!!!!!!!", "Credit = " + xList.get(j).getGradeCredit() + ", GradePoint = " + xList.get(j).getGradePoint());
+			if(hasAllScore){
+				int j;
+				double totalCredit=0, gradePoint=0;
+				for(j=start;j<end;++j){
+					double credit=InfoUtils.getDouble(xList.get(j).getGradeCredit());
+					totalCredit += credit;
 				}
-				if (y != 0) {
-					x = x / y;
-					x = Math.round(x * 1000000) / 1000000.0;
-					mList.add(new GradePoint(term, x));
+				if(totalCredit != 0){
+					for(j=start;j<end;++j){
+						double credit=InfoUtils.getDouble(xList.get(j).getGradeCredit());
+						double grade =InfoUtils.getDouble(xList.get(j).getGradePoint());
+						gradePoint += (grade*credit)/totalCredit;
+					}
+					gradePoint = Math.round(gradePoint * 1000000.0) / 1000000.0;
+					mList.add(new GradePoint(term, gradePoint));
 				}
 			}
-			i = end;
+			i = end-1;
 		}
 	}
 	

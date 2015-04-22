@@ -11,17 +11,9 @@
     <RelativeLayout
         android:id="@+id/rl_bar"
         android:layout_width="match_parent"
-        android:layout_height="128dp"
-        android:background="@color/blue_500" >
+        android:layout_height="136dp"
+        android:background="@color/teal_a700" >
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginLeft="80dp"
-            android:gravity="center_vertical"
-            android:text="教务处通知"
-            android:textColor="@color/white"
-            android:textSize="22sp" />
     </RelativeLayout>
 
     <com.material.widget.ActionView
@@ -33,7 +25,6 @@
         custom:av_color="@color/white" />
 
     <!-- CONTENT -->
-
     <com.material.widget.DampScrollView
         android:visibility="gone"
         android:id="@+id/scrollview"
@@ -41,32 +32,30 @@
         android:layout_height="match_parent"
         android:layout_marginTop="56dp"
         android:overScrollMode="never"
-        android:background="@color/white" >
+        android:background="@drawable/jwc_detail_bg" >
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white" >
+            android:layout_height="match_parent" >
 
             <RelativeLayout
                 android:id="@+id/rl_title"
                 android:layout_width="match_parent"
-                android:layout_height="72dp"
-                android:background="@color/blue_500" >
+                android:layout_height="80dp"
+                android:paddingBottom="8dp">
 
                 <TextView
                     android:id="@+id/tv_title"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="0dp"
-                    android:layout_marginLeft="12dp"
-                    android:layout_marginRight="12dp"
-                    android:layout_marginTop="0dp"
+                    android:layout_height="match_parent"  
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
                     android:gravity="center_vertical"
-                    android:maxLines="2"
+                    android:maxLines="3"
+                    android:ellipsize="end"
                     android:text="关于重修未缴费名单及延长缴费时间的通知"
                     android:textColor="@color/white_text"
-                    android:textSize="24sp" />
+                    android:textSize="20sp" />
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -82,7 +71,6 @@
             </RelativeLayout>
 
             <!-- SHADOW -->
-
             <include
                 android:id="@+id/shadow"
                 android:layout_width="match_parent"
@@ -91,5 +79,4 @@
                 layout="@layout/shadow_layout" />
         </RelativeLayout>
     </com.material.widget.DampScrollView>
-
 </RelativeLayout>
