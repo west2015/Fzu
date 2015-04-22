@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res/com.west2.main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/rl"
+    android:background="@color/white" >
+
+    <!-- TITLE -->
+
+    <RelativeLayout
+        android:id="@+id/rl_bar"
+        android:layout_width="match_parent"
+        android:layout_height="128dp"
+        android:background="@color/blue_500" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginLeft="80dp"
+            android:gravity="center_vertical"
+            android:text="教务处通知"
+            android:textColor="@color/white"
+            android:textSize="22sp" />
+    </RelativeLayout>
+
+    <com.material.widget.ActionView
+        android:id="@+id/av_back"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:padding="16dp"
+        custom:av_action="back"
+        custom:av_color="@color/white" />
+
+    <!-- CONTENT -->
+
+    <com.material.widget.DampScrollView
+        android:visibility="gone"
+        android:id="@+id/scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="56dp"
+        android:overScrollMode="never"
+        android:background="@color/white" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white" >
+
+            <RelativeLayout
+                android:id="@+id/rl_title"
+                android:layout_width="match_parent"
+                android:layout_height="72dp"
+                android:background="@color/blue_500" >
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="0dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    android:layout_marginTop="0dp"
+                    android:gravity="center_vertical"
+                    android:maxLines="2"
+                    android:text="关于重修未缴费名单及延长缴费时间的通知"
+                    android:textColor="@color/white_text"
+                    android:textSize="24sp" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/rl_title"
+                android:background="@color/white" >
+
+                <WebView
+                android:id="@+id/webview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white" />
+            </RelativeLayout>
+
+            <!-- SHADOW -->
+
+            <include
+                android:id="@+id/shadow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rl_title"
+                layout="@layout/shadow_layout" />
+        </RelativeLayout>
+    </com.material.widget.DampScrollView>
+
+</RelativeLayout>

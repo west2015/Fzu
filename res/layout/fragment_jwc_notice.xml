@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:custom="http://schemas.android.com/apk/res/fzu.mcginn"
+    xmlns:custom="http://schemas.android.com/apk/res/com.west2.main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
     <!-- TITLE -->
     <RelativeLayout
-        android:visibility="gone"
         android:id="@+id/ll_title"
         android:layout_width="match_parent"
         android:layout_height="56dp"
@@ -28,67 +27,9 @@
             android:textSize="22sp"
             android:textColor="@color/white"/>
     </RelativeLayout>
-    <!-- TEST -->
-    <com.material.widget.ObservableListView
-        android:id="@+id/olv"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-    
-    <LinearLayout 
-        android:id="@+id/view_header"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/deep_purple_a700"
-        android:orientation="vertical" >
-		<android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="56dp" >
-		</android.support.v7.widget.Toolbar>
-		<TextView
-            android:id="@+id/sticky"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:gravity="center_vertical"
-            android:layout_marginLeft="72dp"
-            android:text="教务处通知"
-            android:textSize="20sp"
-            android:textColor="@color/white_text" />
-    </LinearLayout>
-    
-    
-    <RelativeLayout
-        android:visibility="gone"
-        android:id="@+id/rl_head"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="vertical" >
-        <View
-            android:id="@+id/bg"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:background="@color/deep_purple_a700"/>
-        <TextView
-            android:id="@+id/tv_jwc"
-            android:layout_width="wrap_content"
-            android:layout_height="56dp"
-            android:layout_marginLeft="72dp"
-            android:gravity="center_vertical"
-            android:text="教务处通知"
-            android:textColor="@color/white_text"
-            android:textSize="24sp" />
-        <!-- Shadow -->
-        <include
-            layout="@layout/shadow_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/bg"/>
-	</RelativeLayout>
+
 	<!-- PULL TO REFRESH -->
     <android.support.v4.widget.SwipeRefreshLayout
-        android:visibility="gone"
         android:id="@+id/srl"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
