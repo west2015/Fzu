@@ -5,10 +5,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.net.URI;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.http.HttpEntity;
@@ -23,17 +21,12 @@ import org.apache.http.cookie.Cookie;
 import org.apache.http.impl.client.AbstractHttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.params.HttpParams;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
-import com.west2.main.database.DbUser;
 import com.west2.main.entity.UserEntity;
 
-import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -249,10 +242,6 @@ public class FzuHttpUtils {
 				return result.toString().trim();
 			}
 			
-			
-			
-
-
 		} catch (ClientProtocolException e) {
 
 			// TODO Auto-generated catch block
@@ -277,7 +266,7 @@ public class FzuHttpUtils {
 	
 	
 	/**
-	 * post方法，该方法在此客户端默认发送表单为：{data：JSON数据}
+	 * post方法
 	 * 
 	 * @param httpClient
 	 * @param url
@@ -303,11 +292,16 @@ public class FzuHttpUtils {
 		InputStream inStream = null;
 		try {
 			post = new HttpPost(url);
-			List<BasicNameValuePair> params = new LinkedList<BasicNameValuePair>();
-			params.add(new BasicNameValuePair("data", jsonObject.toString()));
-			post.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8));
+			
+			List<NameValuePair> params = new ArrayList<NameValuePair>();
+			Iterator<String>  keyIter = jsonObject.keys();
+			while(keyIter.hasNext()){
+				String key =keyIter.next();
+				params.add(new BasicNameValuePair(key+"", jsonObject.getString(key)));
+			}
 			post.setHeader("Cookie",cookie);
 			post.setHeader("Referer", "http://59.77.226.35/");
+			post.setEntity(new UrlEncodedFormEntity(params,HTTP.UTF_8));
 			mResponse = httpClient.execute(post);
 			mEntity = mResponse.getEntity();
 			if(mEntity==null) return null;

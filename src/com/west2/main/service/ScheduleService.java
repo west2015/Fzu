@@ -61,22 +61,45 @@ public class ScheduleService {
 
 	
 	
-	// 解析html获取课表
-	public String querySchedule(UserEntity user,String xn,String xq){
-		String id = user.getLoginId();
-		String url = "http://59.77.226.35/student/xkjg/wdxk/xkjg_list.aspx?id="+id;
-		JSONObject postData = new JSONObject();
+	private JSONObject getPostDataJson(String xnxq,String url){
+		JSONObject obj = new JSONObject();
+		String res = FzuHttpUtils.getData(url);
+		if(res==null||res.length()==0) return null;
+		String VIEWSTATE="";
+		String EVENTVALIDATION = "";
+		Document doc = Jsoup.parse(res);
+		Elements es = doc.select("input[name=__VIEWSTATE]");
+		if(es.first()!=null)
+			VIEWSTATE = es.first().attr("value");
+		es = doc.select("input[name=__EVENTVALIDATION]");
+		if(es.first()!=null)
+			EVENTVALIDATION = es.first().attr("value");	
 		try {
-			postData.put("ContentPlaceHolder1_DDL_xnxq", xn+xq);
+			obj.put("ctl00$ContentPlaceHolder1$BT_submit","确定");
+			obj.put("ctl00$ContentPlaceHolder1$DDL_xnxq", xnxq);
+			obj.put("__EVENTVALIDATION",EVENTVALIDATION);
+			obj.put("__VIEWSTATE",VIEWSTATE);
+
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
+		
+		return obj;
+	}
+	
+	// 解析html获取课表
+	public String querySchedule(UserEntity user,String xn,String xq){
+		String id = user.getLoginId();
+		String url = "http://59.77.226.35/student/xkjg/wdxk/xkjg_list.aspx?id="+id;
+		JSONObject postData = getPostDataJson(xn+"0"+xq,url);
 		String res = FzuHttpUtils.postData(url, postData);
 		if(res==null||res.length()<10) return "";
 		JSONArray  []weekJsonArray = new JSONArray[25];
 		for(int i=0;i<25;i++)
 			weekJsonArray[i] = new JSONArray();
+		
 		Document doc = Jsoup.parse(res);
 		Elements eles = doc.select("tr[onmouseout]");
 		for(int i=0;i<eles.size();i++){
