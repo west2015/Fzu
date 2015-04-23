@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:custom="http://schemas.android.com/apk/res/fzu.mcginn"
+    xmlns:custom="http://schemas.android.com/apk/res/com.west2.main"
     android:id="@+id/rl_hide"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -36,7 +36,7 @@
 	    android:textColor="@color/black_secondary"/>
 
 	<EditText 
-	    android:id="@+id/et_term"
+	    android:id="@+id/et_school_year"
 	    android:layout_width="72dp"
 	    android:layout_height="56dp"
 	    android:layout_below="@+id/tv_title"
@@ -61,8 +61,8 @@
 	    android:layout_height="56dp"
 	    android:minWidth="64dp"
 	    android:layout_below="@+id/tv_title"
-	    android:layout_toEndOf="@+id/et_term"
-	    android:layout_toRightOf="@+id/et_term"
+	    android:layout_toEndOf="@+id/et_school_year"
+	    android:layout_toRightOf="@+id/et_school_year"
 	    android:layout_marginLeft="16dp"
 	    android:background="@color/white"
 	    android:gravity="bottom"
@@ -133,6 +133,7 @@
 	    android:textColor="@color/black_secondary"/>
 	
 	<com.material.widget.CheckBox 
+	    android:id="@+id/cb_all"
 	    android:layout_width="48dp"
 	    android:layout_height="56dp"
 	    android:layout_below="@+id/tv_content_week"
@@ -158,7 +159,8 @@
 	    android:textSize="16sp"
 	    android:textColor="@color/black_secondary"/>
 	
-	<com.material.widget.CheckBox 
+	<com.material.widget.CheckBox
+	    android:id="@+id/cb_week"
 	    android:layout_width="48dp"
 	    android:layout_height="56dp"
 	    android:layout_below="@+id/tv_all_course"
@@ -223,7 +225,7 @@
 	    android:layout_width="16dp"
 	    android:layout_height="58dp"
 	    android:background="@color/white"
-	    android:layout_toRightOf="@+id/et_term"
+	    android:layout_toRightOf="@+id/et_school_year"
 	    android:layout_below="@+id/tv_title"/>
 		
 	<!-- TERM PICKER -->
@@ -233,11 +235,12 @@
 	    android:layout_width="80dp"
 	    android:layout_height="106dp"
 	    android:layout_below="@+id/tv_title"
-	    android:layout_toRightOf="@+id/et_term"
+	    android:layout_toRightOf="@+id/et_school_year"
 	    android:layout_marginTop="2dp"
 	    android:background="@drawable/btn_bg"
 	    android:divider="@color/black_dividers"
-	    android:dividerHeight="0.1dp"/>
+	    android:dividerHeight="0.1dp"
+	    android:overScrollMode="never"/>
 	
 	<!-- WEEK PICKER -->
 	<ListView 
@@ -251,7 +254,8 @@
 	    android:background="@drawable/btn_bg"
 	    android:scrollbars="none"
 	    android:divider="@color/black_dividers"
-	    android:dividerHeight="0.1dp"/>
+	    android:dividerHeight="0.1dp"
+	    android:overScrollMode="never"/>
 	
 	
 </RelativeLayout>

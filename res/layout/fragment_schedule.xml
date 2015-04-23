@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:custom="http://schemas.android.com/apk/res/fzu.mcginn"
+    xmlns:custom="http://schemas.android.com/apk/res/com.west2.main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
@@ -33,7 +33,7 @@
 		    android:textSize="24sp"
 		    android:textColor="@color/white_text"/>
 		<ImageView 
-		    android:src="@drawable/ic_arrow_drop_down_white_18dp"
+		    android:src="@drawable/ic_arrow_drop_down_white_24dp"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:layout_toRightOf="@+id/btn_week"
@@ -50,6 +50,7 @@
 	</RelativeLayout>
 	<!-- DATE and TIME -->
 	<TextView 
+	    android:visibility="gone"
 	    android:id="@+id/tv_month"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
@@ -67,7 +68,16 @@
 		android:layout_below="@+id/tv_month"
 		android:orientation="horizontal">
 		<TextView 
-			android:id="@+id/tv_schedule_day1"
+		    android:id="@+id/tv_sunday"
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:layout_weight="3"
+			android:gravity="center"
+			android:text="周日"
+			android:textSize="14sp"
+			android:textColor="@color/black_text"/>
+		<TextView 
+			android:id="@+id/tv_monday"
 			android:layout_width="0dp"
 			android:layout_height="match_parent"
 			android:layout_weight="3"
@@ -76,6 +86,7 @@
 			android:textSize="14sp"
 			android:textColor="@color/black_text"/>
 		<TextView 
+		    android:id="@+id/tv_tuesday"
 			android:layout_width="0dp"
 			android:layout_height="match_parent"
 			android:layout_weight="3"
@@ -83,7 +94,8 @@
 			android:text="周二"
 			android:textSize="14sp"
 			android:textColor="@color/black_text"/>
-		<TextView 
+		<TextView
+		    android:id="@+id/tv_wednesday"
 			android:layout_width="0dp"
 			android:layout_height="match_parent"
 			android:layout_weight="3"
@@ -92,6 +104,7 @@
 			android:textSize="14sp"
 			android:textColor="@color/black_text"/>
 		<TextView 
+		    android:id="@+id/tv_thursday"
 			android:layout_width="0dp"
 			android:layout_height="match_parent"
 			android:layout_weight="3"
@@ -100,6 +113,7 @@
 			android:textSize="14sp"
 			android:textColor="@color/black_text"/>
 		<TextView 
+		    android:id="@+id/tv_friday"
 			android:layout_width="0dp"
 			android:layout_height="match_parent"
 			android:layout_weight="3"
@@ -108,19 +122,12 @@
 			android:textSize="14sp"
 			android:textColor="@color/black_text"/>
 		<TextView 
+		    android:id="@+id/tv_saturday"
 			android:layout_width="0dp"
 			android:layout_height="match_parent"
 			android:layout_weight="3"
 			android:gravity="center"
 			android:text="周六"
-			android:textSize="14sp"
-			android:textColor="@color/black_text"/>
-		<TextView 
-			android:layout_width="0dp"
-			android:layout_height="match_parent"
-			android:layout_weight="3"
-			android:gravity="center"
-			android:text="周日"
 			android:textSize="14sp"
 			android:textColor="@color/black_text"/>
 	</LinearLayout>
@@ -135,17 +142,21 @@
 		android:layout_marginTop="4dp"/>
 	
 	<!-- SCHEDULE -->
-	<ScrollView android:scrollbars="none"
+	<com.material.widget.DampScrollView 
+	    android:id="@+id/schedule_dsv"
+	    android:overScrollMode="never"
+	    android:scrollbars="none"
 	    android:layout_width="match_parent" android:layout_height="match_parent" android:layout_below="@+id/view_divider">
 	<LinearLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:orientation="vertical"
-		android:paddingTop="4dp">
+		android:paddingTop="4dp"
+		android:layout_marginBottom="48dp">
 		<TextView
 		    android:id="@+id/tv_schedule_1_4"
 		    android:layout_width="wrap_content"
-		    android:layout_height="48dp"
+		    android:layout_height="24dp"
 		    android:gravity="center_vertical"
 		    android:layout_marginLeft="16dp"
 		    android:layout_marginStart="16dp"
@@ -160,7 +171,7 @@
 		<TextView
 		    android:id="@+id/tv_schedule_5_8"
 		    android:layout_width="wrap_content"
-		    android:layout_height="48dp"
+		    android:layout_height="24dp"
 		    android:layout_marginLeft="16dp"
 		    android:layout_marginStart="16dp"
 		    android:gravity="center_vertical"
@@ -175,11 +186,11 @@
 		<TextView
 		    android:id="@+id/tv_schedule_9"
 		    android:layout_width="wrap_content"
-		    android:layout_height="48dp"
+		    android:layout_height="24dp"
 		    android:layout_marginLeft="16dp"
 		    android:layout_marginStart="16dp"
 		    android:gravity="center_vertical"
-		    android:text="9 - 11"
+		    android:text="9 - 12"
 		    android:textSize="14sp"
 		    android:textColor="@color/black_secondary"/>
 		<RelativeLayout
@@ -188,15 +199,44 @@
 		    android:layout_height="wrap_content">
 		</RelativeLayout>
 	</LinearLayout>
-	</ScrollView>
+	</com.material.widget.DampScrollView>
 
+	<com.material.widget.FloatingActionButton 
+	    android:id="@+id/fab_schedule"
+	    android:layout_width="48dp"
+	    android:layout_height="48dp"
+	    android:layout_alignParentEnd="true"
+		android:layout_alignParentRight="true"
+	    android:layout_alignParentBottom="true"
+	    android:layout_marginEnd="16dp"
+	    android:layout_marginRight="16dp"
+	    android:layout_marginBottom="16dp"
+	    custom:button_color="@color/blue_400"
+	    custom:button_colorPressed="@color/blue_700"/>	
+		
+	<!-- REFRESH PAGE -->
+	<RelativeLayout
+	    android:visibility="gone"
+	    android:id="@+id/rl_refresh"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:layout_below="@+id/ll_title"
+	    android:background="@color/white">
+		<com.material.widget.CircularProgressView 
+		    android:layout_width="48dp"
+		    android:layout_height="48dp"
+		    android:layout_centerInParent="true"
+		    
+		    custom:cpv_indeterminate="true"
+		    custom:cpv_color="@color/blue_500"/>
+	</RelativeLayout>
+		
 	<!-- SHADOW -->
 	<include 
 	    layout="@layout/shadow_layout"
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
 	    android:layout_below="@+id/ll_title"/>
-	
 	
 	<Button
 	    android:visibility="gone"
@@ -217,14 +257,15 @@
 	    android:divider="@color/black_dividers"
 	    android:dividerHeight="0.1dp"
 	    android:background="@drawable/btn_bg"
-	    android:scrollbars="none"/>
+	    android:scrollbars="none"
+	    android:overScrollMode="never"/>
 	
 	<!-- MENU -->
 	<LinearLayout
 	    android:visibility="gone"
 	    android:id="@+id/ll_menu"
 	    android:layout_width="125dp"
-	    android:layout_height="60dp"
+	    android:layout_height="108dp"
 	    android:layout_marginTop="52.5dp"
 	    android:layout_marginEnd="20dp"
 	    android:layout_marginRight="20dp"
@@ -239,7 +280,7 @@
 	        android:layout_height="48dp"
 	        android:background="@color/transparent"
 	        android:text="添加 "
-	        android:textSize="16sp"
+	        android:textSize="14sp"
 	        android:textColor="@color/black_text"/>
 	    <View 
 	        android:visibility="gone"
@@ -253,10 +294,17 @@
 	        android:layout_height="48dp"
 	        android:background="@color/transparent"
 	        android:text="删除"
-	        android:textSize="16sp"
+	        android:textSize="14sp"
+	        android:textColor="@color/black_text"/>
+	    <Button 
+	        android:id="@+id/btn_refresh"
+	        android:layout_width="match_parent"
+	        android:layout_height="48dp"
+	        android:background="@color/transparent"
+	        android:text="刷新"
+	        android:textSize="14sp"
 	        android:textColor="@color/black_text"/>
 	    <View 
-	        android:visibility="gone"
 	        android:layout_width="match_parent"
 	        android:layout_height="0.1dp"
 	        android:background="@color/black_dividers"/>
@@ -266,7 +314,7 @@
 	        android:layout_height="48dp"
 	        android:background="@color/transparent"
 	        android:text="设置"
-	        android:textSize="16sp"
+	        android:textSize="14sp"
 	        android:textColor="@color/black_text"/>
 	</LinearLayout>
 	
@@ -294,18 +342,31 @@
 	        android:id="@+id/tab_schedule"
 	        android:layout_width="match_parent"
 	        android:layout_height="48dp"
-	        android:layout_alignParentBottom="true"/>
+	        android:layout_alignParentBottom="true"
+	        custom:pstsIndicatorColor="@color/white"
+	        custom:pstsTextColorSelected="@color/white_text"
+	        custom:pstsTextColorNoSelected="@color/white_secondary"/>
 	</RelativeLayout>
+	
 	<android.support.v4.view.ViewPager
 	    android:visibility="gone"
 	    android:id="@+id/viewpager_schedule"
 	    android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:layout_below="@+id/rl_tab"
-		android:background="@color/green_500"/>
+		android:background="@color/white"/>
 
-	<com.material.widget.FloatingActionButton 
-	    android:id="@+id/fab_schedule"
+	<com.material.widget.ActionView
+        android:id="@+id/av"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:padding="16dp"
+        custom:av_color="@color/white"
+        custom:av_action="drawer"/>
+	
+	<com.material.widget.FloatingActionButton
+	    android:visibility="gone"
+	    android:id="@+id/fab_day"
 	    android:layout_width="48dp"
 	    android:layout_height="48dp"
 	    android:layout_alignParentEnd="true"
@@ -314,15 +375,9 @@
 	    android:layout_marginEnd="16dp"
 	    android:layout_marginRight="16dp"
 	    android:layout_marginBottom="16dp"
-	    custom:button_color="@color/yellow_500"
-	    custom:button_colorPressed="@color/yellow_700"/>
-	
-	<com.material.widget.ActionView
-        android:id="@+id/av"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        android:padding="16dp"
-        custom:av_color="@color/white"
-        custom:av_action="drawer"/>
+	    custom:image="@drawable/schedule_day_back"
+	    custom:image_size="32dp"
+	    custom:button_color="@color/blue_500"
+	    custom:button_colorPressed="@color/blue_700"/>
 	
 </RelativeLayout>

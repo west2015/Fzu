@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:paddingTop="24dp"
+    android:paddingLeft="0dp"
+    android:paddingRight="24dp"
+    android:paddingBottom="16dp"> 
+
+    <TextView 
+        android:id="@+id/tv_lesson"
+        android:layout_width="48dp"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:text="1-2"
+        android:textSize="14sp"
+        android:textColor="@color/blue_500"/>
+    
+    <TextView
+        android:id="@+id/tv_name"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginBottom="16dp"
+		android:layout_toRightOf="@+id/tv_lesson"
+		android:text="英语习语与英语文化英语习语与英语文"
+		android:textSize="20sp"
+		android:textStyle="bold"
+		android:textColor="@color/black_text"/>
+
+    <TextView
+        android:id="@+id/tv_teacher_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_name"
+        android:layout_toRightOf="@+id/tv_lesson"
+        android:layout_marginBottom="4dp"
+        android:text="程页"
+        android:textSize="16sp"
+        android:textColor="@color/black_secondary"/>
+    
+    <TextView
+        android:id="@+id/tv_place"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_teacher_name"
+        android:layout_toRightOf="@+id/tv_lesson"
+        android:layout_marginBottom="4dp"
+        android:text="东3-305"
+        android:textSize="16sp"
+        android:textColor="@color/black_secondary"/>
+
+	<TextView
+        android:id="@+id/tv_weeks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_place"
+        android:layout_toRightOf="@+id/tv_lesson"
+        android:text="1-14周"
+        android:textSize="16sp"
+        android:textColor="@color/black_secondary"/>
+    
+</RelativeLayout>
