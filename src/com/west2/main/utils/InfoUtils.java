@@ -34,6 +34,9 @@ public class InfoUtils {
 	public static final String SR_SCHEDULE_DIS_ALL = "all_courses";
 	public static final String SR_SCHEDULE_DIS_WEEK = "single_week_courses";
 
+	public static final String SR_SETTING_THEME_WHITE = "white";
+	public static final String SR_SETTING_THEME_BLACK = "black";
+	
 	// 获取字符串中数字
 	public static int getNumber(String str){
 		return getNumber(str,4);

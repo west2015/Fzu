@@ -21,6 +21,7 @@ public class BaseUtils extends Application{
 	private String scheduleJson;
 	private String markJson;
 	private String cookie;
+	private String theme;
 	
 	public static BaseUtils getInstance(){
 		if(instance == null){
@@ -38,6 +39,7 @@ public class BaseUtils extends Application{
 		dateEntity = new DbDate(context).getDateEntity();
 		scheduleJson = new DbSchedule(context).getScheduleJson();
 		markJson = new DbMark(context).getMarkJson();
+		theme = new DbSetting(context).getTheme();
 	}
 
 	@SuppressWarnings("deprecation")
@@ -54,6 +56,15 @@ public class BaseUtils extends Application{
 			wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);			
 		}
 		return wm.getDefaultDisplay().getHeight();
+	}
+	
+	public String getCustomTheme(){
+		return theme;
+	}
+	
+	public void setCustomTheme(String theme){
+		this.theme = theme;
+		new DbSetting(context).setTheme(theme);
 	}
 	
 	public UserEntity getUserEntity() {

@@ -13,7 +13,6 @@ import android.view.Gravity;
 import android.view.KeyEvent;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.nispok.snackbar.Snackbar;
 import com.nispok.snackbar.SnackbarManager;
@@ -24,7 +23,12 @@ import com.west2.main.adapter.MenuAdapter;
 import com.west2.main.database.DbExam;
 import com.west2.main.entity.DateEntity;
 import com.west2.main.entity.UserEntity;
-import com.west2.main.fragment.*;
+import com.west2.main.fragment.ExamFragment;
+import com.west2.main.fragment.JwcNoticeFragment;
+import com.west2.main.fragment.MarkFragment;
+import com.west2.main.fragment.MarketFragment;
+import com.west2.main.fragment.ScheduleFragment;
+import com.west2.main.fragment.SettingFragment;
 import com.west2.main.interfaces.MessageInterface;
 import com.west2.main.service.TimeService;
 import com.west2.main.utils.BaseUtils;
@@ -102,6 +106,17 @@ public class MainActivity extends FragmentActivity
 			}
 		}
 	};
+
+	private void setCustomTheme(){
+		String theme = BaseUtils.getInstance().getCustomTheme();
+		if(theme.equals(InfoUtils.SR_SETTING_THEME_WHITE)){
+			menuList.setBackgroundResource(R.color.white);
+		}
+		else
+		if(theme.equals(InfoUtils.SR_SETTING_THEME_BLACK)){
+			menuList.setBackgroundResource(R.color.black_bg);				
+		}
+	}
 	
 	Handler mHandler = new Handler(){
 		public void handleMessage(Message msg){

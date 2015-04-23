@@ -9,8 +9,7 @@
     <FrameLayout
         android:id="@+id/fragment_layout"
         android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:background="@color/white" >
+		android:layout_height="match_parent" >
     </FrameLayout>
 
 	<RelativeLayout
@@ -18,8 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="left"
-    	android:layout_marginRight="48dp"
-    	android:background="@color/white">
+    	android:layout_marginRight="48dp">
     	<RelativeLayout
     	    android:id="@+id/rl_top"
     	    android:layout_width="match_parent"

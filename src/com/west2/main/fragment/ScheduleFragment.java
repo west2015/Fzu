@@ -96,6 +96,8 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 	private final int CLOSE_MENU = 1011;
 	private final int SET_WEEK = 1012;
 	private final int SET_WEEKDAY = 1013;
+	private final int SHOW_FAB_DAY = 1014;
+	private final int HIDE_FAB_DAY = 1015;
 	
 	private final int[] llid = {
 		R.id.ll_c1,R.id.ll_c2,R.id.ll_c3,R.id.ll_c4,R.id.ll_c5,R.id.ll_c6,R.id.ll_c7
@@ -184,6 +186,7 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 	private String scheduleJson;
 	private RevealColorView rcv;
 	private FloatingActionButton fab;
+	private FloatingActionButton fabDay;
 	private RelativeLayout rlSchedule14;
 	private RelativeLayout rlSchedule58;
 	private RelativeLayout rlSchedule9;
@@ -225,6 +228,7 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 		lvWeek  = (ListView) view.findViewById(R.id.lv_week);
 		btnHide = (Button) view.findViewById(R.id.btn_hide_week_picker);
 		fab = (FloatingActionButton) view.findViewById(R.id.fab_schedule);
+		fabDay = (FloatingActionButton) view.findViewById(R.id.fab_day);
 		viewCenter = view.findViewById(R.id.view_center);
 		rcv = (RevealColorView) view.findViewById(R.id.rcv_schedule);
 		rl_tab = (RelativeLayout) view.findViewById(R.id.rl_tab);
@@ -456,6 +460,10 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 			if(isChanging) return ;
 			changePage();
 		}});
+		fabDay.setOnClickListener(new OnClickListener(){public void onClick(View v) {
+			if(isChanging) return ;
+			changePage();
+		}});
 		// Òþ²ØPicker
 		btnHide.setOnClickListener(new OnClickListener(){public void onClick(View v) {
 			if(isWeekPicker)
@@ -558,6 +566,13 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 			case SHOW_FAB:
 				if(msg.obj != null) showFab((long) msg.obj);
 				else showFab(300);
+				break;
+			case SHOW_FAB_DAY:
+				fabDay.show();
+				fabDay.setVisibility(View.VISIBLE);
+				break;
+			case HIDE_FAB_DAY:
+				fabDay.hide();
 				break;
 			case SHOW_RCV:
 				if(msg.obj != null) showRcv((int) msg.obj);
@@ -927,10 +942,12 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 			sendMessage(MOVE_FAB,300L);
 			sendMessageDelay(SHOW_RCV,context.getResources().getColor(R.color.blue_400),200);
 			sendMessageDelay(SHOW_ACB,null,550L);
+			sendMessageDelay(SHOW_FAB_DAY,null,550L);
 			sendMessageDelay(SET_AV,new BackAction(),700L);
 		}
 		else {
 			sendMessageDelay(SET_AV,new DrawerAction(),0L);
+			sendMessageDelay(HIDE_FAB_DAY,null,0L);
 			sendMessageDelay(HIDE_ACB,null,200L);
 			sendMessageDelay(HIDE_RCV,Color.TRANSPARENT,500L);
 			sendMessageDelay(SHOW_FAB,300L,500L);
