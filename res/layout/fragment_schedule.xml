@@ -4,7 +4,7 @@
     xmlns:custom="http://schemas.android.com/apk/res/com.west2.main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="?attr/ContentBackground">
     <View 
         android:id="@+id/view_center"
         android:layout_width="48dp"
@@ -15,7 +15,7 @@
         android:id="@+id/ll_title"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:background="@color/blue_500"
+        android:background="?attr/ActionBarBackground"
         android:orientation="horizontal"
         android:gravity="center_vertical">
 		<com.material.widget.RaisedButton 
@@ -75,7 +75,7 @@
 			android:gravity="center"
 			android:text="周日"
 			android:textSize="14sp"
-			android:textColor="@color/black_text"/>
+			android:textColor="?attr/HintTextColor"/>
 		<TextView 
 			android:id="@+id/tv_monday"
 			android:layout_width="0dp"
@@ -84,7 +84,7 @@
 			android:gravity="center"
 			android:text="周一"
 			android:textSize="14sp"
-			android:textColor="@color/black_text"/>
+			android:textColor="?attr/HintTextColor"/>
 		<TextView 
 		    android:id="@+id/tv_tuesday"
 			android:layout_width="0dp"
@@ -93,7 +93,7 @@
 			android:gravity="center"
 			android:text="周二"
 			android:textSize="14sp"
-			android:textColor="@color/black_text"/>
+			android:textColor="?attr/HintTextColor"/>
 		<TextView
 		    android:id="@+id/tv_wednesday"
 			android:layout_width="0dp"
@@ -102,7 +102,7 @@
 			android:gravity="center"
 			android:text="周三"
 			android:textSize="14sp"
-			android:textColor="@color/black_text"/>
+			android:textColor="?attr/HintTextColor"/>
 		<TextView 
 		    android:id="@+id/tv_thursday"
 			android:layout_width="0dp"
@@ -111,7 +111,7 @@
 			android:gravity="center"
 			android:text="周四"
 			android:textSize="14sp"
-			android:textColor="@color/black_text"/>
+			android:textColor="?attr/HintTextColor"/>
 		<TextView 
 		    android:id="@+id/tv_friday"
 			android:layout_width="0dp"
@@ -120,7 +120,7 @@
 			android:gravity="center"
 			android:text="周五"
 			android:textSize="14sp"
-			android:textColor="@color/black_text"/>
+			android:textColor="?attr/HintTextColor"/>
 		<TextView 
 		    android:id="@+id/tv_saturday"
 			android:layout_width="0dp"
@@ -129,7 +129,7 @@
 			android:gravity="center"
 			android:text="周六"
 			android:textSize="14sp"
-			android:textColor="@color/black_text"/>
+			android:textColor="?attr/HintTextColor"/>
 	</LinearLayout>
 	<View 
 		android:id="@+id/view_divider"

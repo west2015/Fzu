@@ -9,6 +9,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
@@ -183,6 +184,7 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 	
 	// WEEK SCHEDULE
 	private TextView[] tvWeekday = new TextView[7];
+	private int textColor,hintColor,tvColor;
 	private String scheduleJson;
 	private RevealColorView rcv;
 	private FloatingActionButton fab;
@@ -216,6 +218,19 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 	}
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState){
+		if(BaseUtils.getInstance().getCustomTheme().equals(InfoUtils.SR_SETTING_THEME_WHITE)){
+			context.setTheme(R.style.DarkTheme);
+		}
+		else{
+			context.setTheme(R.style.LightTheme);	
+		}
+
+		TypedArray ta = context.obtainStyledAttributes(R.styleable.ThemeValue);
+		tvColor = ta.getColor(R.styleable.ThemeValue_ContentTextColor, context.getResources().getColor(R.color.white_text));
+		textColor = ta.getColor(R.styleable.ThemeValue_SpecialColor, context.getResources().getColor(R.color.black_text));
+		hintColor = ta.getColor(R.styleable.ThemeValue_HintTextColor, context.getResources().getColor(R.color.black_hint));
+		ta.recycle();
+
 		View view = inflater.inflate(R.layout.fragment_schedule, null);
 		findView(view);
 		setListener(view);
@@ -413,8 +428,10 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 			String mName = entity.getName().length() <= 4*length ? entity.getName() : entity.getName().substring(0, 4*length) + "...";
 			String mPlace = entity.getPlace();
 			if(inWeek){
-				int mNameColor = getResources().getColor(R.color.white_text);
-				int mPlaceColor = getResources().getColor(R.color.white);
+//				int mNameColor = getResources().getColor(R.color.white_text);
+//				int mPlaceColor = getResources().getColor(R.color.white);
+				int mNameColor = tvColor;
+				int mPlaceColor = tvColor;
 				SpannableString str = new SpannableString(mName + "\n" + mPlace);
 				str.setSpan(new ForegroundColorSpan(mNameColor),0, mName.length(),Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 				str.setSpan(new ForegroundColorSpan(mPlaceColor),mName.length(), mName.length()+mPlace.length()+1,Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -606,12 +623,12 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 				int cntWeekday = new TimeService().getWeekDay();
 				for(int i=0;i<weekdayId.length;++i)
 				if(cntWeekday == i){
-					tvWeekday[i].setTextColor(getResources().getColor(R.color.black_text));
-//					tvWeekday[i].setBackgroundResource(R.color.blue_500);
+//					tvWeekday[i].setTextColor(getResources().getColor(R.color.black_text));
+					tvWeekday[i].setTextColor(textColor);
 				}
 				else{
-					tvWeekday[i].setTextColor(getResources().getColor(R.color.black_hint));
-//					tvWeekday[i].setBackgroundResource(R.color.white);
+//					tvWeekday[i].setTextColor(getResources().getColor(R.color.black_hint));
+					tvWeekday[i].setTextColor(hintColor);
 				}
 				break;
 			}
@@ -942,7 +959,7 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 			sendMessage(MOVE_FAB,300L);
 			sendMessageDelay(SHOW_RCV,context.getResources().getColor(R.color.blue_400),200);
 			sendMessageDelay(SHOW_ACB,null,550L);
-			sendMessageDelay(SHOW_FAB_DAY,null,550L);
+			sendMessageDelay(SHOW_FAB_DAY,null,500L);
 			sendMessageDelay(SET_AV,new BackAction(),700L);
 		}
 		else {
