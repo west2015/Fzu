@@ -1,99 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.west2.main"
-    android:versionCode="6"
-    android:versionName="3.0" >
+    package="fzu.mcginn"
+    android:versionCode="1"
+    android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="16"
+        android:minSdkVersion="8"
         android:targetSdkVersion="21" />
-
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <!-- 检测网络状态 -->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <!-- 获取mac地址作为用户的备用唯一标识 -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <!-- 获取用户手机的IMEI，用来唯一的标识用户。 -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <!-- 缓存资源优先存入SDcard -->
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET"/>
     <!-- 允许应用程序联网，以便向我们的服务器端发送数据。 -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <!-- 语音 -->
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    
 
     <application
-        android:name=".utils.BaseUtils"
+        android:name="fzu.mcginn.utils.BaseUtils"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
-
-        
-        <!-- 友盟自動更新 -->
-		<meta-data android:name="UMENG_APPKEY" 
-		    android:value="53fabae9fd98c506d50042c2"/>
-	 	<meta-data android:name="UMENG_CHANNEL" 
-	 	    android:value="debug"/>
-	 	
-	  	<service android:name="com.umeng.update.net.DownloadingService" android:process=":DownloadingService"></service>
-	 	<activity android:name="com.umeng.update.UpdateDialogActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
-		<activity android:name="com.umeng.fb.ConversationActivity" android:theme="@android:style/Theme.NoTitleBar"/>
-		<activity android:name="com.umeng.fb.ContactActivity" android:theme="@android:style/Theme.NoTitleBar"/>
-		<!-- 友盟自動更新 -->
-		<!-- 友盟分享-->
-		<!--分享编辑页-->
-        <activity
-            android:name="com.umeng.socialize.view.ShareActivity"
-            android:configChanges="orientation|keyboard"
-            android:launchMode="singleTask"
-            android:noHistory="true"
-            android:theme="@style/Theme.UMDialog"
-            android:windowSoftInputMode="stateVisible|adjustResize" >
-        </activity>
-
-        <activity
-            android:name=".wxapi.WXEntryActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:exported="true"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <activity
-            android:name="com.tencent.tauth.AuthActivity"
-            android:launchMode="singleTask"
-            android:noHistory="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <!-- 100424468，如果你使用的公用账号，则不需要修改；否则修改成你在QQ开放平台申请的 APP ID -->
-                <data android:scheme="tencent100424468" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name="com.tencent.connect.common.AssistActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
-        </activity>
-        <!-- 友盟分享   -->
-        
-        <!--  -->
+        android:theme="@android:style/Theme.NoTitleBar" >
         <activity
             android:name=".activity.LoginActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.MainActivity" />
-        <activity android:name=".activity.CourseDetailActivity" />
-        <activity
-            android:name="com.west2.main.activity.JwcNoticeDetatilActivity"
-            android:label="@string/title_activity_jwc_notice_detatil" >
-        </activity>
+        <activity 
+            android:name="fzu.mcginn.activity.MainActivity"/>
     </application>
 
 </manifest>

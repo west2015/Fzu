@@ -9,7 +9,8 @@
     <FrameLayout
         android:id="@+id/fragment_layout"
         android:layout_width="match_parent"
-		android:layout_height="match_parent" >
+		android:layout_height="match_parent"
+		android:background="@color/white" >
     </FrameLayout>
 
 	<RelativeLayout
@@ -59,5 +60,10 @@
             android:scrollbars="none"
             android:background="@color/white" >
         </ListView>
+        <include 
+            layout="@layout/shadow_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rl_top"/>
 	</RelativeLayout>
 </android.support.v4.widget.DrawerLayout>

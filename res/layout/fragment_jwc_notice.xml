@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:custom="http://schemas.android.com/apk/res/com.west2.main"
+    xmlns:custom="http://schemas.android.com/apk/res/fzu.mcginn"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
     <!-- TITLE -->
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/ll_title"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:background="@color/teal_a700">
+        android:background="@color/blue_500"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingRight="16dp">
 		<com.material.widget.ActionView
             android:id="@+id/av"
             android:layout_width="56dp"
@@ -20,31 +23,23 @@
             custom:av_action="drawer"/>
         <TextView 
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="80dp"
-            android:gravity="center_vertical"
+            android:layout_height="wrap_content"
             android:text="教务处通知"
             android:textSize="22sp"
             android:textColor="@color/white"/>
-    </RelativeLayout>
-
-	<!-- PULL TO REFRESH -->
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/srl"
+    </LinearLayout>
+    <RelativeLayout 
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="56dp" >
-        <ListView
-            android:id="@+id/lv"
+        android:layout_below="@+id/ll_title">
+        <View 
+            android:id="@+id/middle"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:divider="@color/black_dividers"
-            android:dividerHeight="0.1dp"
-            android:overScrollMode="never"
-            android:scrollbars="none" >
-        </ListView>
-    </android.support.v4.widget.SwipeRefreshLayout>
-	<!-- Shadow -->
+            android:layout_height="1dp"
+            android:background="@color/white"
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
+    <!-- Shadow -->
     <include
 	    layout="@layout/shadow_layout"
 	    android:layout_width="match_parent"

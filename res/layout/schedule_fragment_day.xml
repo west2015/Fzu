@@ -10,12 +10,5 @@
 	    android:layout_height="wrap_content"
 	    android:layout_centerInParent="true"
 	    android:textSize="18sp"
-	    android:textColor="@color/black_text"/>
-	<ListView 
-	    android:id="@+id/lv_schedule"
-	    android:layout_width="match_parent"
-	    android:layout_height="match_parent"
-	    android:scrollbars="none"
-	    android:divider="@color/black_dividers"
-	    android:dividerHeight="0.1dp"/>
+	    android:textColor="@color/black_text"/>    
 </RelativeLayout>
