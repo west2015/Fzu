@@ -21,6 +21,8 @@ import android.widget.TextView;
 import com.umeng.analytics.MobclickAgent;
 import com.west2.main.R;
 import com.west2.main.entity.CourseEntity;
+import com.west2.main.utils.BaseUtils;
+import com.west2.main.utils.InfoUtils;
 import com.west2.main.utils.MetricsConverter;
 
 public class CourseDetailActivity extends Activity{
@@ -51,9 +53,15 @@ public class CourseDetailActivity extends Activity{
 	private TextView tvAuthor;
 	
 	public void onCreate(Bundle savedInstanceState){
+		if(BaseUtils.getInstance().getCustomTheme().equals(InfoUtils.SR_SETTING_THEME_BLACK)){
+			this.setTheme(R.style.DarkTheme);
+		}
+		else{
+			this.setTheme(R.style.LightTheme);
+		}
+
 		super.onCreate(savedInstanceState);
 		this.setContentView(R.layout.activity_course_detail);
-		
 		findView();
 		initValue();
 		setListener();

@@ -75,6 +75,13 @@ public class MarkFragment extends Fragment{
 	}
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState){
+		if(BaseUtils.getInstance().getCustomTheme().equals(InfoUtils.SR_SETTING_THEME_BLACK)){
+			context.setTheme(R.style.DarkTheme);
+		}
+		else{
+			context.setTheme(R.style.LightTheme);
+		}
+		
 		View view = inflater.inflate(R.layout.fragment_mark, null);
 		findView(view);
 		setListener(view);

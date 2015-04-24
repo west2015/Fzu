@@ -26,20 +26,31 @@
 
     <!-- Custom Theme -->
     <style name="LightTheme" parent="Theme.AppCompat.Light">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowAnimationStyle">@style/AnimationActivity</item>
         <item name="ActionBarTextColor">@color/white_text</item>
         <item name="ActionBarBackground">@color/blue_500</item>
-        <item name="ContentTextColor">@color/white_text</item>
+        <item name="ContentTextColor">@color/black_text</item>
         <item name="ContentBackground">@color/white</item>
         <item name="HintTextColor">@color/black_hint</item>
-        <item name="SpecialColor">@color/black_text</item>
+        <item name="SpecialColor">@color/blue_500</item>
+        <item name="RippleColor">@color/grey_500</item>
+        <item name="FabShadowColor">@color/grey_500</item>
+        <item name="CourseTextColor">@color/white_text</item>
     </style>
+    
     <style name="DarkTheme" parent="Theme.AppCompat.Light">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowAnimationStyle">@style/AnimationActivity</item>
         <item name="ActionBarTextColor">@color/white_text</item>
-        <item name="ActionBarBackground">@color/black</item>
-        <item name="ContentTextColor">@color/white_hint</item>
+        <item name="ActionBarBackground">@color/black_ab</item>
+        <item name="ContentTextColor">@color/white_text</item>
         <item name="ContentBackground">@color/black_bg</item>
         <item name="HintTextColor">@color/white_hint</item>
         <item name="SpecialColor">@color/teal_500</item>
-    </style>
+        <item name="RippleColor">@color/grey_100</item>
+        <item name="FabShadowColor">@color/black</item>
+        <item name="CourseTextColor">@color/white_secondary</item>
+   	</style>
     
 </resources>

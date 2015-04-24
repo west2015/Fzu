@@ -30,6 +30,7 @@ import com.umeng.analytics.MobclickAgent;
 import com.west2.main.R;
 import com.west2.main.interfaces.MessageInterface;
 import com.west2.main.service.MarketService;
+import com.west2.main.utils.BaseUtils;
 import com.west2.main.utils.InfoUtils;
 
 public class MarketFragment extends Fragment{
@@ -64,6 +65,13 @@ public class MarketFragment extends Fragment{
 	}
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState){
+		if(BaseUtils.getInstance().getCustomTheme().equals(InfoUtils.SR_SETTING_THEME_BLACK)){
+			context.setTheme(R.style.DarkTheme);
+		}
+		else{
+			context.setTheme(R.style.LightTheme);
+		}
+		
 		View view = inflater.inflate(R.layout.fragment_market, null);
 		findView(view);
 		setListener(view);

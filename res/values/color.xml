@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="black_bg">#37474f</color>
+    <color name="black_ab">#263238</color>
     
     <color name="course_color0">#80e0e0e0</color>
     <color name="course_color1">#80e53935</color>

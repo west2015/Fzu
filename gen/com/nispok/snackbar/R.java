@@ -40,8 +40,8 @@ public final class R {
 		public static final int sb__btn_bg = 0x7f02007f;
 	}
 	public static final class id {
-		public static final int sb__action = 0x7f0600e2;
-		public static final int sb__text = 0x7f0600e3;
+		public static final int sb__action = 0x7f0600e1;
+		public static final int sb__text = 0x7f0600e2;
 	}
 	public static final class interpolator {
 		public static final int sb__accelerate_cubic = 0x7f050000;

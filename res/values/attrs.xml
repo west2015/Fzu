@@ -7,5 +7,9 @@
 	    <attr name="ContentBackground" format="color"/>
 	    <attr name="HintTextColor" format="color"/>
 	    <attr name="SpecialColor" format="color"/>
+	    <attr name="RippleColor" format="color"/>
+	    <attr name="FabShadowColor" format="color"/>
+	    <attr name="DividerColor" format="color"/>
+	    <attr name="CourseTextColor" format="color"/>
 	</declare-styleable>
 </resources>

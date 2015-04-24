@@ -67,6 +67,13 @@ public class MainActivity extends FragmentActivity
 
 	@Override
 	public void onCreate(Bundle savedInstanceState){
+		if(BaseUtils.getInstance().getCustomTheme().equals(InfoUtils.SR_SETTING_THEME_BLACK)){
+			this.setTheme(R.style.DarkTheme);
+		}
+		else{
+			this.setTheme(R.style.LightTheme);
+		}
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
@@ -107,17 +114,6 @@ public class MainActivity extends FragmentActivity
 		}
 	};
 
-	private void setCustomTheme(){
-		String theme = BaseUtils.getInstance().getCustomTheme();
-		if(theme.equals(InfoUtils.SR_SETTING_THEME_WHITE)){
-			menuList.setBackgroundResource(R.color.white);
-		}
-		else
-		if(theme.equals(InfoUtils.SR_SETTING_THEME_BLACK)){
-			menuList.setBackgroundResource(R.color.black_bg);				
-		}
-	}
-	
 	Handler mHandler = new Handler(){
 		public void handleMessage(Message msg){
 			if(msg.obj.toString().equals(InfoUtils.SR_TIME_SUCCEED)){
@@ -177,6 +173,9 @@ public class MainActivity extends FragmentActivity
 			Message mMsg = mHandler.obtainMessage();
 			mMsg.obj = InfoUtils.SR_TIME_SUCCEED;
 			mHandler.sendMessage(mMsg);
+		} else
+		if(msg.equals(InfoUtils.RELOAD)){
+			skip2Activity(MainActivity.class,true);
 		}
 	}
 	

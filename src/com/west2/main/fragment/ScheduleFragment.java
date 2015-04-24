@@ -187,6 +187,7 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 	private int textColor,hintColor,tvColor;
 	private String scheduleJson;
 	private RevealColorView rcv;
+	private int rcvShowColor;
 	private FloatingActionButton fab;
 	private FloatingActionButton fabDay;
 	private RelativeLayout rlSchedule14;
@@ -218,7 +219,7 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 	}
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState){
-		if(BaseUtils.getInstance().getCustomTheme().equals(InfoUtils.SR_SETTING_THEME_WHITE)){
+		if(BaseUtils.getInstance().getCustomTheme().equals(InfoUtils.SR_SETTING_THEME_BLACK)){
 			context.setTheme(R.style.DarkTheme);
 		}
 		else{
@@ -226,9 +227,10 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 		}
 
 		TypedArray ta = context.obtainStyledAttributes(R.styleable.ThemeValue);
-		tvColor = ta.getColor(R.styleable.ThemeValue_ContentTextColor, context.getResources().getColor(R.color.white_text));
-		textColor = ta.getColor(R.styleable.ThemeValue_SpecialColor, context.getResources().getColor(R.color.black_text));
+		tvColor = ta.getColor(R.styleable.ThemeValue_CourseTextColor, context.getResources().getColor(R.color.white_text));
+		textColor = ta.getColor(R.styleable.ThemeValue_ContentTextColor, context.getResources().getColor(R.color.black_text));
 		hintColor = ta.getColor(R.styleable.ThemeValue_HintTextColor, context.getResources().getColor(R.color.black_hint));
+		rcvShowColor = ta.getColor(R.styleable.ThemeValue_ActionBarBackground, context.getResources().getColor(R.color.blue_500));
 		ta.recycle();
 
 		View view = inflater.inflate(R.layout.fragment_schedule, null);
@@ -273,7 +275,7 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 		lvWeek.setAdapter(new SimpleAdapter(context,arrWeek,this));
 		// SCHEDULE DAY
 		tabHasSetView = false;
-		tab.setBackgroundColor(context.getResources().getColor(R.color.blue_500));
+//		tab.setBackgroundColor(context.getResources().getColor(R.color.blue_500));
 		// NET WORK
 		rlRefresh.setVisibility(View.VISIBLE);
 		new Thread(getScheduleRun).start();
@@ -957,7 +959,7 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 			// 设置单日视图
 			refreshViewPager();
 			sendMessage(MOVE_FAB,300L);
-			sendMessageDelay(SHOW_RCV,context.getResources().getColor(R.color.blue_400),200);
+			sendMessageDelay(SHOW_RCV,rcvShowColor,200);
 			sendMessageDelay(SHOW_ACB,null,550L);
 			sendMessageDelay(SHOW_FAB_DAY,null,500L);
 			sendMessageDelay(SET_AV,new BackAction(),700L);

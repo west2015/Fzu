@@ -4,19 +4,8 @@
     xmlns:custom="http://schemas.android.com/apk/res/com.west2.main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/transparent"
     android:padding="16dp">
-    <com.material.widget.FloatingActionButton
-        android:visibility="gone"
-        android:id="@+id/fab"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:padding="8dp"
-        android:layout_centerVertical="true"
-       	custom:type="mini"
-       	custom:shadow_color="@color/transparent"
-        custom:button_color="@color/green_a700"
-        custom:button_colorPressed="@color/green_a700"/>
     <View
         android:id="@+id/view"
         android:layout_width="1dp"
@@ -31,7 +20,7 @@
         android:padding="2dp"
         android:text="大学英语四"
         android:textSize="18sp"
-        android:textColor="@color/black_text"/>
+        android:textColor="?attr/ContentTextColor"/>
     <TextView
         android:id="@+id/tv_place"
         android:layout_width="wrap_content"
@@ -41,7 +30,7 @@
         android:padding="2dp"
         android:text="东3-405"
         android:textSize="14sp"
-        android:textColor="@color/black_secondary"/>
+        android:textColor="?attr/HintTextColor"/>
     <TextView 
         android:id="@+id/tv_time"
         android:layout_width="wrap_content"
@@ -51,5 +40,5 @@
         android:padding="2dp"
         android:text="2015年03月29日 8:30-10:30"
         android:textSize="14sp"
-        android:textColor="@color/black_secondary"/>
+        android:textColor="?attr/HintTextColor"/>
 </RelativeLayout>

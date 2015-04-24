@@ -200,7 +200,7 @@ public final class R {
 		public static final int abc_split_action_bar_is_narrow = 0x7f070002;
 	}
 	public static final class color {
-		public static final int abc_search_url_text_holo = 0x7f08013c;
+		public static final int abc_search_url_text_holo = 0x7f08013d;
 		public static final int abc_search_url_text_normal = 0x7f080000;
 		public static final int abc_search_url_text_pressed = 0x7f080002;
 		public static final int abc_search_url_text_selected = 0x7f080001;
@@ -599,7 +599,7 @@ public final class R {
 		public static final int action_menu_divider = 0x7f060016;
 		public static final int action_menu_presenter = 0x7f060017;
 		public static final int action_mode_close_button = 0x7f06002e;
-		public static final int action_settings = 0x7f060160;
+		public static final int action_settings = 0x7f06015f;
 		public static final int activity_chooser_view_content = 0x7f06002f;
 		public static final int always = 0x7f06000b;
 		public static final int back = 0x7f06001c;
@@ -635,7 +635,7 @@ public final class R {
 		public static final int plus = 0x7f06001e;
 		public static final int progress_circular = 0x7f060018;
 		public static final int progress_horizontal = 0x7f060019;
-		public static final int psts_tab_title = 0x7f0600e1;
+		public static final int psts_tab_title = 0x7f0600e0;
 		public static final int radio = 0x7f060039;
 		public static final int rtl = 0x7f060023;
 		public static final int search_badge = 0x7f06003c;

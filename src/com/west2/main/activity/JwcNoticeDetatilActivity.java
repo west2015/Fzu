@@ -7,6 +7,8 @@ import com.umeng.analytics.MobclickAgent;
 import com.west2.main.R;
 import com.west2.main.entity.JWCNoticeEntity;
 import com.west2.main.service.JWCNoticeService;
+import com.west2.main.utils.BaseUtils;
+import com.west2.main.utils.InfoUtils;
 import com.west2.main.utils.MetricsConverter;
 
 import android.animation.Animator;
@@ -43,6 +45,13 @@ public class JwcNoticeDetatilActivity extends Activity {
 	private JWCNoticeEntity mEntity;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		if(BaseUtils.getInstance().getCustomTheme().equals(InfoUtils.SR_SETTING_THEME_BLACK)){
+			this.setTheme(R.style.DarkTheme);
+		}
+		else{
+			this.setTheme(R.style.LightTheme);
+		}
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_jwc_notice_detatil);
 		context= this;

@@ -6,11 +6,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scrollbars="none"
-    android:overScrollMode="never" >
+    android:overScrollMode="never"
+	android:background="?attr/ContentBackground" >
 	<RelativeLayout
 	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:background="@color/white">
+	    android:layout_height="wrap_content">
 	    <!-- Header View Large-->
 	   	<RelativeLayout
 	   	    android:id="@+id/toolbar_all"
@@ -47,7 +47,7 @@
 			    android:layout_marginLeft="16dp"
 			    android:text="风格"
 			    android:textSize="16sp"
-			    android:textColor="@color/black_text"/>
+			    android:textColor="?attr/ContentTextColor"/>
 			<TextView 
 			    android:id="@+id/text_black"
 			    android:layout_width="wrap_content"
@@ -58,7 +58,7 @@
 			    android:gravity="center_vertical"
 			    android:text="黑色"
 			    android:textSize="14sp"
-			    android:textColor="@color/black_secondary"/>
+			    android:textColor="?attr/HintTextColor"/>
 			<com.material.widget.CheckBox
 			    android:id="@+id/cb_black"
 			    android:layout_width="32dp"
@@ -67,7 +67,7 @@
 			    android:padding="4dp"
 			    android:layout_toLeftOf="@+id/text_black"
 			    android:layout_below="@+id/text_style"
-			    custom:mColor="@color/blue_500"
+			    custom:mColor="?attr/SpecialColor"
 			    custom:mChecked="false"/>
 			<TextView 
 			    android:id="@+id/text_white"
@@ -79,7 +79,7 @@
 			    android:gravity="center_vertical"
 			    android:text="白色"
 			    android:textSize="14sp"
-			    android:textColor="@color/black_secondary"/>
+			    android:textColor="?attr/HintTextColor"/>
 			<com.material.widget.CheckBox
 			    android:id="@+id/cb_white"
 			    android:layout_width="32dp"
@@ -87,7 +87,7 @@
 			    android:layout_toLeftOf="@+id/text_white"
 			    android:layout_below="@+id/text_style"
 			    android:padding="4dp"
-				custom:mColor="@color/blue_500"
+				custom:mColor="?attr/SpecialColor"
 				custom:mChecked="true"/>
 			<View
 			    android:id="@+id/divider_style"
@@ -97,7 +97,7 @@
 			    android:layout_marginLeft="16dp"
 			    android:layout_marginRight="16dp"
 			    android:layout_below="@+id/text_black"
-			    android:background="@color/blue_500"/>
+			    android:background="?attr/SpecialColor"/>
 			<!-- Push -->
 			<TextView
 			    android:id="@+id/text_push"
@@ -109,7 +109,7 @@
 			    android:gravity="center_vertical"
 			    android:text="推送"
 			    android:textSize="16sp"
-			    android:textColor="@color/black_text"/>
+			    android:textColor="?attr/ContentTextColor"/>
 			<TextView 
 			    android:layout_width="wrap_content"
 			    android:layout_height="wrap_content"
@@ -118,13 +118,14 @@
 			    android:layout_marginBottom="24dp"
 			    android:text="即时掌握最新消息"
 			    android:textSize="12sp"
-			    android:textColor="@color/black_secondary"/>
+			    android:textColor="?attr/HintTextColor"/>
 			<com.material.widget.RaisedButton
 			    android:id="@+id/btn_push"
 			    android:layout_width="match_parent"
 			    android:layout_height="96dp"
 			    android:layout_below="@+id/divider_style"
-			    android:background="@color/transparent"/>
+			    android:background="@color/transparent"
+			    custom:startColor="?attr/RippleColor"/>
 			<View
 			    android:id="@+id/divider_push"
 			    android:layout_width="match_parent"
@@ -132,7 +133,7 @@
 			    android:layout_marginLeft="16dp"
 			    android:layout_marginRight="16dp"
 			    android:layout_below="@+id/btn_push"
-			    android:background="@color/blue_500"/>
+			    android:background="?attr/SpecialColor"/>
 			<!-- Feedback -->
 			<TextView
 			    android:id="@+id/text_feedback"
@@ -144,7 +145,7 @@
 			    android:gravity="center_vertical"
 			    android:text="意见反馈"
 			    android:textSize="16sp"
-			    android:textColor="@color/black_text"/>
+			    android:textColor="?attr/ContentTextColor"/>
 			<TextView 
 			    android:layout_width="wrap_content"
 			    android:layout_height="wrap_content"
@@ -153,14 +154,15 @@
 			    android:layout_marginBottom="24dp"
 			    android:text="每一个意见都能帮助我们的改进"
 			    android:textSize="12sp"
-			    android:textColor="@color/black_secondary"/>
+			    android:textColor="?attr/HintTextColor"/>
 			<com.material.widget.RaisedButton
 			    android:id="@+id/btn_feedback"
 			    android:layout_width="match_parent"
 			    android:layout_height="96dp"
 			    android:layout_below="@+id/divider_push"
 			    android:background="@color/transparent"
-			    custom:isCatchFocus="true"/>
+			    custom:isCatchFocus="true"
+			    custom:startColor="?attr/RippleColor"/>
 			<View
 			    android:id="@+id/divider_feedback"
 			    android:layout_width="match_parent"
@@ -168,7 +170,7 @@
 			    android:layout_marginLeft="16dp"
 			    android:layout_marginRight="16dp"
 			    android:layout_below="@+id/btn_feedback"
-			    android:background="@color/blue_500"/>
+			    android:background="?attr/SpecialColor"/>
 			<!-- Update -->
 			<TextView
 			    android:id="@+id/text_update"
@@ -180,7 +182,7 @@
 			    android:gravity="center_vertical"
 			    android:text="检测更新"
 			    android:textSize="16sp"
-			    android:textColor="@color/black_text"/>
+			    android:textColor="?attr/ContentTextColor"/>
 			<TextView 
 			    android:layout_width="wrap_content"
 			    android:layout_height="wrap_content"
@@ -189,13 +191,14 @@
 			    android:layout_marginBottom="24dp"
 			    android:text="感受作者满满的诚意"
 			    android:textSize="12sp"
-			    android:textColor="@color/black_secondary"/>
+			    android:textColor="?attr/HintTextColor"/>
 			<com.material.widget.RaisedButton
 			    android:id="@+id/btn_update"
 			    android:layout_width="match_parent"
 			    android:layout_height="96dp"
 			    android:layout_below="@+id/divider_feedback"
-			    android:background="@color/transparent"/>
+			    android:background="@color/transparent"
+			    custom:startColor="?attr/RippleColor"/>
 			<View
 			    android:id="@+id/divider_update"
 			    android:layout_width="match_parent"
@@ -203,7 +206,7 @@
 			    android:layout_marginLeft="16dp"
 			    android:layout_marginRight="16dp"
 			    android:layout_below="@+id/btn_update"
-			    android:background="@color/blue_500"/>
+			    android:background="?attr/SpecialColor"/>
 			<!-- Share -->
 			<TextView
 			    android:id="@+id/text_share"
@@ -215,7 +218,7 @@
 			    android:gravity="center_vertical"
 			    android:text="分享"
 			    android:textSize="16sp"
-			    android:textColor="@color/black_text"/>
+			    android:textColor="?attr/ContentTextColor"/>
 			<TextView 
 			    android:layout_width="wrap_content"
 			    android:layout_height="wrap_content"
@@ -224,13 +227,14 @@
 			    android:layout_marginBottom="24dp"
 			    android:text="如果你觉得作者很帅，那么"
 			    android:textSize="12sp"
-			    android:textColor="@color/black_secondary"/>
+			    android:textColor="?attr/HintTextColor"/>
 			<com.material.widget.RaisedButton
 			    android:id="@+id/btn_share"
 			    android:layout_width="match_parent"
 			    android:layout_height="96dp"
 			    android:layout_below="@+id/divider_update"
-			    android:background="@color/transparent"/>
+			    android:background="@color/transparent"
+			    custom:startColor="?attr/RippleColor"/>
 			<View
 			    android:id="@+id/divider_share"
 			    android:layout_width="match_parent"
@@ -238,7 +242,7 @@
 			    android:layout_marginLeft="16dp"
 			    android:layout_marginRight="16dp"
 			    android:layout_below="@+id/btn_share"
-			    android:background="@color/blue_500"/>
+			    android:background="?attr/SpecialColor"/>
 			<!-- About -->
 			<TextView
 			    android:id="@+id/text_about"
@@ -250,7 +254,7 @@
 			    android:gravity="center_vertical"
 			    android:text="关于"
 			    android:textSize="16sp"
-			    android:textColor="@color/black_text"/>
+			    android:textColor="?attr/ContentTextColor"/>
 			<TextView 
 			    android:layout_width="wrap_content"
 			    android:layout_height="wrap_content"
@@ -259,7 +263,7 @@
 			    android:layout_marginBottom="24dp"
 			    android:text="更多地了解我们"
 			    android:textSize="12sp"
-			    android:textColor="@color/black_secondary"/>
+			    android:textColor="?attr/HintTextColor"/>
 	   	</RelativeLayout>
 	    <!-- Header View Small-->
 	   	<RelativeLayout
@@ -289,6 +293,7 @@
 	    <include
 		    layout="@layout/shadow_layout"
 		    android:layout_width="match_parent"
-			android:layout_height="wrap_content"/>
+			android:layout_height="wrap_content"
+			android:layout_below="@+id/toolbar_all"/>
 	</RelativeLayout>
 </com.material.widget.DampScrollView>

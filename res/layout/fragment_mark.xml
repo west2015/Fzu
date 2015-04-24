@@ -4,13 +4,13 @@
     xmlns:custom="http://schemas.android.com/apk/res/com.west2.main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="?attr/ContentBackground"
     android:id="@+id/rl_hide">
 	<!-- TITLE -->
 	<RelativeLayout 
 	    android:layout_width="match_parent"
 	    android:layout_height="56dp"
-	    android:background="@color/blue_500">
+	    android:background="?attr/ActionBarBackground">
 	   	<com.material.widget.ActionView
 	   	    android:id="@+id/av_drawer"
 	   	    android:layout_width="56dp"
@@ -82,18 +82,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="56dp"
-        android:background="@color/white">
+        android:background="?attr/ContentBackground">
     	<!-- MARK REPORT -->
     	<View
     	    android:layout_width="match_parent"
     	    android:layout_height="48dp"
-    	    android:background="@color/blue_500"/>
+    	    android:background="?attr/ActionBarBackground"/>
         <com.material.widget.PagerSlidingTabStrip
 	        android:id="@+id/tab_mark_report"
 	        android:layout_width="match_parent"
 	        android:layout_height="48dp"
 	        android:layout_marginLeft="60dp"
-	        android:background="@color/blue_500"
+	        android:background="?attr/ActionBarBackground"
 	        custom:pstsTextColorSelected="@color/white_text"
 	        custom:pstsTextColorNoSelected="@color/white_secondary"
 	        custom:pstsIndicatorColor="@color/white_text"/>
@@ -102,7 +102,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/tab_mark_report"
-            android:background="@color/white"
+            android:background="@color/transparent"
             android:overScrollMode="never" />
 		<!-- PULL TO REFRESH -->
 	    <android.support.v4.widget.SwipeRefreshLayout

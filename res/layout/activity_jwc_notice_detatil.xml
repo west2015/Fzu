@@ -5,16 +5,14 @@
     android:layout_height="match_parent"
     android:id="@+id/rl"
     android:background="@color/white" >
-
+    
     <!-- TITLE -->
-
     <RelativeLayout
         android:id="@+id/rl_bar"
         android:layout_width="match_parent"
         android:layout_height="136dp"
-        android:background="@color/teal_a700" >
-
-    </RelativeLayout>
+        android:background="?attr/ActionBarBackground" >
+    </RelativeLayout>    
 
     <com.material.widget.ActionView
         android:id="@+id/av_back"
@@ -32,17 +30,25 @@
         android:layout_height="match_parent"
         android:layout_marginTop="56dp"
         android:overScrollMode="never"
-        android:background="@drawable/jwc_detail_bg" >
+        android:background="@color/transparent" >
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent"
+            android:background="@color/transparent" >
 
+            <View 
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:background="?attr/ActionBarBackground"/>
+            
             <RelativeLayout
                 android:id="@+id/rl_title"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
-                android:paddingBottom="8dp">
+                android:paddingBottom="8dp"
+                android:background="?attr/ActionBarBackground">
 
                 <TextView
                     android:id="@+id/tv_title"
@@ -67,7 +73,7 @@
                 android:id="@+id/webview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white" />
+                android:background="?attr/ContentBackground" />
             </RelativeLayout>
 
             <!-- SHADOW -->
