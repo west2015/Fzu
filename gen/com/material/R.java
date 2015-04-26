@@ -585,7 +585,7 @@ public final class R {
 		public static final int abc_textfield_searchview_right_holo_dark = 0x7f020055;
 		public static final int abc_textfield_searchview_right_holo_light = 0x7f020056;
 		public static final int ic_launcher = 0x7f020077;
-		public static final int psts_background_tab = 0x7f02007f;
+		public static final int psts_background_tab = 0x7f020080;
 	}
 	public static final class id {
 		public static final int action_bar = 0x7f0a0026;
