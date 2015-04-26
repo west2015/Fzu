@@ -17,13 +17,14 @@
         <TextView
             android:id="@+id/umeng_fb_welcome_info"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="8dp"
             android:gravity="center_vertical"
-            android:text="@string/umeng_fb_reply_content_default"
+            android:text="如果遇到任何问题，可以在这反馈或者在'设置→关于我们'找到我们的联系方式。我们会尽快进行回复。"
+            android:textColor="@color/black_text"
             android:textSize="@dimen/umeng_fb_item_content_size" />
 
         <View

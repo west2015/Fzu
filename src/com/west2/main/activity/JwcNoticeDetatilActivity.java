@@ -17,6 +17,8 @@ import android.animation.ValueAnimator;
 import android.animation.ValueAnimator.AnimatorUpdateListener;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,8 +28,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.DecelerateInterpolator;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.webkit.WebSettings.LayoutAlgorithm;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.RelativeLayout.LayoutParams;
@@ -70,6 +74,14 @@ public class JwcNoticeDetatilActivity extends Activity {
 	
 	private void init(){
 		
+		WebSettings settings= mWebView.getSettings(); 
+		settings.setJavaScriptEnabled(true);
+		settings.setJavaScriptCanOpenWindowsAutomatically(true);
+		settings.setLayoutAlgorithm(LayoutAlgorithm.NORMAL);
+		settings.setSupportZoom(true);
+		settings.setBuiltInZoomControls(true);
+		
+		
 		mEntity = (JWCNoticeEntity) this.getIntent().getExtras().get("entity");
 		if(mEntity.getTitle()!=null)
 		tvTitle.setText(mEntity.getTitle());
@@ -82,6 +94,16 @@ public class JwcNoticeDetatilActivity extends Activity {
 		findViewById(R.id.av_back).setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				JwcNoticeDetatilActivity.this.finish();
+			}
+		});
+		
+		findViewById(R.id.btn_openinexplore).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(mEntity.getUrl()));
+	             startActivity(intent);
 			}
 		});
 	}

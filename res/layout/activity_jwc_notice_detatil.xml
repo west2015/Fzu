@@ -21,6 +21,23 @@
         android:padding="16dp"
         custom:av_action="back"
         custom:av_color="@color/white" />
+    
+   		<com.material.widget.RaisedButton
+	   	    android:id="@+id/btn_openinexplore"
+	   	    android:layout_width="56dp"
+        	android:layout_height="56dp"
+	   	    android:layout_alignParentRight="true"
+	   	    android:background="@color/transparent"
+	   	    android:paddingTop="8dp"
+	   	    android:paddingBottom="8dp"/>
+	   	<ImageView 
+	   	    android:layout_width="48dp"
+	   	    android:layout_height="48dp"
+	   	    android:layout_alignParentRight="true"
+	   	    android:paddingTop="12dp"
+	   	    android:paddingBottom="12dp"
+
+	   	    android:scaleType="fitCenter"/>
 
     <!-- CONTENT -->
     <com.material.widget.DampScrollView

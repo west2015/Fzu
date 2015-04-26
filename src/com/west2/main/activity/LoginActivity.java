@@ -35,6 +35,13 @@ public class LoginActivity extends Activity{
 	private boolean isLogining;
 
 	public void onCreate(Bundle savedInstanceState){
+		if(BaseUtils.getInstance().getCustomTheme().equals(InfoUtils.SR_SETTING_THEME_BLACK)){
+			this.setTheme(R.style.DarkTheme);
+		}
+		else{
+			this.setTheme(R.style.LightTheme);
+		}
+
 		super.onCreate(savedInstanceState);		
 		setContentView(R.layout.activity_login);
 		

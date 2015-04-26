@@ -11,5 +11,7 @@
 	    <attr name="FabShadowColor" format="color"/>
 	    <attr name="DividerColor" format="color"/>
 	    <attr name="CourseTextColor" format="color"/>
+	    <attr name="SecondaryTextColor" format="color"/>
+	    <attr name="FzuIcon" format="reference"/>
 	</declare-styleable>
 </resources>

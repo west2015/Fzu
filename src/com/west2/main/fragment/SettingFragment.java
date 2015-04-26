@@ -42,6 +42,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.west2.main.R;
+import com.west2.main.activity.AboutActivity;
 import com.west2.main.interfaces.MessageInterface;
 import com.west2.main.utils.BaseUtils;
 import com.west2.main.utils.InfoUtils;
@@ -112,14 +113,6 @@ public class SettingFragment extends Fragment {
 			curStyle=InfoUtils.SR_SETTING_THEME_BLACK;
 			setCheckBox(isReload);
 		}});
-		view.findViewById(R.id.btn_push).setOnClickListener(
-				new OnClickListener() {
-					public void onClick(View v) {
-						Toast.makeText(context, "อฦหอ", Toast.LENGTH_SHORT)
-								.show();
-						// showPushDialog();
-					}
-				});
 		view.findViewById(R.id.btn_feedback).setOnClickListener(
 				new OnClickListener() {
 					public void onClick(View arg0) {
@@ -133,7 +126,6 @@ public class SettingFragment extends Fragment {
 				mListener.Message(InfoUtils.OPEN_DRAWER);
 			}
 		});
-		
 		
 		view.findViewById(R.id.btn_update).setOnClickListener(
 				new OnClickListener() {
@@ -188,6 +180,12 @@ public class SettingFragment extends Fragment {
 						});
 					}
 				});
+		view.findViewById(R.id.btn_about).setOnClickListener(new OnClickListener(){
+			public void onClick(View v) {
+				Intent intent = new Intent(activity,AboutActivity.class);
+				activity.startActivity(intent);
+			}
+		});
 	}
 
 	private void setCheckBox(boolean isReload){

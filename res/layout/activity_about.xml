@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.material.widget.DampScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res/com.west2.main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="none"
+    android:overScrollMode="never"
+    android:background="?attr/ContentBackground" >
+
+	<LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical"
+	    android:background="@color/transparent">
+	
+	    <com.material.widget.ActionView
+	        android:id="@+id/av"
+	        android:layout_width="56dp"
+	        android:layout_height="56dp"
+	        android:padding="16dp"
+	        custom:av_color="?attr/ContentTextColor"
+	        custom:av_action="close"/>
+
+	    <ImageView 
+	        android:src="@drawable/setting_img"
+	        android:layout_width="250dp"
+	        android:layout_height="250dp"
+	        android:layout_gravity="center_horizontal"/>
+	    
+	    <TextView
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="8dp"
+	        android:layout_marginLeft="32dp"
+	        android:layout_marginRight="32dp"
+	        android:gravity="center"
+	        android:text="FzuHelper Version 3.0"
+	        android:textSize="16sp"
+	        android:textColor="?attr/ContentTextColor"/>
+
+	    <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="16dp"
+	        android:text="群"
+	        android:textSize="14sp"
+	        android:textColor="?attr/SecondaryTextColor"/>
+
+	    <TextView
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="8dp"
+	        android:layout_marginLeft="32dp"
+	        android:layout_marginRight="32dp"
+	        android:gravity="center"
+	        android:text="QQ群: 234230317"
+	        android:textSize="16sp"
+	        android:textColor="?attr/ContentTextColor"/>
+	    
+	    <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="32dp"
+	        android:layout_marginLeft="16dp"
+	        android:gravity="center"
+	        android:text="作者"
+	        android:textSize="14sp"
+	        android:textColor="?attr/SecondaryTextColor"/>
+	    
+	    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"            
+            android:gravity="center"
+            android:text="陈铭钦"
+            android:textColor="?attr/SpecialColor"
+            android:textSize="16sp" />
+	    
+	    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"            
+            android:gravity="center"
+            android:text="QQ: 958032738"
+            android:textColor="?attr/ContentTextColor"
+            android:textSize="14sp" />
+	    	    
+		<TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"            
+            android:gravity="center"
+            android:text="mcginn2013@outlook.com"
+            android:textColor="?attr/ContentTextColor"
+            android:textSize="14sp" />
+
+		<TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"            
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:text="李瑶池"
+            android:textColor="?attr/SpecialColor"
+            android:textSize="16sp" />
+	    
+	    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"            
+            android:gravity="center"
+            android:text="新浪微博: 没有人是李妖迟"
+            android:textColor="?attr/ContentTextColor"
+            android:textSize="14sp" />
+	    	    
+		<TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"            
+            android:gravity="center"
+            android:text="liyaochi@live.com"
+            android:textColor="?attr/ContentTextColor"
+            android:textSize="14sp" />
+
+		<TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="32dp"
+	        android:layout_marginLeft="16dp"
+	        android:gravity="center"
+	        android:text="感谢"
+	        android:textSize="14sp"
+	        android:textColor="?attr/SecondaryTextColor"/>
+					    	    	    
+		<TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"            
+            android:gravity="center"
+            android:text="数计学院西二在线工作室"
+            android:textColor="?attr/ContentTextColor"
+            android:textSize="16sp" />
+		
+		<View 
+		    android:layout_width="match_parent"
+		    android:layout_height="56dp"
+		    android:background="@color/transparent"/>
+		
+	</LinearLayout>
+</com.material.widget.DampScrollView>

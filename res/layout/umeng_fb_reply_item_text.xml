@@ -7,15 +7,15 @@
     <View
         android:id="@+id/umeng_fb_reply_item_view_tag"
         android:layout_width="6dp"
-        android:layout_height="fill_parent"
+        android:layout_height="match_parent"
         android:background="@color/umeng_fb_lightblue" />
 
     <RelativeLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
             android:id="@+id/umeng_fb_reply_content"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
@@ -48,14 +48,19 @@
             android:layout_toRightOf="@+id/umeng_fb_reply_date"
             android:contentDescription="@string/umeng_fb_send"
             android:visibility="visible" />
-
         <View
-            android:id="@+id/umeng_fb_reply_item_view_line"
+            android:id="@+id/view_bottom"
+            android:layout_below="@+id/umeng_fb_resend"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/umeng_fb_item_line_height"
-            android:layout_below="@+id/umeng_fb_reply_date"
-            android:background="@color/umeng_fb_line" />
-
+            android:layout_height="16dp"
+            android:background="@color/transparent"/>
+        <View
+            android:layout_below="@+id/view_bottom"
+	        android:id="@+id/umeng_fb_reply_item_view_line"
+	        android:layout_width="match_parent"
+	        android:layout_height="@dimen/umeng_fb_item_line_height"
+	        android:background="@color/umeng_fb_line" />
+        
     </RelativeLayout>
 
 </LinearLayout>

@@ -89,6 +89,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.MainActivity" />
+        <activity android:name=".activity.AboutActivity" />
         <activity android:name=".activity.CourseDetailActivity" />
         <activity
             android:name="com.west2.main.activity.JwcNoticeDetatilActivity"
