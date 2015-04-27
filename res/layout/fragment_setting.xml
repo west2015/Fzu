@@ -162,7 +162,8 @@
 			    android:layout_height="96dp"
 			    android:layout_below="@+id/divider_feedback"
 			    android:background="@color/transparent"
-			    custom:startColor="?attr/RippleColor"/>
+			    custom:startColor="?attr/RippleColor"
+			    custom:endColor="@color/transparent"/>
 			<View
 			    android:id="@+id/divider_update"
 			    android:layout_width="match_parent"

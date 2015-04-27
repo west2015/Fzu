@@ -1184,13 +1184,13 @@ public class ScheduleFragment extends Fragment implements SimpleAdapter.onItemCl
 	
 	public void onResume() {
 	    super.onResume();
-	    MobclickAgent.onPageStart("ScheduleFragment"); //统计页面(仅有Activity的应用中SDK自动调用，不需要单独写)
-	    MobclickAgent.onResume(getActivity());;          //统计时长
+//	    MobclickAgent.onPageStart("ScheduleFragment"); //统计页面(仅有Activity的应用中SDK自动调用，不需要单独写)
+//	    MobclickAgent.onResume(getActivity());;          //统计时长
 	}
 	public void onPause() {
 	    super.onPause();
-	    MobclickAgent.onPageEnd("ScheduleFragment"); // （仅有Activity的应用中SDK自动调用，不需要单独写）保证 onPageEnd 在onPause 之前调用,因为 onPause 中会保存信息 
-	    MobclickAgent.onPause(getActivity());
+//	    MobclickAgent.onPageEnd("ScheduleFragment"); // （仅有Activity的应用中SDK自动调用，不需要单独写）保证 onPageEnd 在onPause 之前调用,因为 onPause 中会保存信息 
+//	    MobclickAgent.onPause(getActivity());
 	}
 
 
