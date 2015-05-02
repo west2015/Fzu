@@ -35,7 +35,7 @@
 	        android:layout_marginLeft="32dp"
 	        android:layout_marginRight="32dp"
 	        android:gravity="center"
-	        android:text="FzuHelper Version 3.0"
+	        android:text="FzuHelper Version 3.1"
 	        android:textSize="16sp"
 	        android:textColor="?attr/ContentTextColor"/>
 

@@ -177,6 +177,8 @@
             android:layout_centerInParent="true"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
+            android:maxLines="1"
+            android:singleLine="true"
             android:hint="书名 "
             android:textColor="?attr/ContentTextColor"
             android:textColorHint="?attr/HintTextColor"
