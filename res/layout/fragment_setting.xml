@@ -98,12 +98,50 @@
 			    android:layout_marginRight="16dp"
 			    android:layout_below="@+id/text_black"
 			    android:background="?attr/SpecialColor"/>
+			<!-- Binding -->
+			<TextView
+			    android:id="@+id/text_binding"
+			    android:layout_width="wrap_content"
+			    android:layout_height="32dp"
+			    android:layout_below="@+id/divider_style"
+			    android:layout_marginTop="16dp"
+			    android:layout_marginLeft="16dp"
+			    android:gravity="center_vertical"
+			    android:text="账号绑定"
+			    android:textSize="16sp"
+			    android:textColor="?attr/ContentTextColor"/>
+			<TextView 
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_below="@+id/text_binding"
+			    android:layout_marginLeft="16dp"
+			    android:layout_marginBottom="24dp"
+			    android:text="在这里设置图书馆账号"
+			    android:textSize="12sp"
+			    android:textColor="?attr/HintTextColor"/>
+			<com.material.widget.RaisedButton
+			    android:id="@+id/btn_binding"
+			    android:layout_width="match_parent"
+			    android:layout_height="96dp"
+			    android:layout_below="@+id/divider_style"
+			    android:background="@color/transparent"
+			    custom:isCatchFocus="true"
+			    custom:startColor="?attr/RippleColor"/>
+			<View
+			    android:id="@+id/divider_binding"
+			    android:layout_width="match_parent"
+			    android:layout_height="0.5dp"
+			    android:layout_marginLeft="16dp"
+			    android:layout_marginRight="16dp"
+			    android:layout_below="@+id/btn_binding"
+			    android:background="?attr/SpecialColor"/>
+
 			<!-- Feedback -->
 			<TextView
 			    android:id="@+id/text_feedback"
 			    android:layout_width="wrap_content"
 			    android:layout_height="32dp"
-			    android:layout_below="@+id/divider_style"
+			    android:layout_below="@+id/divider_binding"
 			    android:layout_marginTop="16dp"
 			    android:layout_marginLeft="16dp"
 			    android:gravity="center_vertical"
@@ -123,7 +161,7 @@
 			    android:id="@+id/btn_feedback"
 			    android:layout_width="match_parent"
 			    android:layout_height="96dp"
-			    android:layout_below="@+id/divider_style"
+			    android:layout_below="@+id/divider_binding"
 			    android:background="@color/transparent"
 			    custom:isCatchFocus="true"
 			    custom:startColor="?attr/RippleColor"/>

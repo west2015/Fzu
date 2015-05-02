@@ -30,6 +30,7 @@ public class GradePointAdapter extends BaseAdapter{
 	 * 计算学期绩点
 	 */
 	private void calcGPA(List<MarkEntity> xList){
+		if(xList==null) return ;
 		mList = new ArrayList<GradePoint>();
 		for(int i=0;i<xList.size();++i){
 			boolean hasAllScore = true;

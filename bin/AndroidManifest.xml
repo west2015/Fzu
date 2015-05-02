@@ -91,6 +91,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.MainActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".activity.BindingActivity" android:screenOrientation="portrait"/>
         <activity android:name=".activity.AboutActivity" android:screenOrientation="portrait"/>
         <activity android:name=".activity.CourseDetailActivity" android:screenOrientation="portrait"/>
         <activity

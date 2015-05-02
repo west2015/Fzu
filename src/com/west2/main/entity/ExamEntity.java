@@ -23,7 +23,7 @@ public class ExamEntity {
 		return courseName;
 	}
 	public void setCourseName(String courseName) {
-		while(!InfoUtils.hasChCharacter(courseName.charAt(0) + "")){
+		while(courseName.length()>0 && !InfoUtils.hasChCharacter(courseName.charAt(0) + "")){
 			courseName = courseName.substring(1);
 		}
 		this.courseName = courseName;

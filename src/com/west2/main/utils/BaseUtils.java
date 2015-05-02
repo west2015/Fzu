@@ -1,5 +1,7 @@
 package com.west2.main.utils;
 
+import com.nispok.snackbar.Snackbar;
+import com.nispok.snackbar.SnackbarManager;
 import com.west2.main.database.*;
 import com.west2.main.entity.DateEntity;
 import com.west2.main.entity.UserEntity;
@@ -22,6 +24,8 @@ public class BaseUtils extends Application{
 	private String markJson;
 	private String cookie;
 	private String theme;
+	private UserEntity libraryUser;
+	private String libraryJson;
 	
 	public static BaseUtils getInstance(){
 		if(instance == null){
@@ -40,8 +44,10 @@ public class BaseUtils extends Application{
 		scheduleJson = new DbSchedule(context).getScheduleJson();
 		markJson = new DbMark(context).getMarkJson();
 		theme = new DbSetting(context).getTheme();
+		libraryUser = new DbLibrary(context).getUserEnitty();
+		libraryJson = new DbLibrary(context).getLibraryJson();
 	}
-
+	
 	@SuppressWarnings("deprecation")
 	public int getWidth(){
 		if(wm == null){
@@ -56,6 +62,24 @@ public class BaseUtils extends Application{
 			wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);			
 		}
 		return wm.getDefaultDisplay().getHeight();
+	}
+	
+	public String getLibraryJson(){
+		return libraryJson;
+	}
+
+	public void setLibraryJson(String json){
+		libraryJson = json;
+		new DbLibrary(context).setLibraryJson(json);
+	}
+	
+	public UserEntity getLibraryUser(){
+		return libraryUser;
+	}
+	
+	public void setLibraryUser(UserEntity user){
+		libraryUser = user;
+		new DbLibrary(context).setUserEntity(user);
 	}
 	
 	public String getCustomTheme(){

@@ -157,9 +157,7 @@ public class MarketFragment extends Fragment{
 	private class LoadHtmlTask extends AsyncTask<Void, Void, String>{
 		@Override
 		protected String doInBackground(Void... params) {
-			// TODO Auto-generated method stub
-		//	Log.e("Market", curURL);
-			if(curURL!=null&&curURL.equals("http://bbs.fzu.edu.cn/forum.php")){
+			if(curURL!=null && curURL.equals("http://bbs.fzu.edu.cn/forum.php")){
 				curURL=MarketService.URL_MARKET;
 				isIndex = true;
 			}else if(curURL.contains("http://bbs.fzu.edu.cn/forum.php?mod=forumdisplay"))
@@ -188,9 +186,7 @@ public class MarketFragment extends Fragment{
 			Elements eles =doc.select("a[class=z]");
 			if(eles.first()!=null){
 				preURL="http://bbs.fzu.edu.cn/"+eles.first().attr("href");
-				Log.e("preUrl", preURL+"!!!!");
 			}else{
-			//	preURL = MarketService.URL_MARKET;
 			}
 			
 			doc.select("form[id=fastpostform]").remove();

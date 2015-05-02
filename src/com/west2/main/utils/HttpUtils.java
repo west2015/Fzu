@@ -5,11 +5,14 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
@@ -84,7 +87,7 @@ public class HttpUtils {
 	}
 
 	/**
-	 * post方法，该方法在此客户端默认发送表单为：{data：JSON数据}
+	 * post方法
 	 * 
 	 * @param httpClient
 	 * @param url
@@ -99,29 +102,44 @@ public class HttpUtils {
 		HttpEntity mEntity = null;
 		HttpResponse mResponse = null;
 		BufferedReader reader = null;
-		InputStream inStream = null;
+		InputStream is = null;
 		try {
 			post = new HttpPost(url);
-			List<BasicNameValuePair> params = new LinkedList<BasicNameValuePair>();
-			params.add(new BasicNameValuePair("data", jsonObject.toString()));
-			post.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8));
+			List<NameValuePair> params = new ArrayList<NameValuePair>();
+			Iterator<String>  keyIter = jsonObject.keys();
+			while(keyIter.hasNext()){
+				String key =keyIter.next();
+				params.add(new BasicNameValuePair(key+"", jsonObject.getString(key)));
+			}
+			post.setEntity(new UrlEncodedFormEntity(params, HTTP.ISO_8859_1));
+//			post.setHeader("Content-Type", "application/x-www-form-urlencoded; charset=gb2312");
 			mResponse = httpClient.execute(post);
 			mEntity = mResponse.getEntity();
 			if(mEntity==null) return null;
-			inStream = mEntity.getContent();
-			StringBuffer res = new StringBuffer();
+			
+			
+			// 获得响应的字符集编码信息
+			String charset = EntityUtils.getContentCharSet(mEntity);
+			if (charset == null) {
+				charset = "gb2312";
+			}
+			is = mEntity.getContent();
+			StringBuffer result = new StringBuffer();
 			String line = null;
-			reader = new BufferedReader(new InputStreamReader(inStream));
-			while ((line = reader.readLine()) != null)
-				res.append(line);
-			return res.toString().trim();
+			reader = new BufferedReader(new InputStreamReader(is, charset));
+			while ((line = reader.readLine()) != null) {
+				result.append(line);
+			}
+			return result.toString().trim();
+			
+
 		}
 		catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
 				reader.close();
-				inStream.close();
+				is.close();
 				post.abort();
 				httpClient.getConnectionManager().shutdown();
 			} catch (Exception e) {

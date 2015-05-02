@@ -1,5 +1,7 @@
 package com.west2.main.fragment;
 
+import java.io.Serializable;
+
 import com.material.widget.CheckBox;
 import com.material.widget.DampScrollView;
 import com.umeng.analytics.MobclickAgent;
@@ -43,6 +45,7 @@ import android.widget.Toast;
 
 import com.west2.main.R;
 import com.west2.main.activity.AboutActivity;
+import com.west2.main.activity.BindingActivity;
 import com.west2.main.interfaces.MessageInterface;
 import com.west2.main.utils.BaseUtils;
 import com.west2.main.utils.InfoUtils;
@@ -113,12 +116,17 @@ public class SettingFragment extends Fragment {
 			curStyle=InfoUtils.SR_SETTING_THEME_BLACK;
 			setCheckBox(isReload);
 		}});
+		view.findViewById(R.id.btn_binding).setOnClickListener(new OnClickListener(){
+			public void onClick(View v) {
+				Intent intent = new Intent(activity,BindingActivity.class);
+				activity.startActivity(intent);
+			}
+		});
 		view.findViewById(R.id.btn_feedback).setOnClickListener(
 				new OnClickListener() {
 					public void onClick(View arg0) {
 						FeedbackAgent agent = new FeedbackAgent(context);
 						agent.startFeedbackActivity();
-
 					}
 				});
 		view.findViewById(R.id.av).setOnClickListener(new OnClickListener() {
@@ -129,7 +137,6 @@ public class SettingFragment extends Fragment {
 		
 		view.findViewById(R.id.btn_update).setOnClickListener(
 				new OnClickListener() {
-					
 					@Override
 					public void onClick(View v) {
 						// TODO Auto-generated method stub

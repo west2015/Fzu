@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res/com.west2.main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusableInTouchMode="true" 
+    android:background="?attr/ContentBackground">
+    
+    <TextView
+        android:id="@+id/tv_no_book"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="130dp"
+        android:gravity="center"
+        android:text="If you don’t learn to think\nwhen you are young,\nyou may never learn. "
+        android:textColor="?attr/ContentTextColor"
+        android:textSize="16sp" />
+
+	<!-- Wisdom -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="130dp" >
+        <TextView
+            android:id="@+id/tv_first"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:text="Stay hungry,"
+            android:textColor="@color/black_text"
+            android:textSize="16sp" />
+        <TextView
+            android:id="@+id/tv_second"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_first"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:text="stay foolish."
+            android:textColor="@color/black_text"
+            android:textSize="16sp" />
+    </RelativeLayout>
+    
+	<com.material.widget.ScrollableLayout
+   	    android:id="@+id/sl"
+   	    android:layout_width="match_parent"
+   	    android:layout_height="match_parent"
+   	    custom:scrollable_maxScroll="130dp"
+   	    android:background="@color/transparent">
+   	    
+	    <RelativeLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:background="@color/transparent">
+	        
+	        <ImageView 
+	            android:layout_width="match_parent"
+	            android:layout_height="186dp"
+	            android:src="@drawable/library_bg"
+	            android:scaleType="fitXY"/>
+	        
+	        <TextView
+	            android:id="@+id/header"
+	            android:layout_width="match_parent"
+	            android:layout_height="130dp"
+	            android:background="@color/transparent"/>
+
+	        <com.material.widget.RaisedButton
+	            android:id="@+id/btn_book"
+	            android:layout_width="wrap_content"
+	            android:layout_height="56dp"
+	            android:layout_alignParentRight="true"
+	            android:paddingLeft="16dp"
+	            android:paddingRight="16dp"
+	            android:background="@color/transparent"
+	            android:gravity="center"
+	            android:text="我的图书"
+	            android:textSize="16sp"
+	            android:textColor="@color/white_text"/>
+
+	 		<TextView 
+	 		    android:id="@+id/title"
+	 		    android:layout_width="wrap_content"
+	 		    android:layout_height="56dp"
+	 		    android:layout_below="@+id/header"
+	 		    android:layout_marginLeft="64dp"
+	 		    android:gravity="center_vertical"
+	 		    android:text="图书馆"
+	 		    android:textSize="20sp"
+	 		    android:textColor="@color/white_text"/>
+	 		
+	 		<include 
+	 		    layout="@layout/shadow_layout"
+	 		    android:layout_width="match_parent"
+	 		    android:layout_height="wrap_content"
+	 		    android:layout_below="@+id/title"/>
+	 		
+	 		<com.material.widget.FloatingActionButton
+	 		    android:id="@+id/fab_search"
+	 		    android:layout_width="48dp"
+	 		    android:layout_height="48dp"
+	 		    android:layout_below="@+id/header"
+	 		    android:layout_marginTop="16dp"
+	 		    android:layout_alignParentRight="true"
+	 		    android:layout_marginRight="16dp"
+	 		    custom:button_color="?attr/SpecialColor"
+	 		    custom:button_colorPressed="?attr/SpecialColor"
+	 		    custom:shadow_xOffset="0dp"
+	 		    custom:shadow_color="?attr/FabShadowColor"
+	 		    custom:image="@drawable/ic_search_white_48dp"/>
+	 	</RelativeLayout>
+
+	    <RelativeLayout 
+	        android:layout_marginTop="56dp"
+	        android:layout_marginBottom="16dp"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent">
+	        <!-- Search List -->
+		    <com.handmark.pulltorefresh.library.PullToRefreshListView
+			    android:id="@+id/lv"
+			    android:layout_width="match_parent"
+			    android:layout_height="match_parent"
+			    android:divider="@color/transparent"
+			    android:listSelector="@color/transparent"
+			    android:background="@color/transparent"/>
+		    <!-- Book List -->
+		    <android.support.v4.widget.SwipeRefreshLayout
+		        android:id="@+id/srl"
+		        android:layout_width="match_parent"
+		        android:layout_height="match_parent" >
+		        <ListView
+		            android:id="@+id/lv_book"
+		            android:layout_width="match_parent"
+		            android:layout_height="match_parent"
+		            android:listSelector="@color/transparent"
+		            android:divider="@color/transparent"
+		            android:overScrollMode="never"
+		            android:scrollbars="none" >
+		        </ListView>
+		    </android.support.v4.widget.SwipeRefreshLayout>
+			<!-- No Book -->
+			<RelativeLayout 
+			    android:id="@+id/rl_no_book"
+			    android:layout_width="match_parent"
+			    android:layout_height="match_parent">
+		        <View 
+		            android:id="@+id/center_view"
+		            android:layout_width="match_parent"
+		            android:layout_height="0.1dp"
+		            android:layout_centerInParent="true"/>
+			</RelativeLayout>
+	    </RelativeLayout>
+   	</com.material.widget.ScrollableLayout>
+   	
+   	<com.material.widget.ActionView
+   	    android:id="@+id/av"
+   	    android:layout_width="56dp"
+   	    android:layout_height="56dp"
+   	    android:padding="16dp"
+   	    custom:av_color="@color/white"
+	   	custom:av_action="drawer"/>
+   	
+	<!-- Search Page -->
+	<RelativeLayout 
+	    android:id="@+id/rl_search"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:layout_marginTop="56dp">
+	    
+	    <com.material.widget.InputText
+	        android:id="@+id/input_key"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:hint="书名 "
+            android:textColor="?attr/ContentTextColor"
+            android:textColorHint="?attr/HintTextColor"
+            custom:floatingLabel="true"
+            custom:textColor="?attr/SpecialColor"/>
+	    
+	    <RelativeLayout
+		    android:layout_width="match_parent"
+		    android:layout_height="56dp"
+		    android:layout_below="@+id/input_key"
+		    android:layout_marginLeft="16dp"
+		    android:layout_marginRight="16dp"
+		    android:layout_marginTop="32dp"
+		    android:background="@drawable/btn_bg" >
+	
+		    <com.material.widget.RaisedButton
+		        android:id="@+id/btn_search"
+		        android:layout_width="match_parent"
+		        android:layout_height="match_parent"
+		        android:background="@color/transparent"
+		        android:focusable="true"
+		        android:text="检索"
+		        android:textColor="?attr/SpecialColor"
+		        android:textSize="18sp" />
+	
+		    <ProgressBar
+		        android:id="@+id/pb"
+		        style="@android:style/Widget.ProgressBar.Horizontal"
+		        android:layout_width="match_parent"
+		        android:layout_height="2dp"
+		        android:layout_alignParentBottom="true"
+		        android:indeterminate="true"
+		        android:visibility="gone"/>
+		</RelativeLayout>
+	    
+	</RelativeLayout>
+	   	
+</RelativeLayout>

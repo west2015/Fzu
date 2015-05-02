@@ -23,12 +23,7 @@ import com.west2.main.adapter.MenuAdapter;
 import com.west2.main.database.DbExam;
 import com.west2.main.entity.DateEntity;
 import com.west2.main.entity.UserEntity;
-import com.west2.main.fragment.ExamFragment;
-import com.west2.main.fragment.JwcNoticeFragment;
-import com.west2.main.fragment.MarkFragment;
-import com.west2.main.fragment.MarketFragment;
-import com.west2.main.fragment.ScheduleFragment;
-import com.west2.main.fragment.SettingFragment;
+import com.west2.main.fragment.*;
 import com.west2.main.interfaces.MessageInterface;
 import com.west2.main.service.TimeService;
 import com.west2.main.utils.BaseUtils;
@@ -45,11 +40,12 @@ public class MainActivity extends FragmentActivity
 			R.drawable.ic_menu_black,
 			R.drawable.ic_menu_black,
 			R.drawable.ic_menu_black,
-			R.drawable.ic_menu_black
+			R.drawable.ic_menu_black,
+			R.drawable.ic_menu_black,
 	};
 
 	private final String[] text = {
-		"课表","成绩","考场","二手市场","教务处通知","设置"	,"注销"
+		"课表","成绩","考场","图书馆","二手市场","教务处通知","设置"	,"注销"
 	};
 
 	private Context context;
@@ -125,7 +121,7 @@ public class MainActivity extends FragmentActivity
 	
 	@Override
 	public void onItem(int position) {
-		if(position != 6)
+		if(position != 7)
 			Message(InfoUtils.CLOSE_DRAWER);
 		if(position == curPosition){
 			return ;
@@ -135,10 +131,11 @@ public class MainActivity extends FragmentActivity
 		case 0:mFragment = new ScheduleFragment();break;
 		case 1:mFragment = new MarkFragment();break;
 		case 2:mFragment = new ExamFragment();break;
-		case 3:mFragment = new MarketFragment();break;
-		case 4:mFragment = new JwcNoticeFragment();break;
-		case 5:mFragment = new SettingFragment();break;
-		case 6:
+		case 3:mFragment = new LibraryFragment();break;
+		case 4:mFragment = new MarketFragment();break;
+		case 5:mFragment = new JwcNoticeFragment();break;
+		case 6:mFragment = new SettingFragment();break;
+		case 7:
 			BaseUtils.getInstance().setUserEntity(null);
 			BaseUtils.getInstance().setDateEntity(null);
 			BaseUtils.getInstance().setScheduleJson(null);
@@ -187,16 +184,18 @@ public class MainActivity extends FragmentActivity
 	}
 
 	public boolean onKeyDown(int KeyCode,KeyEvent event){
-		SnackbarManager.show(
-                Snackbar.with(context)
-                      	.text("是否退出?")
-                        .actionLabel("是的")
-                        .actionColorResource(R.color.yellow_500)
-                        .actionListener(new ActionClickListener() {
-                            public void onActionClicked(Snackbar snackbar) {
-                            	MainActivity.this.finish();
-                            }
-                        }));
+		if(event.getKeyCode() == KeyEvent.KEYCODE_BACK){
+			SnackbarManager.show(
+	                Snackbar.with(context)
+	                      	.text("是否退出?")
+	                        .actionLabel("是的")
+	                        .actionColorResource(R.color.yellow_500)
+	                        .actionListener(new ActionClickListener() {
+	                            public void onActionClicked(Snackbar snackbar) {
+	                            	MainActivity.this.finish();
+	                            }
+	                        }));
+		}
 		return false;
 	}
 	
