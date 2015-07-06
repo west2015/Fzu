@@ -141,7 +141,7 @@ public class JwcNoticeDetatilActivity extends Activity {
 		protected void onPostExecute(String result) {
 			// TODO Auto-generated method stub
 			if(result!=null && result.length()>10){
-				mWebView.loadDataWithBaseURL("", result, "text/html", "utf-8", "");
+				mWebView.loadDataWithBaseURL("http://jwch.fzu.edu.cn", result, "text/html", "utf-8", "");
 			}
 			else{
 				SnackbarManager.show(Snackbar.with(context)

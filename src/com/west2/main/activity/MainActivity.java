@@ -1,5 +1,8 @@
 package com.west2.main.activity;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,17 +16,26 @@ import android.view.Gravity;
 import android.view.KeyEvent;
 import android.widget.ListView;
 import android.widget.TextView;
+import cn.jpush.android.api.JPushInterface;
 
 import com.nispok.snackbar.Snackbar;
 import com.nispok.snackbar.SnackbarManager;
 import com.nispok.snackbar.listeners.ActionClickListener;
 import com.umeng.analytics.MobclickAgent;
+import com.umeng.socialize.utils.Log;
 import com.west2.main.R;
 import com.west2.main.adapter.MenuAdapter;
 import com.west2.main.database.DbExam;
 import com.west2.main.entity.DateEntity;
 import com.west2.main.entity.UserEntity;
-import com.west2.main.fragment.*;
+import com.west2.main.fragment.EmptyRoomFragment;
+import com.west2.main.fragment.ExamFragment;
+import com.west2.main.fragment.JwcNoticeFragment;
+import com.west2.main.fragment.LibraryFragment;
+import com.west2.main.fragment.MarkFragment;
+import com.west2.main.fragment.MarketFragment;
+import com.west2.main.fragment.ScheduleFragment;
+import com.west2.main.fragment.SettingFragment;
 import com.west2.main.interfaces.MessageInterface;
 import com.west2.main.service.TimeService;
 import com.west2.main.utils.BaseUtils;
@@ -42,10 +54,11 @@ public class MainActivity extends FragmentActivity
 			R.drawable.ic_menu_black,
 			R.drawable.ic_menu_black,
 			R.drawable.ic_menu_black,
+			R.drawable.ic_menu_black,
 	};
 
 	private final String[] text = {
-		"课表","成绩","考场","图书馆","二手市场","教务处通知","设置"	,"注销"
+		"课表","成绩","考场","图书馆","二手市场","教务处通知","空教室、评议","设置","注销"
 	};
 
 	private Context context;
@@ -75,6 +88,19 @@ public class MainActivity extends FragmentActivity
 		
 		findView();
 		setListener();
+		
+		initJPush();
+	}
+	
+	private void initJPush(){
+		String alias;
+		Set<String> tags = new HashSet();
+		if(userEntity!=null){
+			alias=userEntity.getUsername();
+			tags.add(userEntity.getRealname());
+			Log.e("MainAct", "alias"+alias);
+			JPushInterface.setAliasAndTags(context, alias, tags);
+		}
 	}
 
 	private void findView(){
@@ -121,7 +147,7 @@ public class MainActivity extends FragmentActivity
 	
 	@Override
 	public void onItem(int position) {
-		if(position != 7)
+		if(position != 8)
 			Message(InfoUtils.CLOSE_DRAWER);
 		if(position == curPosition){
 			return ;
@@ -134,8 +160,9 @@ public class MainActivity extends FragmentActivity
 		case 3:mFragment = new LibraryFragment();break;
 		case 4:mFragment = new MarketFragment();break;
 		case 5:mFragment = new JwcNoticeFragment();break;
-		case 6:mFragment = new SettingFragment();break;
-		case 7:
+		case 6:mFragment = new EmptyRoomFragment();break;
+		case 7:mFragment = new SettingFragment();break;
+		case 8:
 			BaseUtils.getInstance().setUserEntity(null);
 			BaseUtils.getInstance().setDateEntity(null);
 			BaseUtils.getInstance().setScheduleJson(null);

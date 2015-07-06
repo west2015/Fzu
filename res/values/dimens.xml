@@ -7,4 +7,14 @@
     <dimen name="shadow_width">-60dp</dimen>
    	<dimen name="slidingmenu_offset">60dp</dimen>
 
+   	
+   	<!-- 控件大小 -->
+	<dimen name="widget1_width">250dp</dimen>
+	<dimen name="widget1_height">40dp</dimen>
+	<dimen name="widget2_width">250dp</dimen>
+	<dimen name="widget2_height">110dp</dimen>
+	<dimen name="widget3_width">250dp</dimen>
+	<dimen name="widget3_height">180dp</dimen>
+	<dimen name="widget4_width">250dp</dimen>
+	<dimen name="widget4_height">250dp</dimen>
 </resources>

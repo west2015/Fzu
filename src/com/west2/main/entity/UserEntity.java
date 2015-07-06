@@ -5,7 +5,6 @@ public class UserEntity {
 	private String password;
 	private String realname;
 	private String loginId;
-	
 
 	public UserEntity(){
 		

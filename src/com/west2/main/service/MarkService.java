@@ -52,12 +52,16 @@ public class MarkService {
 				BaseUtils.getInstance().setMarkJson(markJson);
 			}
 		}
+		
 //		Log.e("Mark", markJson+"");
 		return sort(getMarkList(markJson));
 	}
 	
 	
-	
+//	public String getMarkJsonByAPI(String xn,String xq){
+//		
+//		String
+//	}
 	
 	/*
 	 * @xn Ñ§Äê

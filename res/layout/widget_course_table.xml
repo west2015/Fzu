@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/week"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/course_bg0"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@color/black"
+             />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/weekday0"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:background="@color/course_color0"
+            android:gravity="center"
+            android:text=" "
+            android:textColor="@color/black"
+             />
+
+        <TextView
+            android:id="@+id/weekday1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/course_color0"
+            android:gravity="center"
+            android:text="一"
+            android:textColor="@color/black"
+             />
+
+        <TextView
+            android:id="@+id/weekday2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/course_color0"
+            android:gravity="center"
+            android:text="二"
+            android:textColor="@color/black"
+             />
+
+        <TextView
+            android:id="@+id/weekday3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/course_color0"
+            android:gravity="center"
+            android:text="三"
+            android:textColor="@color/black"
+             />
+
+        <TextView
+            android:id="@+id/weekday4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/course_color0"
+            android:gravity="center"
+            android:text="四"
+            android:textColor="@color/black"
+             />
+
+        <TextView
+            android:id="@+id/weekday5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/course_color0"
+            android:gravity="center"
+            android:text="五"
+            android:textColor="@color/black"
+             />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        android:orientation="horizontal" >
+
+        <!-- 第0列 -->
+
+        <LinearLayout
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/course_row_10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/course_color0"
+                android:gravity="center"
+                android:text="1"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/course_row_20"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/course_color0"
+                android:gravity="center"
+                android:text="2"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/course_row_30"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/course_color0"
+                android:gravity="center"
+                android:text="3"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/course_row_40"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/course_color0"
+                android:gravity="center"
+                android:text="4"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/course_row_50"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/course_color0"
+                android:gravity="center"
+                android:text="5"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/course_row_60"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/course_color0"
+                android:gravity="center"
+                android:text="6"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/course_row_70"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/course_color0"
+                android:gravity="center"
+                android:text="7"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/course_row_80"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/course_color0"
+                android:gravity="center"
+                android:text="8"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/course_row_90"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/course_color0"
+                android:gravity="center"
+                android:text="9"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/course_row_100"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/course_color0"
+                android:gravity="center"
+                android:text="10"
+                android:textColor="@color/black" />
+        </LinearLayout>
+        <!-- 第1列 -->
+
+        <LinearLayout
+            android:id="@+id/col1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/course_row_11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/grey_100"
+                 />
+
+            <TextView
+                android:id="@+id/course_row_21"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/grey_100" />
+
+            <TextView
+                android:id="@+id/course_row_31"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/grey_100"
+                 />
+
+            <TextView
+                android:id="@+id/course_row_41"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/grey_100"
+                 />
+
+            <TextView
+                android:id="@+id/course_row_51"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/grey_100"
+                 />
+        </LinearLayout>
+        <!-- 第2列 -->
+
+        <LinearLayout
+            android:id="@+id/col2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/course_row_12"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/grey_100"
+                 />
+
+            <TextView
+                android:id="@+id/course_row_22"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/grey_100"
+                 />
+
+            <TextView
+                android:id="@+id/course_row_32"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/grey_100"
+                 />
+
+            <TextView
+                android:id="@+id/course_row_42"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/grey_100"
+                 />
+
+            <TextView
+                android:id="@+id/course_row_52"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/grey_100"
+                 />
+        </LinearLayout>
+        <!-- 第3列 -->
+
+        <LinearLayout
+            android:id="@+id/col3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/course_row_13"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/grey_100"
+                 />
+
+            <TextView
+                android:id="@+id/course_row_23"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/grey_100"
+                 />
+
+            <TextView
+                android:id="@+id/course_row_33"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/grey_100"
+                 />
+
+            <TextView
+                android:id="@+id/course_row_43"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/grey_100"
+                 />
+
+            <TextView
+                android:id="@+id/course_row_53"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/grey_100"
+                 />
+        </LinearLayout>
+        <!-- 第4列 -->
+
+        <LinearLayout
+            android:id="@+id/col4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/course_row_14"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/grey_100"
+                 />
+
+            <TextView
+                android:id="@+id/course_row_24"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/grey_100"
+                 />
+
+            <TextView
+                android:id="@+id/course_row_34"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/grey_100"
+                 />
+
+            <TextView
+                android:id="@+id/course_row_44"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/grey_100"
+                 />
+
+            <TextView
+                android:id="@+id/course_row_54"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/grey_100"
+                 />
+        </LinearLayout>
+        <!-- 第5列 -->
+
+        <LinearLayout
+            android:id="@+id/col5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/course_row_15"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/grey_100"
+                 />
+
+            <TextView
+                android:id="@+id/course_row_25"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/grey_100"
+                 />
+
+            <TextView
+                android:id="@+id/course_row_35"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/grey_100"
+                 />
+
+            <TextView
+                android:id="@+id/course_row_45"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/grey_100"
+                 />
+
+            <TextView
+                android:id="@+id/course_row_55"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/grey_100"
+                 />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

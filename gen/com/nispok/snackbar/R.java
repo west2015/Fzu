@@ -14,45 +14,45 @@ public final class R {
 		public static final int sb__top_out = 0x7f04001a;
 	}
 	public static final class bool {
-		public static final int sb__is_phone = 0x7f090000;
-		public static final int sb__is_swipeable = 0x7f090001;
+		public static final int sb__is_phone = 0x7f080006;
+		public static final int sb__is_swipeable = 0x7f080007;
 	}
 	public static final class color {
-		public static final int s = 0x7f0a0004;
-		public static final int sb__action_bg_color = 0x7f0a0003;
-		public static final int sb__action_text_color = 0x7f0a0002;
-		public static final int sb__background = 0x7f0a0000;
-		public static final int sb__text_color = 0x7f0a0001;
+		public static final int s = 0x7f090115;
+		public static final int sb__action_bg_color = 0x7f090114;
+		public static final int sb__action_text_color = 0x7f090113;
+		public static final int sb__background = 0x7f090111;
+		public static final int sb__text_color = 0x7f090112;
 	}
 	public static final class dimen {
-		public static final int sb__bg_corner_radius = 0x7f070005;
-		public static final int sb__max_width = 0x7f07000d;
-		public static final int sb__min_width = 0x7f07000c;
-		public static final int sb__offset = 0x7f070006;
-		public static final int sb__text_padding_bottom = 0x7f070007;
-		public static final int sb__text_padding_left = 0x7f070008;
-		public static final int sb__text_padding_right = 0x7f07000a;
-		public static final int sb__text_padding_top = 0x7f070009;
-		public static final int sb__text_size = 0x7f07000b;
+		public static final int sb__bg_corner_radius = 0x7f0a001c;
+		public static final int sb__max_width = 0x7f0a0024;
+		public static final int sb__min_width = 0x7f0a0023;
+		public static final int sb__offset = 0x7f0a001d;
+		public static final int sb__text_padding_bottom = 0x7f0a001e;
+		public static final int sb__text_padding_left = 0x7f0a001f;
+		public static final int sb__text_padding_right = 0x7f0a0021;
+		public static final int sb__text_padding_top = 0x7f0a0020;
+		public static final int sb__text_size = 0x7f0a0022;
 	}
 	public static final class drawable {
-		public static final int sb__bg = 0x7f020088;
-		public static final int sb__btn_bg = 0x7f020089;
+		public static final int sb__bg = 0x7f02008e;
+		public static final int sb__btn_bg = 0x7f02008f;
 	}
 	public static final class id {
-		public static final int sb__action = 0x7f06010f;
-		public static final int sb__text = 0x7f060110;
+		public static final int sb__action = 0x7f07010f;
+		public static final int sb__text = 0x7f070110;
 	}
 	public static final class interpolator {
 		public static final int sb__accelerate_cubic = 0x7f050000;
 		public static final int sb__decelerate_cubic = 0x7f050001;
 	}
 	public static final class layout {
-		public static final int sb__template = 0x7f03003d;
+		public static final int sb__template = 0x7f03003f;
 	}
 	public static final class style {
-		public static final int Snackbar = 0x7f0b0000;
-		public static final int Snackbar_Text = 0x7f0b0001;
-		public static final int Snackbar_Text_Action = 0x7f0b0002;
+		public static final int Snackbar = 0x7f0d008d;
+		public static final int Snackbar_Text = 0x7f0d008e;
+		public static final int Snackbar_Text_Action = 0x7f0d008f;
 	}
 }

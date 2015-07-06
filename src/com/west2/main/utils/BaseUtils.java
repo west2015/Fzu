@@ -1,5 +1,7 @@
 package com.west2.main.utils;
 
+import cn.jpush.android.api.JPushInterface;
+
 import com.nispok.snackbar.Snackbar;
 import com.nispok.snackbar.SnackbarManager;
 import com.west2.main.database.*;
@@ -24,6 +26,7 @@ public class BaseUtils extends Application{
 	private String markJson;
 	private String cookie;
 	private String theme;
+	private String token;
 	private UserEntity libraryUser;
 	private String libraryJson;
 	
@@ -46,6 +49,10 @@ public class BaseUtils extends Application{
 		theme = new DbSetting(context).getTheme();
 		libraryUser = new DbLibrary(context).getUserEnitty();
 		libraryJson = new DbLibrary(context).getLibraryJson();
+		
+		//极光推送init
+		JPushInterface.setDebugMode(true); 	// 设置开启日志,发布时请关闭日志
+        JPushInterface.init(this);     		// 初始化 JPush
 	}
 	
 	@SuppressWarnings("deprecation")
@@ -133,6 +140,14 @@ public class BaseUtils extends Application{
 
 	public void setCookie(String cookie) {
 		this.cookie = cookie;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
 	}
 
 }

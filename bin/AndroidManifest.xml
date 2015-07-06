@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.west2.main"
-    android:versionCode="6"
-    android:versionName="3.1" >
+    android:versionCode="9"
+    android:versionName="3.2" >
 
     <uses-sdk
         android:minSdkVersion="16"
@@ -21,6 +21,19 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <!-- 语音 -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    
+    <permission
+        android:name="com.west2.main.permission.JPUSH_MESSAGE"
+        android:protectionLevel="signature" />
+    <!-- 极光推送所需权限 -->
+    <uses-permission android:name="com.west2.main.permission.JPUSH_MESSAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>  
 
     <application
         android:name=".utils.BaseUtils"
@@ -72,12 +85,132 @@
                 <data android:scheme="tencent100424468" />
             </intent-filter>
         </activity>
+        
         <activity
             android:name="com.tencent.connect.common.AssistActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" >
         </activity>
         <!-- 友盟分享   -->
+        
+        
+        
+        <service
+            android:name="com.west2.widget.service.CousreTableWidgetService"
+            android:enabled="true" >
+        </service>
+        <service
+            android:name="com.west2.widget.service.CourseWidgetService1_4"
+            android:enabled="true" >
+        </service>
+         <service
+            android:name="com.west2.widget.service.CourseWidgetService2_4"
+            android:enabled="true" >
+        </service>
+         <service
+            android:name="com.west2.widget.service.CourseWidgetService3_4"
+            android:enabled="true" >
+        </service>
+         <service
+            android:name="com.west2.widget.service.CourseWidgetService4_4"
+            android:enabled="true" >
+        </service>
+         <service
+            android:name="com.west2.widget.service.UpdateService4_4"
+            android:enabled="true" >
+        </service>
+        
+        
+        
+        <!-- 课表桌面小控件--> 
+		
+        
+        
+        
+        
+        
+        <!-- 极光推送 -->
+        
+        <!-- Required SDK核心功能-->
+        <activity
+            android:name="cn.jpush.android.ui.PushActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:configChanges="orientation|keyboardHidden" >
+            <intent-filter>
+                <action android:name="cn.jpush.android.ui.PushActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="com.west2.main" />
+            </intent-filter>
+        </activity>
+        
+        <!-- Required  SDK核心功能-->
+        <service
+            android:name="cn.jpush.android.service.DownloadService"
+            android:enabled="true"
+            android:exported="false" >
+        </service>
+    
+        
+        <!-- Required SDK 核心功能-->
+        <service
+            android:name="cn.jpush.android.service.PushService"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.REGISTER" />
+                <action android:name="cn.jpush.android.intent.REPORT" />
+                <action android:name="cn.jpush.android.intent.PushService" />
+                <action android:name="cn.jpush.android.intent.PUSH_TIME" />
+                
+            </intent-filter>
+        </service>
+        
+        <!-- Required SDK核心功能-->
+        <receiver
+            android:name="cn.jpush.android.service.PushReceiver"
+            android:enabled="true" >
+             <intent-filter android:priority="1000">
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY" />   <!--Required  显示通知栏 -->
+                <category android:name="com.west2.main" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+             <!-- Optional -->
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+                <data android:scheme="package" />
+            </intent-filter>
+   
+        </receiver>
+        
+        <!-- Required SDK核心功能-->
+        <receiver android:name="cn.jpush.android.service.AlarmReceiver" />
+        
+        <!-- User defined.  For test only  用户自定义的广播接收器-->
+        <receiver
+            android:name="com.west2.main.push.MyReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.REGISTRATION" /> <!--Required  用户注册SDK的intent-->
+                <action android:name="cn.jpush.android.intent.UNREGISTRATION" />  
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" /> <!--Required  用户接收SDK消息的intent-->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" /> <!--Required  用户接收SDK通知栏信息的intent-->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" /> <!--Required  用户打开自定义通知栏的intent-->
+                <action android:name="cn.jpush.android.intent.ACTION_RICHPUSH_CALLBACK" /> <!--Optional 用户接受Rich Push Javascript 回调函数的intent-->
+                <action android:name="cn.jpush.android.intent.CONNECTION" /><!-- 接收网络变化 连接/断开 since 1.6.3 -->
+                <category android:name="com.west2.main" />
+            </intent-filter>
+        </receiver>
+ 
+        
+        <!-- Required  . Enable it you can get statistics data with channel -->
+        <meta-data android:name="JPUSH_CHANNEL" android:value="developer-default"/>
+        <meta-data android:name="JPUSH_APPKEY" android:value="52af22950d7c0aac66830d7d" /> <!--  </>值来自开发者平台取得的AppKey-->
+        
+        <!-- 极光推送 -->
         
         <!--  -->
         <activity

@@ -20,6 +20,24 @@
 	<color name="course_color14">#80c0ca33</color>
 	<color name="course_color15">#806d4c41</color>
 	<color name="course_color16">#80311b92</color>
+	
+	
+	<color name="widget_color1">#a89dda</color>
+	<color name="widget_color2">#95cf62</color>
+	<color name="widget_color3">#6bcef0</color>
+	<color name="widget_color4">#a89dda</color>
+	<color name="widget_color5">#dc91b4</color>
+	<color name="widget_color6">#70bbac</color>
+	<color name="widget_color7">#6199e6</color>
+	<color name="widget_color8">#f3c672</color>
+	<color name="widget_color9">#fb9893</color>
+	<color name="widget_color10">#03aa8c</color>
+	<color name="widget_color11">#5d76ba</color>
+	<color name="widget_color12">#AFf7911e</color>
+	<color name="widget_color13">#AAf03c42</color>
+	<color name="widget_color14">#00755E</color>
+	<color name="widget_color15">#32b25d</color>
+	<color name="widget_color16">#ffc7b1</color>
     
     <color name="transparent">#00000000</color>
     

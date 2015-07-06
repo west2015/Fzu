@@ -32,7 +32,6 @@ import android.widget.Toast;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
-import com.handmark.pulltorefresh.library.PullToRefreshBase.PullOnRefreshListener;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.material.widget.FloatingActionButton;
 import com.material.widget.InputText;
@@ -208,8 +207,11 @@ public class LibraryFragment extends Fragment implements BookAdapter.onItemClick
 			}
 		});
 		// ¼ÓÔØ¸ü¶à
-		lv.setPullOnRefreshListener(new PullOnRefreshListener(){
+		lv.setOnRefreshListener(new com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener(){
+
+			@Override
 			public void onRefresh(PullToRefreshBase refreshView) {
+				// TODO Auto-generated method stub
 				++page;
 				new Thread(getSearchRun).start();
 			}

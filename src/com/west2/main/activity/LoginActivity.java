@@ -11,6 +11,7 @@ import android.view.View.OnFocusChangeListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import cn.jpush.android.api.JPushInterface;
 
 import com.material.widget.InputText;
 import com.nispok.snackbar.Snackbar;
@@ -228,11 +229,14 @@ public class LoginActivity extends Activity{
 	public void onResume() {
 		super.onResume();
 		MobclickAgent.onResume(this);
+		JPushInterface.onResume(this);
 	}
 
 	public void onPause() {
 		super.onPause();
 		MobclickAgent.onPause(this);
+		JPushInterface.onPause(this);
 	}
+	
 	
 }
