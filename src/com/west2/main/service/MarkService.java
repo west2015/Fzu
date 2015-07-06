@@ -17,8 +17,6 @@ import com.west2.main.entity.MarkEntity;
 import com.west2.main.utils.BaseUtils;
 import com.west2.main.utils.FzuHttpUtils;
 
-import android.util.Log;
-
 public class MarkService {
 
 	/*
@@ -54,11 +52,16 @@ public class MarkService {
 				BaseUtils.getInstance().setMarkJson(markJson);
 			}
 		}
+		
+//		Log.e("Mark", markJson+"");
 		return sort(getMarkList(markJson));
 	}
 	
 	
-	
+//	public String getMarkJsonByAPI(String xn,String xq){
+//		
+//		String
+//	}
 	
 	/*
 	 * @xn Ñ§Äê
@@ -98,6 +101,7 @@ public class MarkService {
 				obj.put("gradecridit", es.get(3).text());
 				obj.put("score", es.get(4).text());
 				obj.put("gradepoint", es.get(5).text());
+				obj.put("coursetype", es.get(7).text());
 			} catch (JSONException e1) {
 				e1.printStackTrace();
 			}
@@ -122,6 +126,7 @@ public class MarkService {
 				mark.setGradePoint(obj.getString("gradepoint"));
 				mark.setGradeCredit(obj.getString("gradecridit"));
 				mark.setTerm(obj.getString("term"));
+				mark.setCourseType(obj.getString("coursetype"));
 				marks.add(mark);
 			}
 		} catch (JSONException e1) {

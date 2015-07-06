@@ -1,5 +1,8 @@
 package com.west2.main.fragment;
 
+import java.io.Serializable;
+
+import com.material.widget.CheckBox;
 import com.material.widget.DampScrollView;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.fb.FeedbackAgent;
@@ -41,7 +44,10 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.west2.main.R;
+import com.west2.main.activity.AboutActivity;
+import com.west2.main.activity.BindingActivity;
 import com.west2.main.interfaces.MessageInterface;
+import com.west2.main.utils.BaseUtils;
 import com.west2.main.utils.InfoUtils;
 
 public class SettingFragment extends Fragment {
@@ -53,6 +59,10 @@ public class SettingFragment extends Fragment {
 	private DampScrollView dsv;
 	private RelativeLayout toolbarAll;
 
+	private String curStyle;
+	private boolean isReload;
+	private CheckBox cbWhite,cbBlack;
+	
 	// ÓÑÃË×é¼þ
 	final UMSocialService mController = 
 			UMServiceFactory.getUMSocialService("com.umeng.share");
@@ -68,8 +78,15 @@ public class SettingFragment extends Fragment {
 		mListener = (MessageInterface) context;
 	}
 
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		curStyle = BaseUtils.getInstance().getCustomTheme();
+		if(curStyle.equals(InfoUtils.SR_SETTING_THEME_BLACK)){
+			context.setTheme(R.style.DarkTheme);
+		}
+		else{
+			context.setTheme(R.style.LightTheme);
+		}
+		
 		View view = inflater.inflate(R.layout.fragment_setting, null);
 		findView(view);
 		setListener(view);
@@ -80,24 +97,36 @@ public class SettingFragment extends Fragment {
 	private void findView(View view) {
 		dsv = (DampScrollView) view.findViewById(R.id.dsv);
 		toolbarAll = (RelativeLayout) view.findViewById(R.id.toolbar_all);
-
+		cbWhite = (CheckBox) view.findViewById(R.id.cb_white);
+		cbBlack = (CheckBox) view.findViewById(R.id.cb_black);
+		
+		setCheckBox(false);
 	}
 
 	private void setListener(View view) {
-		view.findViewById(R.id.btn_push).setOnClickListener(
-				new OnClickListener() {
-					public void onClick(View v) {
-						Toast.makeText(context, "ÍÆËÍ", Toast.LENGTH_SHORT)
-								.show();
-						// showPushDialog();
-					}
-				});
+		cbWhite.setOnClickListener(new OnClickListener(){public void onClick(View v) {
+			isReload=false;
+			if(curStyle.equals(InfoUtils.SR_SETTING_THEME_BLACK)) isReload=true;
+			curStyle=InfoUtils.SR_SETTING_THEME_WHITE;
+			setCheckBox(isReload);
+		}});
+		cbBlack.setOnClickListener(new OnClickListener(){public void onClick(View v) {
+			isReload=false;
+			if(curStyle.equals(InfoUtils.SR_SETTING_THEME_WHITE)) isReload=true;
+			curStyle=InfoUtils.SR_SETTING_THEME_BLACK;
+			setCheckBox(isReload);
+		}});
+		view.findViewById(R.id.btn_binding).setOnClickListener(new OnClickListener(){
+			public void onClick(View v) {
+				Intent intent = new Intent(activity,BindingActivity.class);
+				activity.startActivity(intent);
+			}
+		});
 		view.findViewById(R.id.btn_feedback).setOnClickListener(
 				new OnClickListener() {
 					public void onClick(View arg0) {
 						FeedbackAgent agent = new FeedbackAgent(context);
 						agent.startFeedbackActivity();
-
 					}
 				});
 		view.findViewById(R.id.av).setOnClickListener(new OnClickListener() {
@@ -106,10 +135,8 @@ public class SettingFragment extends Fragment {
 			}
 		});
 		
-		
 		view.findViewById(R.id.btn_update).setOnClickListener(
 				new OnClickListener() {
-					
 					@Override
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
@@ -160,8 +187,28 @@ public class SettingFragment extends Fragment {
 						});
 					}
 				});
+		view.findViewById(R.id.btn_about).setOnClickListener(new OnClickListener(){
+			public void onClick(View v) {
+				Intent intent = new Intent(activity,AboutActivity.class);
+				activity.startActivity(intent);
+			}
+		});
 	}
 
+	private void setCheckBox(boolean isReload){
+		if(curStyle.equals(InfoUtils.SR_SETTING_THEME_BLACK)){
+			cbWhite.setChecked(false);
+			cbBlack.setChecked(true);
+		}
+		else{
+			cbWhite.setChecked(true);
+			cbBlack.setChecked(false);
+		}
+		BaseUtils.getInstance().setCustomTheme(curStyle);
+		if(isReload)
+			mListener.Message(InfoUtils.RELOAD);
+	}
+	
 	Handler mHandler = new Handler() {
 		public void handleMessage(Message msg) {
 		}

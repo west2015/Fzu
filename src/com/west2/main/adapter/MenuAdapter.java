@@ -1,9 +1,10 @@
 package com.west2.main.adapter;
 
 import com.material.widget.RaisedButton;
-
 import com.west2.main.R;
+
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
@@ -22,7 +23,10 @@ public class MenuAdapter extends BaseAdapter{
 	private Context context;
 	private ViewHolder holder;
 	private onItemClick mListener;
-	
+
+	private int mChooseColor;
+	private int mUnChooseColor;
+
 	private int curItem;
 	Typeface typeFace;
 
@@ -34,6 +38,12 @@ public class MenuAdapter extends BaseAdapter{
 		mListener = (onItemClick) context;
 		curItem = 0;
 		typeFace = Typeface.createFromAsset(context.getAssets(),"fonts/roboto_extralight.ttf");
+		
+		TypedArray ta = context.obtainStyledAttributes(R.styleable.ThemeValue);
+		mChooseColor = context.getResources().getColor(R.color.blue_500);
+//		mChooseColor = ta.getColor(R.styleable.ThemeValue_SpecialColor, context.getResources().getColor(R.color.blue_500));
+		mUnChooseColor = ta.getColor(R.styleable.ThemeValue_HintTextColor, context.getResources().getColor(R.color.black_text));
+//		ta.recycle();
 	}
 	
 	@Override
@@ -75,12 +85,14 @@ public class MenuAdapter extends BaseAdapter{
 		holder.btn.setTypeface(typeFace);
 		holder.btn.setText(text[position]);
 		if(position == curItem){
-			holder.btn.setTextColor(context.getResources().getColor(R.color.blue_500));
+//			holder.btn.setTextColor(context.getResources().getColor(R.color.blue_500));
+			holder.btn.setTextColor(mChooseColor);
 			holder.imgIcon.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_menu_blue));
 			holder.rlItem.setBackgroundColor(context.getResources().getColor(R.color.grey_200));
 		}
 		else{
-			holder.btn.setTextColor(context.getResources().getColor(R.color.black_text));
+			holder.btn.setTextColor(mUnChooseColor);
+//			holder.btn.setTextColor(context.getResources().getColor(R.color.black_text));
 			holder.imgIcon.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_menu_grey));
 			holder.rlItem.setBackgroundColor(Color.TRANSPARENT);
 		}

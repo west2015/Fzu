@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="?attr/ContentBackground">
     <!-- TITLE -->
     <LinearLayout 
         android:id="@+id/ll_title"
@@ -19,7 +19,7 @@
             android:gravity="center"
             android:text="课程"
             android:textSize="16sp"
-            android:textColor="@color/black_text"/>
+            android:textColor="?attr/ContentTextColor"/>
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
             android:gravity="center"
             android:text="学分"
             android:textSize="16sp"
-            android:textColor="@color/black_text"/>
+            android:textColor="?attr/ContentTextColor"/>
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -35,7 +35,7 @@
             android:gravity="center"
             android:text="绩点"
             android:textSize="16sp"
-            android:textColor="@color/black_text"/>
+            android:textColor="?attr/ContentTextColor"/>
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -43,7 +43,7 @@
             android:gravity="center"
             android:text="成绩"
             android:textSize="16sp"
-            android:textColor="@color/black_text"/>
+            android:textColor="?attr/ContentTextColor"/>
     </LinearLayout>
 	<!-- CONTENT -->
     <LinearLayout 
@@ -62,7 +62,7 @@
             android:ellipsize="end"
             android:gravity="center"
             android:textSize="16sp"
-            android:textColor="@color/black_secondary"/>
+            android:textColor="?attr/HintTextColor"/>
         <TextView
             android:id="@+id/tv_credit"
             android:layout_width="0dp"
@@ -70,7 +70,7 @@
             android:layout_weight="2"
             android:gravity="center"
             android:textSize="16sp"
-            android:textColor="@color/black_secondary"/>
+            android:textColor="?attr/HintTextColor"/>
         <TextView
             android:id="@+id/tv_gradepoint"
             android:layout_width="0dp"
@@ -78,7 +78,7 @@
             android:layout_weight="2"
             android:gravity="center"
             android:textSize="16sp"
-            android:textColor="@color/black_secondary"/>
+            android:textColor="?attr/HintTextColor"/>
         <TextView
             android:id="@+id/tv_score"
             android:layout_width="0dp"
@@ -86,6 +86,6 @@
             android:layout_weight="2"
             android:gravity="center"
             android:textSize="16sp"
-            android:textColor="@color/black_secondary"/>
+            android:textColor="?attr/SpecialColor"/>
     </LinearLayout>
 </RelativeLayout>

@@ -4,7 +4,7 @@
     xmlns:custom="http://schemas.android.com/apk/res/com.west2.main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/transparent" >
 
     <TextView
         android:id="@+id/tv_title"
@@ -18,7 +18,7 @@
         android:maxLines="2"
         android:ellipsize="end"
         android:textSize="18sp"
-        android:textColor="@color/black_text"/>
+        android:textColor="?attr/ContentTextColor"/>
     <TextView
         android:id="@+id/tv_time"
         android:layout_width="match_parent"
@@ -29,18 +29,19 @@
         android:gravity="center_vertical"
         android:text="2015年03月29日"
         android:textSize="14sp"
-        android:textColor="@color/black_secondary"/>
+        android:textColor="?attr/HintTextColor"/>
 	<View 
 	    android:layout_width="match_parent"
 	    android:layout_height="16dp"
 	    android:layout_below="@+id/tv_time"
-	    android:background="@color/white"/>
+	    android:background="@color/transparent"/>
 	
 	<com.material.widget.RaisedButton
         android:layout_width="match_parent"
         android:layout_height="112dp"
         android:background="@color/transparent"
         android:focusable="false"
-        custom:isCatchFocus="false" />
+        custom:isCatchFocus="false"
+        custom:startColor="?attr/RippleColor" />
 	
 </RelativeLayout>

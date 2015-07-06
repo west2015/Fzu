@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ThemeValue">
+	    <attr name="ActionBarTextColor" format="color"/>
+	    <attr name="ActionBarBackground" format="color"/>
+	    <attr name="ContentTextColor" format="color"/>
+	    <attr name="ContentBackground" format="color"/>
+	    <attr name="HintTextColor" format="color"/>
+	    <attr name="SpecialColor" format="color"/>
+	    <attr name="RippleColor" format="color"/>
+	    <attr name="FabShadowColor" format="color"/>
+	    <attr name="DividerColor" format="color"/>
+	    <attr name="CourseTextColor" format="color"/>
+	    <attr name="SecondaryTextColor" format="color"/>
+	    <attr name="FzuIcon" format="reference"/>
+	</declare-styleable>
+</resources>

@@ -4,13 +4,13 @@
     xmlns:custom="http://schemas.android.com/apk/res/com.west2.main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="?attr/ContentBackground">
     <!-- TITLE -->
     <RelativeLayout
         android:id="@+id/ll_title"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:background="@color/teal_a700">
+        android:background="?attr/ActionBarBackground">
 		<com.material.widget.ActionView
             android:id="@+id/av"
             android:layout_width="56dp"
@@ -38,6 +38,7 @@
             android:id="@+id/lv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:listSelector="@color/transparent"
             android:divider="@color/black_dividers"
             android:dividerHeight="0.1dp"
             android:overScrollMode="never"

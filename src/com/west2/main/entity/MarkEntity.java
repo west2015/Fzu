@@ -8,7 +8,14 @@ public class MarkEntity {
 	private String score;
 	private String gradePoint;
 	private String gradeCredit;
+	private String courseType;
 
+	public String getCourseType() {
+		return courseType;
+	}
+	public void setCourseType(String courseType) {
+		this.courseType = courseType;
+	}
 	public String getTerm() {
 		return term;
 	}

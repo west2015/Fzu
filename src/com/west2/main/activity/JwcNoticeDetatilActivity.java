@@ -7,6 +7,8 @@ import com.umeng.analytics.MobclickAgent;
 import com.west2.main.R;
 import com.west2.main.entity.JWCNoticeEntity;
 import com.west2.main.service.JWCNoticeService;
+import com.west2.main.utils.BaseUtils;
+import com.west2.main.utils.InfoUtils;
 import com.west2.main.utils.MetricsConverter;
 
 import android.animation.Animator;
@@ -15,6 +17,8 @@ import android.animation.ValueAnimator;
 import android.animation.ValueAnimator.AnimatorUpdateListener;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,8 +28,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.DecelerateInterpolator;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.webkit.WebSettings.LayoutAlgorithm;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.RelativeLayout.LayoutParams;
@@ -43,6 +49,13 @@ public class JwcNoticeDetatilActivity extends Activity {
 	private JWCNoticeEntity mEntity;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		if(BaseUtils.getInstance().getCustomTheme().equals(InfoUtils.SR_SETTING_THEME_BLACK)){
+			this.setTheme(R.style.DarkTheme);
+		}
+		else{
+			this.setTheme(R.style.LightTheme);
+		}
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_jwc_notice_detatil);
 		context= this;
@@ -61,6 +74,14 @@ public class JwcNoticeDetatilActivity extends Activity {
 	
 	private void init(){
 		
+		WebSettings settings= mWebView.getSettings(); 
+		settings.setJavaScriptEnabled(true);
+		settings.setJavaScriptCanOpenWindowsAutomatically(true);
+		settings.setLayoutAlgorithm(LayoutAlgorithm.NORMAL);
+		settings.setSupportZoom(true);
+		settings.setBuiltInZoomControls(true);
+		
+		
 		mEntity = (JWCNoticeEntity) this.getIntent().getExtras().get("entity");
 		if(mEntity.getTitle()!=null)
 		tvTitle.setText(mEntity.getTitle());
@@ -73,6 +94,16 @@ public class JwcNoticeDetatilActivity extends Activity {
 		findViewById(R.id.av_back).setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				JwcNoticeDetatilActivity.this.finish();
+			}
+		});
+		
+		findViewById(R.id.btn_openinexplore).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(mEntity.getUrl()));
+	             startActivity(intent);
 			}
 		});
 	}
@@ -110,7 +141,7 @@ public class JwcNoticeDetatilActivity extends Activity {
 		protected void onPostExecute(String result) {
 			// TODO Auto-generated method stub
 			if(result!=null && result.length()>10){
-				mWebView.loadDataWithBaseURL("", result, "text/html", "utf-8", "");
+				mWebView.loadDataWithBaseURL("http://jwch.fzu.edu.cn", result, "text/html", "utf-8", "");
 			}
 			else{
 				SnackbarManager.show(Snackbar.with(context)

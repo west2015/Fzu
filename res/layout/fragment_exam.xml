@@ -10,7 +10,7 @@
         android:id="@+id/ll_title"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:background="@color/blue_500">
+        android:background="?attr/ActionBarBackground">
 		<com.material.widget.ActionView
             android:id="@+id/av"
             android:layout_width="56dp"
@@ -39,6 +39,7 @@
             android:layout_height="match_parent"
             android:divider="@color/black_dividers"
             android:dividerHeight="0.1dp"
+            android:background="?attr/ContentBackground"
             android:overScrollMode="never"
             android:scrollbars="none" >
         </ListView>

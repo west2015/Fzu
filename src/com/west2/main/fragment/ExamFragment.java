@@ -25,6 +25,7 @@ import com.west2.main.adapter.ExamAdapter;
 import com.west2.main.entity.ExamEntity;
 import com.west2.main.interfaces.MessageInterface;
 import com.west2.main.service.ExamService;
+import com.west2.main.utils.BaseUtils;
 import com.west2.main.utils.InfoUtils;
 
 public class ExamFragment extends Fragment{
@@ -50,6 +51,14 @@ public class ExamFragment extends Fragment{
 	}
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState){
+		if(BaseUtils.getInstance().getCustomTheme().equals(InfoUtils.SR_SETTING_THEME_BLACK)){
+			context.setTheme(R.style.DarkTheme);
+		}
+		else{
+			context.setTheme(R.style.LightTheme);
+		}
+
+		
 		View view = inflater.inflate(R.layout.fragment_exam, null);
 		findView(view);
 		setListener(view);

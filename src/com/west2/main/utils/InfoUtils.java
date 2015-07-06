@@ -14,7 +14,8 @@ public class InfoUtils {
 	public static final String OPEN_DRAWER = "open_drawer";
 	public static final String CLOSE_DRAWER = "close_drawer";
 
-	public static final String 	REFRESH_TIME = "refresh_time";
+	public static final String REFRESH_TIME = "refresh_time";
+	public static final String RELOAD = "reload";
 	
 	public static final String SCHEDULE_ADD = "schedule_add";
 	public static final String SCHEDULE_SETTING = "schedule_setting";
@@ -36,6 +37,10 @@ public class InfoUtils {
 
 	public static final String SR_SETTING_THEME_WHITE = "white";
 	public static final String SR_SETTING_THEME_BLACK = "black";
+	
+	public static final String SR_RENEW_SUCCEED = "renew_succeed";
+	public static final String SR_RENEW_HAD = "renew_had";
+	public static final String SR_RENEW_FAIL = "renew_fail";
 	
 	// 获取字符串中数字
 	public static int getNumber(String str){

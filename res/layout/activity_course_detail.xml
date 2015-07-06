@@ -4,7 +4,7 @@
     xmlns:custom="http://schemas.android.com/apk/res/com.west2.main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="?attr/ContentBackground">
 	<!-- TITLE -->
 	<RelativeLayout 
 	    android:id="@+id/rl_title"
@@ -36,8 +36,7 @@
 	<com.material.widget.DampScrollView
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent"
-	    android:layout_marginTop="128dp"
-	    android:background="@color/white">
+	    android:layout_marginTop="128dp">
 		<RelativeLayout 
 		    android:layout_width="match_parent"
 		    android:layout_height="wrap_content"
@@ -52,7 +51,7 @@
 		        android:padding="8dp"
 		        android:text="教室"
 		        android:textSize="18sp"
-		        android:textColor="@color/black_secondary"/>
+		        android:textColor="?attr/HintTextColor"/>
 		    <TextView 
 		        android:visibility="invisible"
 		        android:id="@+id/tv_place"
@@ -74,7 +73,7 @@
 		        android:padding="8dp"
 		        android:text="老师"
 		        android:textSize="18sp"
-		        android:textColor="@color/black_secondary"/>
+		        android:textColor="?attr/HintTextColor"/>
 		    <TextView 
 		        android:visibility="invisible"
 		        android:id="@+id/tv_teacher"
@@ -97,7 +96,7 @@
 		        android:padding="8dp"
 		        android:text="节数"
 		        android:textSize="18sp"
-		        android:textColor="@color/black_secondary"/>
+		        android:textColor="?attr/HintTextColor"/>
 		    <TextView 
 		        android:visibility="invisible"
 		        android:id="@+id/tv_lesson"
@@ -120,7 +119,7 @@
 		        android:padding="8dp"
 		        android:text="周数"
 		        android:textSize="18sp"
-		        android:textColor="@color/black_secondary"/>
+		        android:textColor="?attr/HintTextColor"/>
 		    <TextView 
 		        android:visibility="invisible"
 		        android:id="@+id/tv_schedule"
@@ -145,7 +144,7 @@
 		        android:gravity="center"
 		        android:text="The day shall not be up so soon as I,"
 		        android:textSize="16sp"
-		        android:textColor="@color/black_text"/>
+		        android:textColor="?attr/ContentTextColor"/>
 		    <TextView 
 		        android:visibility="invisible"
 		        android:id="@+id/tv_second_word"
@@ -157,7 +156,7 @@
 				android:gravity="center"
 		        android:text="to try the fair adventure of tomorrow"
 		        android:textSize="16sp"
-		        android:textColor="@color/black_text"/>
+		        android:textColor="?attr/ContentTextColor"/>
 		    <TextView 
 		        android:visibility="invisible"
 		        android:id="@+id/tv_author"
@@ -169,7 +168,7 @@
 				android:layout_centerHorizontal="true"
 		        android:text="-William Shakespeare"
 		        android:textSize="14sp"
-		        android:textColor="@color/black_text"/>
+		        android:textColor="?attr/HintTextColor"/>
 		</RelativeLayout>
 	</com.material.widget.DampScrollView>
 	<!-- SHADOW -->

@@ -16,7 +16,9 @@
 	    android:id="@+id/tv_title"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
-	    android:layout_margin="24dp"
+	    android:layout_marginTop="24dp"
+	    android:layout_marginLeft="24dp"
+	    android:layout_marginBottom="24dp"
 	    android:text="绩点"
 	    android:textSize="20sp"
 	    android:textColor="@color/black_text"
@@ -33,6 +35,16 @@
 	    android:dividerHeight="0dp"
 	    android:scrollbars="none"
 	    android:overScrollMode="never"/>
+		
+	<TextView 
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_above="@+id/lv_gradepoint"
+	    android:layout_toRightOf="@+id/tv_title"
+	    android:layout_marginBottom="24dp"
+	    android:text="(仅供参考)"
+	    android:textSize="12sp"
+	    android:textColor="@color/black_hint"/>
 
 	<Button
 	    android:id="@+id/btn_close"

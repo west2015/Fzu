@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/white"
+    android:background="?attr/ContentBackground"
     android:paddingTop="24dp"
     android:paddingLeft="0dp"
     android:paddingRight="24dp"
@@ -18,7 +18,7 @@
         android:gravity="center"
         android:text="1-2"
         android:textSize="14sp"
-        android:textColor="@color/blue_500"/>
+        android:textColor="?attr/SpecialColor"/>
     
     <TextView
         android:id="@+id/tv_name"
@@ -29,7 +29,7 @@
 		android:text="英语习语与英语文化英语习语与英语文"
 		android:textSize="20sp"
 		android:textStyle="bold"
-		android:textColor="@color/black_text"/>
+		android:textColor="?attr/ContentTextColor"/>
 
     <TextView
         android:id="@+id/tv_teacher_name"
@@ -40,7 +40,7 @@
         android:layout_marginBottom="4dp"
         android:text="程页"
         android:textSize="16sp"
-        android:textColor="@color/black_secondary"/>
+        android:textColor="?attr/HintTextColor"/>
     
     <TextView
         android:id="@+id/tv_place"
@@ -51,7 +51,7 @@
         android:layout_marginBottom="4dp"
         android:text="东3-305"
         android:textSize="16sp"
-        android:textColor="@color/black_secondary"/>
+        android:textColor="?attr/HintTextColor"/>
 
 	<TextView
         android:id="@+id/tv_weeks"
@@ -61,6 +61,6 @@
         android:layout_toRightOf="@+id/tv_lesson"
         android:text="1-14周"
         android:textSize="16sp"
-        android:textColor="@color/black_secondary"/>
+        android:textColor="?attr/HintTextColor"/>
     
 </RelativeLayout>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res/com.west2.main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/ContentBackground">
+    <!-- TITLE -->
+    <LinearLayout
+        android:id="@+id/ll_title"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="?attr/ActionBarBackground"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingRight="16dp">
+		<com.material.widget.ActionView
+            android:id="@+id/av"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:padding="16dp"
+            custom:av_color="@color/white"
+            custom:av_action="drawer"/>
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="空教室、一键评议"
+            android:textSize="22sp"
+            android:textColor="@color/white"/>
+    </LinearLayout>
+   
+	<WebView
+    	android:id="@+id/webview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:layout_below="@+id/ll_title"
+        android:layout_above="@+id/ll_bottom"
+        android:overScrollMode="never"/>
+    
+    <!-- Shadow -->
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_title"
+        layout="@layout/shadow_layout" />
+
+</RelativeLayout>

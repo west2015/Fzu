@@ -30,6 +30,7 @@ import com.west2.main.adapter.JwcNoticeAdapter;
 import com.west2.main.entity.JWCNoticeEntity;
 import com.west2.main.interfaces.MessageInterface;
 import com.west2.main.service.JWCNoticeService;
+import com.west2.main.utils.BaseUtils;
 import com.west2.main.utils.InfoUtils;
 
 public class JwcNoticeFragment extends Fragment {
@@ -60,6 +61,13 @@ public class JwcNoticeFragment extends Fragment {
 	}
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState){
+		if(BaseUtils.getInstance().getCustomTheme().equals(InfoUtils.SR_SETTING_THEME_BLACK)){
+			context.setTheme(R.style.DarkTheme);
+		}
+		else{
+			context.setTheme(R.style.LightTheme);
+		}
+		
 		View view = inflater.inflate(R.layout.fragment_jwc_notice, null);
 		findView(view);
 		setListener(view);

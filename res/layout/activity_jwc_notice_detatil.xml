@@ -5,16 +5,14 @@
     android:layout_height="match_parent"
     android:id="@+id/rl"
     android:background="@color/white" >
-
+    
     <!-- TITLE -->
-
     <RelativeLayout
         android:id="@+id/rl_bar"
         android:layout_width="match_parent"
         android:layout_height="136dp"
-        android:background="@color/teal_a700" >
-
-    </RelativeLayout>
+        android:background="?attr/ActionBarBackground" >
+    </RelativeLayout>    
 
     <com.material.widget.ActionView
         android:id="@+id/av_back"
@@ -23,6 +21,23 @@
         android:padding="16dp"
         custom:av_action="back"
         custom:av_color="@color/white" />
+    
+   		<com.material.widget.RaisedButton
+	   	    android:id="@+id/btn_openinexplore"
+	   	    android:layout_width="56dp"
+        	android:layout_height="56dp"
+	   	    android:layout_alignParentRight="true"
+	   	    android:background="@color/transparent"
+	   	    android:paddingTop="8dp"
+	   	    android:paddingBottom="8dp"
+	   	    custom:startColor="?attr/RippleColor"/>
+	   	<ImageView 
+	   	    android:layout_width="56dp"
+	   	    android:layout_height="56dp"
+	   	    android:layout_alignParentRight="true"
+	   	    android:padding="16dp"
+			android:src="@drawable/open_in_browser"
+	   	    android:scaleType="fitCenter"/>
 
     <!-- CONTENT -->
     <com.material.widget.DampScrollView
@@ -32,17 +47,25 @@
         android:layout_height="match_parent"
         android:layout_marginTop="56dp"
         android:overScrollMode="never"
-        android:background="@drawable/jwc_detail_bg" >
+        android:background="@color/transparent" >
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent"
+            android:background="@color/transparent" >
 
+            <View 
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:background="?attr/ActionBarBackground"/>
+            
             <RelativeLayout
                 android:id="@+id/rl_title"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
-                android:paddingBottom="8dp">
+                android:paddingBottom="8dp"
+                android:background="?attr/ActionBarBackground">
 
                 <TextView
                     android:id="@+id/tv_title"
@@ -67,7 +90,7 @@
                 android:id="@+id/webview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white" />
+                android:background="?attr/ContentBackground" />
             </RelativeLayout>
 
             <!-- SHADOW -->

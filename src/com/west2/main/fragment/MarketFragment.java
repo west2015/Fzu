@@ -30,6 +30,7 @@ import com.umeng.analytics.MobclickAgent;
 import com.west2.main.R;
 import com.west2.main.interfaces.MessageInterface;
 import com.west2.main.service.MarketService;
+import com.west2.main.utils.BaseUtils;
 import com.west2.main.utils.InfoUtils;
 
 public class MarketFragment extends Fragment{
@@ -64,6 +65,13 @@ public class MarketFragment extends Fragment{
 	}
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState){
+		if(BaseUtils.getInstance().getCustomTheme().equals(InfoUtils.SR_SETTING_THEME_BLACK)){
+			context.setTheme(R.style.DarkTheme);
+		}
+		else{
+			context.setTheme(R.style.LightTheme);
+		}
+		
 		View view = inflater.inflate(R.layout.fragment_market, null);
 		findView(view);
 		setListener(view);
@@ -149,9 +157,7 @@ public class MarketFragment extends Fragment{
 	private class LoadHtmlTask extends AsyncTask<Void, Void, String>{
 		@Override
 		protected String doInBackground(Void... params) {
-			// TODO Auto-generated method stub
-		//	Log.e("Market", curURL);
-			if(curURL!=null&&curURL.equals("http://bbs.fzu.edu.cn/forum.php")){
+			if(curURL!=null && curURL.equals("http://bbs.fzu.edu.cn/forum.php")){
 				curURL=MarketService.URL_MARKET;
 				isIndex = true;
 			}else if(curURL.contains("http://bbs.fzu.edu.cn/forum.php?mod=forumdisplay"))
@@ -180,9 +186,7 @@ public class MarketFragment extends Fragment{
 			Elements eles =doc.select("a[class=z]");
 			if(eles.first()!=null){
 				preURL="http://bbs.fzu.edu.cn/"+eles.first().attr("href");
-				Log.e("preUrl", preURL+"!!!!");
 			}else{
-			//	preURL = MarketService.URL_MARKET;
 			}
 			
 			doc.select("form[id=fastpostform]").remove();

@@ -4,13 +4,13 @@
     xmlns:custom="http://schemas.android.com/apk/res/com.west2.main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="?attr/ContentBackground">
     <!-- TITLE -->
     <LinearLayout
         android:id="@+id/ll_title"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:background="@color/teal_a700"
+        android:background="?attr/ActionBarBackground"
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:paddingRight="16dp">
@@ -42,8 +42,9 @@
             android:background="@color/transparent"
             android:focusable="true"
             android:text="上一页"
-            android:textColor="@color/teal_a700"
-            android:textSize="18sp" />
+            android:textColor="?attr/SpecialColor"
+            android:textSize="18sp"
+            custom:startColor="?attr/RippleColor" />
         <com.material.widget.RaisedButton
             android:id="@+id/btn_nextpage"
             android:layout_width="0dp"
@@ -52,8 +53,9 @@
             android:background="@color/transparent"
             android:focusable="true"
             android:text="下一页"
-            android:textColor="@color/teal_a700"
-            android:textSize="18sp" />
+            android:textColor="?attr/SpecialColor"
+            android:textSize="18sp"
+            custom:startColor="?attr/RippleColor" />
     </LinearLayout>
 	<WebView
     	android:id="@+id/webview"

@@ -4,10 +4,12 @@
     android:layout_height="wrap_content">
 
     <include
+        android:visibility="gone"
         android:id="@+id/umeng_fb_contact_title"
         layout="@layout/umeng_fb_reply_item_text" />
 
     <ImageView
+        android:visibility="gone"
         android:id="@+id/umeng_fb_action_collapse"
         android:layout_width="40dp"
         android:layout_height="40dp"

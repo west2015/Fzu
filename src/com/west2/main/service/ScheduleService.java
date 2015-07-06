@@ -10,8 +10,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+
+import android.content.Context;
 
 import com.west2.main.database.DbSchedule;
 import com.west2.main.entity.CourseEntity;
@@ -19,9 +20,6 @@ import com.west2.main.entity.DateEntity;
 import com.west2.main.entity.UserEntity;
 import com.west2.main.utils.BaseUtils;
 import com.west2.main.utils.FzuHttpUtils;
-
-import android.content.Context;
-import android.util.Log;
 
 public class ScheduleService {
 	
@@ -59,7 +57,6 @@ public class ScheduleService {
 		return res;
 	}
 
-	
 	
 	private JSONObject getPostDataJson(String xnxq,String url){
 		JSONObject obj = new JSONObject();
@@ -213,6 +210,7 @@ public class ScheduleService {
 					break;
 				}
 			}
+			mList = sort(mList);
 			return mList;
 		} catch (JSONException e) {
 			e.printStackTrace();

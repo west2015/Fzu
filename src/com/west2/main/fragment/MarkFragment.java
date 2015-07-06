@@ -75,6 +75,13 @@ public class MarkFragment extends Fragment{
 	}
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState){
+		if(BaseUtils.getInstance().getCustomTheme().equals(InfoUtils.SR_SETTING_THEME_BLACK)){
+			context.setTheme(R.style.DarkTheme);
+		}
+		else{
+			context.setTheme(R.style.LightTheme);
+		}
+		
 		View view = inflater.inflate(R.layout.fragment_mark, null);
 		findView(view);
 		setListener(view);
@@ -89,6 +96,10 @@ public class MarkFragment extends Fragment{
 		imgRefresh = (ImageView) view.findViewById(R.id.img_refresh);
 		
 		// 获取数据
+		Animation animationR = AnimationUtils.loadAnimation(context, R.anim.anim_rotate);
+		animationR.setInterpolator(new DecelerateInterpolator());
+		imgRefresh.clearAnimation();
+		imgRefresh.startAnimation(animationR);
 		new Thread(getMarkRun).start();
 	}
 
@@ -122,16 +133,28 @@ public class MarkFragment extends Fragment{
 					if(e.getTerm().equals(term)){
 						str.append(e.getCourseName() + " " + e.getScore() + "\n");
 						double credit = InfoUtils.getDouble(e.getGradeCredit());
-						totalCredit += credit;
+						// 排除校选课
+						String type = e.getCourseType();
+//						if(!type.equals("自然科学类") && !type.equals("人文科学类") && !type.equals("经济管理类")
+//						&& !type.equals("公共艺术类") && !type.equals("工程技术类")){
+						if(!type.contains("类")){
+							totalCredit += credit;
+						}
 					}
 				}
 				if(totalCredit != 0){
 					for(int i=0;i<mList.size();++i){
 						MarkEntity e = mList.get(i);
 						if(e.getTerm().equals(term)){
-							double credit = InfoUtils.getDouble(e.getGradeCredit());
-							double grade = InfoUtils.getDouble(e.getGradePoint());
-							gradePoint += (grade*credit)/totalCredit;
+							// 排除校选课
+							String type = e.getCourseType();
+//							if(!type.equals("自然科学类") && !type.equals("人文科学类") && !type.equals("经济管理类")
+//							&& !type.equals("公共艺术类") && !type.equals("工程技术类")){
+							if(!type.contains("类")){
+								double credit = InfoUtils.getDouble(e.getGradeCredit());
+								double grade = InfoUtils.getDouble(e.getGradePoint());
+								gradePoint += (grade*credit)/totalCredit;
+							}
 						}
 					}
 					gradePoint = Math.round(gradePoint * 1000000.0) / 1000000.0;

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,7 @@ public class GradePointAdapter extends BaseAdapter{
 	 * 计算学期绩点
 	 */
 	private void calcGPA(List<MarkEntity> xList){
+		if(xList==null) return ;
 		mList = new ArrayList<GradePoint>();
 		for(int i=0;i<xList.size();++i){
 			boolean hasAllScore = true;
@@ -45,14 +47,25 @@ public class GradePointAdapter extends BaseAdapter{
 				int j;
 				double totalCredit=0, gradePoint=0;
 				for(j=start;j<end;++j){
-					double credit=InfoUtils.getDouble(xList.get(j).getGradeCredit());
-					totalCredit += credit;
+					String type = xList.get(j).getCourseType();
+//					if(!type.equals("自然科学类") && !type.equals("人文科学类") && !type.equals("经济管理类")
+//					&& !type.equals("公共艺术类") && !type.equals("工程技术类")){
+					if(!type.contains("类")){
+						double credit=InfoUtils.getDouble(xList.get(j).getGradeCredit());
+						totalCredit += credit;
+						Log.e("fuck!!!!!!!!!!!!!!!!!1",xList.get(j).getTerm()+", "+xList.get(j).getCourseName() + ", " + xList.get(j).getCourseType());
+					}
 				}
 				if(totalCredit != 0){
 					for(j=start;j<end;++j){
-						double credit=InfoUtils.getDouble(xList.get(j).getGradeCredit());
-						double grade =InfoUtils.getDouble(xList.get(j).getGradePoint());
-						gradePoint += (grade*credit)/totalCredit;
+						String type = xList.get(j).getCourseType();
+//						if(!type.equals("自然科学类") && !type.equals("人文科学类") && !type.equals("经济管理类")
+//						&& !type.equals("公共艺术类") && !type.equals("工程技术类")){
+						if(!type.contains("类")){
+							double credit=InfoUtils.getDouble(xList.get(j).getGradeCredit());
+							double grade =InfoUtils.getDouble(xList.get(j).getGradePoint());
+							gradePoint += (grade*credit)/totalCredit;
+						}
 					}
 					gradePoint = Math.round(gradePoint * 1000000.0) / 1000000.0;
 					mList.add(new GradePoint(term, gradePoint));

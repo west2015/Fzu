@@ -5,7 +5,7 @@
 	android:id="@+id/rl_hide"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:background="@color/grey_100"
+	android:background="?attr/ContentBackground"
 	android:focusable="true"
 	android:focusableInTouchMode="true">
 	<View 
@@ -22,10 +22,12 @@
 	    android:layout_marginRight="16dp"
 	    android:layout_above="@+id/view_middle"
 	    android:hint="教务处账号"
+	    android:textColor="?attr/ContentTextColor"
+	    android:textColorHint="?attr/HintTextColor"
 	    android:singleLine="true"
 	    android:maxLength="13"
 	    custom:floatingLabel="true"
-	    custom:textColor="@color/blue_500"
+	    custom:textColor="?attr/SpecialColor"
 	    custom:labelTextSize="14sp"/>
 	<com.material.widget.InputText 
 	    android:id="@+id/et_password"
@@ -36,9 +38,11 @@
 	    android:layout_below="@+id/view_middle"
 	    android:inputType="textPassword"
 	    android:hint="教务处密码"
+	    android:textColor="?attr/ContentTextColor"
+	    android:textColorHint="?attr/HintTextColor"
 	    android:singleLine="true"
 	    custom:floatingLabel="true"
-	    custom:textColor="@color/blue_500"
+	    custom:textColor="?attr/SpecialColor"
 	    custom:labelTextSize="14sp"/>
 	<TextView
 	    android:id="@+id/tv_fzu"
@@ -49,7 +53,7 @@
 	    android:layout_marginBottom="16dp"
 	    android:text="FZUHELPER"
 	    android:textSize="12sp"
-	    android:textColor="@color/black_secondary"/>
+	    android:textColor="?attr/SecondaryTextColor"/>
 	<TextView
 	    android:id="@+id/tv_fzu2"
 	    android:layout_width="wrap_content"
@@ -58,12 +62,19 @@
 	    android:layout_above="@+id/tv_fzu"
 	    android:text="福大助手"
 	    android:textSize="30sp"
-	    android:textColor="@color/black_text"/>
+	    android:textColor="?attr/ContentTextColor"/>
 	<ImageView 
-	    android:src="@drawable/ic_f"
+	    android:src="?attr/FzuIcon"
 	    android:layout_width="60dp"
 	    android:layout_height="60dp"
 	    android:layout_above="@+id/tv_fzu2"
+	    android:layout_centerHorizontal="true"/>
+	<View 
+	    android:visibility="gone"
+	    android:layout_width="60dp"
+	    android:layout_height="60dp"
+	    android:layout_above="@+id/tv_fzu2"
+	    android:background="@drawable/ic_f"
 	    android:layout_centerHorizontal="true"/>
 
 	<RelativeLayout
@@ -82,7 +93,7 @@
 	        android:background="@color/transparent"
 	        android:focusable="true"
 	        android:text="登录"
-	        android:textColor="@color/blue_500"
+	        android:textColor="?attr/SpecialColor"
 	        android:textSize="18sp" />
 
 	    <ProgressBar
